@@ -27,9 +27,11 @@
 #include <errno.h>
 #include <time.h>
 #include <sys/ioctl.h>
-#include <sys/mount.h>
 
-#include "mount-api-utils.h"
+#ifdef __linux__
+# include <sys/mount.h>
+# include "mount-api-utils.h"
+#endif
 
 #ifdef HAVE_LINUX_NSFS_H
 # include <linux/nsfs.h>
