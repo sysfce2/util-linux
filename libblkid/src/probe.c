@@ -1809,6 +1809,7 @@ int blkid_do_safeprobe(blkid_probe pr)
 		return BLKID_PROBE_NONE;
 
 	blkid_probe_start(pr);
+	pr->prob_flags |= BLKID_PROBE_FL_SAFEPROBE;
 
 	for (i = 0; i < BLKID_NCHAINS; i++) {
 		struct blkid_chain *chn;
