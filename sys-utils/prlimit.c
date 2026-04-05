@@ -519,7 +519,7 @@ static int parse_pid_str(char *pidstr, pid_t *pidnum)
 	int pfd = -1;
 	uint64_t pidfd_ino = 0;
 
-	ul_parse_pid_str_or_err(pidstr, pidnum, &pidfd_ino);
+	ul_parse_pid_str_or_err(pidstr, pidnum, &pidfd_ino, 0);
 	if (pidfd_ino)
 		pfd = ul_get_valid_pidfd_or_err(*pidnum, pidfd_ino);
 
