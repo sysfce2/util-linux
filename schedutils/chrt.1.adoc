@@ -68,6 +68,7 @@ Set scheduling policy to *SCHED_DEADLINE* (sporadic task model deadline scheduli
 
 *-e*, *--ext*::
 Set scheduling policy to *SCHED_EXT* (BPF program-defined scheduling). Linux-specific, supported since 6.12. Since util-linux v2.42, the priority argument is optional; if specified, it must be set to zero.
+Note that for the policy to be recognized, the following kernel configuration options need to be enabled: *CONFIG_BPF*, *CONFIG_SCHED_CLASS_EXT*, *CONFIG_BPF_SYSCALL*, *CONFIG_BPF_JIT*, *CONFIG_DEBUG_INFO_BTF*, *CONFIG_BPF_JIT_ALWAYS_ON* and *CONFIG_BPF_JIT_DEFAULT_ON*.
 
 == SCHEDULING OPTIONS
 
