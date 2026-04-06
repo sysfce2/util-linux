@@ -21,6 +21,7 @@ static struct {
 	E(ENOTTY),
 	E(EILSEQ),
 	E(EINVAL),
+	E(ERANGE),
 };
 
 int main(int argc, const char *argv[])
@@ -42,3 +43,4 @@ int main(int argc, const char *argv[])
 	fprintf(stderr, "Invalid errno: %s\n", argv[1]);
 	return -1;
 }
+
