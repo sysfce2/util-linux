@@ -17,6 +17,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -283,6 +284,8 @@ int main(int argc, char **argv)
 			/* allow up to 128k masks */
 			width = str2unum_or_err(optarg,
 				10, _("invalid --width"), 128 * 1024);
+			if (width == 0)
+				errx(EXIT_FAILURE, _("invalid --width"));
 			break;
 		case 'V':
 			print_version(EXIT_SUCCESS);
