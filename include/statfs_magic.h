@@ -5,8 +5,24 @@
 #ifndef UTIL_LINUX_STATFS_MAGIC_H
 #define UTIL_LINUX_STATFS_MAGIC_H
 
+#ifdef HAVE_SYS_TYPES_H
+# include <sys/types.h>
+#endif
+
+#ifdef HAVE_SYS_STAT_H
+# include <sys/stat.h>
+#endif
+
 #ifdef HAVE_SYS_STATFS_H
 # include <sys/statfs.h>
+#endif
+
+#ifdef HAVE_SYS_VFS_H
+# include <sys/vfs.h>
+#endif
+
+#ifdef HAVE_SYS_MOUNT_H
+# include <sys/mount.h>
 #endif
 
 /*
