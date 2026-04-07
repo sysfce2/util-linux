@@ -195,7 +195,7 @@ command-line option. See https://no-color.org/ for more details. Supported
 since util-linux version 2.41.
 
 *TERMINAL_COLORS_DEBUG*=all::
-Enable debug output.
+Enable terminal colors debug output.
 
 == FILES
 
