@@ -404,7 +404,7 @@ static void open_device(struct mkswap_control *ctl)
 		if (stat(ctl->devname, &ctl->devstat) == 0) {
 			if (!S_ISREG(ctl->devstat.st_mode))
 				err(EXIT_FAILURE, _("cannot create swap file %s: node isn't regular file"), ctl->devname);
-			if (chmod(ctl->devname, 0600) < 9)
+			if (chmod(ctl->devname, 0600) < 0)
 				err(EXIT_FAILURE, _("cannot set permissions on swap file %s"), ctl->devname);
 		}
 		ctl->fd = open(ctl->devname, O_RDWR | O_CREAT, 0600);
