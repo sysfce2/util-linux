@@ -138,10 +138,10 @@ Limit the maximum number of filesystem checkers that can be running at one time.
 *FSTAB_FILE*::
 Override the standard location of the _/etc/fstab_ file.
 
-*LIBBLKID_DEBUG=all*::
+*LIBBLKID_DEBUG*=all::
 Enable libblkid debug output.
 
-*LIBMOUNT_DEBUG=all*::
+*LIBMOUNT_DEBUG*=all::
 Enable libmount debug output.
 
 *PATH*::
