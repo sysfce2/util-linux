@@ -770,6 +770,8 @@ int main(int argc, char **argv)
 	int ch, format = 0, caught_signal = 0, rc = 0, echo = 1;
 	const char *outfile = NULL, *infile = NULL;
 	const char *timingfile = NULL, *shell = NULL;
+	char **cmd_argv = NULL;
+	int cmd_argc = 0;
 
 	enum { FORCE_OPTION = CHAR_MAX + 1 };
 
@@ -815,7 +817,21 @@ int main(int argc, char **argv)
 
 	ctl.isterm = isatty(STDIN_FILENO);
 
-	while ((ch = getopt_long(argc, argv, "+aB:c:eE:fI:O:o:qm:T:t::Vh", longopts, NULL)) != -1) {
+	/*
+	 * Pre-scan for "--" separator to split argv into options+outfile
+	 * and command parts. This allows getopt to permute arguments
+	 * before "--" (backward compatible with "script file -c cmd").
+	 */
+	for (ch = 1; ch < argc; ch++) {
+		if (strcmp(argv[ch], "--") == 0) {
+			cmd_argv = argv + ch + 1;
+			cmd_argc = argc - ch - 1;
+			argc = ch;
+			break;
+		}
+	}
+
+	while ((ch = getopt_long(argc, argv, "aB:c:eE:fI:O:o:qm:T:t::Vh", longopts, NULL)) != -1) {
 
 		err_exclusive_options(ch, longopts, excl, excl_st);
 
@@ -895,9 +911,10 @@ int main(int argc, char **argv)
 	argv += optind;
 
 	/*
-	 * Note that "--" separates non-option arguments. The script can be
-	 * used with an <outfile> name as well as with a <command>. The
-	 * <outfile> is always before "--" and <command> is always after "--".
+	 * The "--" separator splits non-option arguments into <outfile>
+	 * (before "--") and <command> (after "--"). The "--" and command
+	 * arguments have been already separated by the pre-scan above.
+	 *
 	 * Possible combinations are:
 	 *
 	 * script [options] <outfile>
@@ -907,8 +924,7 @@ int main(int argc, char **argv)
 
 	/* default if no --log-* specified */
 	if (!outfile && !infile) {
-		/* if argv[0] is not after --, use argv[0] as outfile */
-		if (argc > 0 && strcmp(argv[-1], "--") != 0) {
+		if (argc > 0) {
 			outfile = argv[0];
 			argc--;
 			argv++;
@@ -921,26 +937,19 @@ int main(int argc, char **argv)
 		log_associate(&ctl, &ctl.out, outfile, SCRIPT_FMT_RAW);
 	}
 
-	/* skip -- to non-option arguments */
-	if (argc > 0 && strcmp(argv[0], "--") == 0) {
-		argc--;
-		argv++;
-	}
-
-	/* concat non-option arguments as command */
-	if (argc > 0 && strcmp(argv[-1], "--") == 0) {
+	/* concat arguments after "--" as command */
+	if (cmd_argc > 0) {
 		if (ctl.command != NULL) {
-			warnx(_("option --command and a command after '--' cannot be combined"));
+			warnx(_("option --command and '-- program' are mutually exclusive"));
 			errtryhelp(EXIT_FAILURE);
 		}
 
-		ctl.command = ul_strv_join(argv, " ");
+		ctl.command = ul_strv_join(cmd_argv, " ");
 		if (!ctl.command)
 			errx(EXIT_FAILURE, _("failed to concatenate arguments"));
 
 		ctl.command_norm = xstrdup(ctl.command);
 		ul_strrep(ctl.command_norm, '\n', ' ');
-		argc = 0;
 	}
 
 	if (argc > 0) {
