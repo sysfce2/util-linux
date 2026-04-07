@@ -133,7 +133,7 @@ struct script_control {
 
 	const char *ttyname;
 	const char *ttytype;
-	const char *command;
+	char *command;
 	char *command_norm;	/* normalized (without \n) */
 	int ttycols;
 	int ttylines;
@@ -840,7 +840,9 @@ int main(int argc, char **argv)
 			ctl.append = 1;
 			break;
 		case 'c':
-			ctl.command = optarg;
+			free(ctl.command);
+			ctl.command = xstrdup(optarg);
+			free(ctl.command_norm);
 			ctl.command_norm = xstrdup(ctl.command);
 			ul_strrep(ctl.command_norm, '\n', ' ');
 			break;
@@ -1115,6 +1117,8 @@ done:
 		utempter_remove_record(ul_pty_get_childfd(ctl.pty));
 #endif
 	ul_free_pty(ctl.pty);
+	free(ctl.command);
+	free(ctl.command_norm);
 
 	/* default exit code */
 	rc = rc ? EXIT_FAILURE : EXIT_SUCCESS;
