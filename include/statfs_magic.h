@@ -21,7 +21,7 @@
 # include <sys/vfs.h>
 #endif
 
-#ifdef HAVE_SYS_MOUNT_H
+#if defined(HAVE_SYS_MOUNT_H) && !defined(MS_RDONLY)
 # include <sys/mount.h>
 #endif
 
