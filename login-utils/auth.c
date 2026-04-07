@@ -53,11 +53,7 @@ int auth_pam(const char *service_name, uid_t uid, const char *username)
 		if (pam_fail_check(pamh, retcode))
 			return FALSE;
 
-		retcode = pam_setcred(pamh, 0);
-		if (pam_fail_check(pamh, retcode))
-			return FALSE;
-
-		pam_end(pamh, 0);
+		pam_end(pamh, retcode);
 		/* no need to establish a session; this isn't a
 		 * session-oriented activity...  */
 	}
