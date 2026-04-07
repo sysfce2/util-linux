@@ -201,11 +201,11 @@ The welcome message.
 *FDISK_DEBUG*=all::
 enables fdisk debug output.
 
-*LIBFDISK_DEBUG*=all::
-enables libfdisk debug output.
-
 *LIBBLKID_DEBUG*=all::
 enables libblkid debug output.
+
+*LIBFDISK_DEBUG*=all::
+enables libfdisk debug output.
 
 include::man-common/env-smartcols.adoc[]
 

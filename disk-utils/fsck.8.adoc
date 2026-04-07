@@ -137,9 +137,6 @@ If this environment variable is set, *fsck* will attempt to check all of the spe
 *FSCK_MAX_INST*::
 This environment variable will limit the maximum number of filesystem checkers that can be running at one time. This allows configurations which have a large number of disks to avoid *fsck* starting too many filesystem checkers at once, which might overload CPU and memory resources available on the system. If this value is zero, then an unlimited number of processes can be spawned. This is currently the default, but future versions of *fsck* may attempt to automatically determine how many filesystem checks can be run based on gathering accounting data from the operating system.
 
-*PATH*::
-The *PATH* environment variable is used to find filesystem checkers.
-
 *FSTAB_FILE*::
 This environment variable allows the system administrator to override the standard location of the _/etc/fstab_ file. It is also useful for developers who are testing *fsck*.
 
@@ -148,6 +145,9 @@ enables libblkid debug output.
 
 *LIBMOUNT_DEBUG=all*::
 enables libmount debug output.
+
+*PATH*::
+The *PATH* environment variable is used to find filesystem checkers.
 
 == FILES
 
