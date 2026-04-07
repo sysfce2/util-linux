@@ -33,7 +33,6 @@ libcommon_la_SOURCES = \
 	lib/mbsedit.c\
 	lib/md5.c \
 	lib/pidutils.c \
-	lib/pidfd-utils.c \
 	lib/pwdutils.c \
 	lib/randutils.c \
 	lib/sha1.c \
@@ -50,7 +49,8 @@ libcommon_la_SOURCES = \
 if LINUX
 libcommon_la_SOURCES += \
 	lib/linux_version.c \
-	lib/loopdev.c
+	lib/loopdev.c \
+	lib/pidfd-utils.c
 endif
 
 if !HAVE_LANGINFO_H

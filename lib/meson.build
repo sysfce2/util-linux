@@ -17,7 +17,6 @@ lib_common_sources = '''
 	mbsalign.c
 	mbsedit.c
 	pidutils.c
-	pidfd-utils.c
 	pwdutils.c
 	sha256.c
 	shells.c
@@ -65,6 +64,7 @@ if LINUX
   lib_common_sources += '''
     linux_version.c
     loopdev.c
+    pidfd-utils.c
 '''.split()
 endif
 
