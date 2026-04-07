@@ -129,8 +129,6 @@ Upon receiving *SIGUSR1*, *script* immediately flushes the output files.
 
 == ENVIRONMENT
 
-The following environment variable is utilized by *script*:
-
 *SCRIPT_DEBUG*=all::
 enables script debug output.
 

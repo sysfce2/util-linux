@@ -175,8 +175,6 @@ Start up an editor.
 
 == ENVIRONMENT
 
-The *more* command respects the following environment variables, if they exist:
-
 *EDITOR*::
 The editor of choice when *VISUAL* is not specified.
 

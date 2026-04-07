@@ -118,8 +118,6 @@ If the user presses the interrupt or quit key while *pg* reads from the input fi
 
 == ENVIRONMENT
 
-The following environment variables affect the behavior of *pg*:
-
 *COLUMNS*::
 Overrides the system-supplied number of columns if set.
 
