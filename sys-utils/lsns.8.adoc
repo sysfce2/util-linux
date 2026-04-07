@@ -105,7 +105,7 @@ An ioctl was unknown to the kernel.
 include::man-common/env-smartcols.adoc[]
 
 *LSNS_DEBUG*=all::
-enables *lsns* debug output.
+Enables *lsns* debug output.
 
 == AUTHORS
 

@@ -139,10 +139,10 @@ This environment variable will limit the maximum number of filesystem checkers t
 This environment variable allows the system administrator to override the standard location of the _/etc/fstab_ file. It is also useful for developers who are testing *fsck*.
 
 *LIBBLKID_DEBUG=all*::
-enables libblkid debug output.
+Enables libblkid debug output.
 
 *LIBMOUNT_DEBUG=all*::
-enables libmount debug output.
+Enables libmount debug output.
 
 *PATH*::
 The *PATH* environment variable is used to find filesystem checkers.

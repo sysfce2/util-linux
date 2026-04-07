@@ -77,7 +77,7 @@ The long option cannot be combined with other options.
 == ENVIRONMENT
 
 LOCK_BLOCK_DEVICE=<mode>::
-use exclusive BSD lock. The mode is "1" or "0". See *--lock* for more details.
+Use exclusive BSD lock. The mode is "1" or "0". See *--lock* for more details.
 
 == EXIT STATUS
 

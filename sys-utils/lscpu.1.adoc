@@ -132,12 +132,12 @@ LSCPU_COLUMNS=::
 Specifies a comma-separated list of output columns to print. All columns listed by *--list-columns* for the options *-e* and *-p* can be used.
 
 *LSCPU_DEBUG*=all::
-enables lscpu debug output.
+Enables lscpu debug output.
 
 include::man-common/env-smartcols.adoc[]
 
 *ULPATH_DEBUG*=all::
-enables path debug output.
+Enables path debug output.
 
 == COLUMNS
 

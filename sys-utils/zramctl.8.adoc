@@ -93,10 +93,10 @@ include::man-common/help-version.adoc[]
 include::man-common/env-smartcols.adoc[]
 
 *ULPATH_DEBUG*=all::
-enables path debug output.
+Enables path debug output.
 
 *ULSYSFS_DEBUG*=all::
-enables sysfs debug output.
+Enables sysfs debug output.
 
 == FILES
 

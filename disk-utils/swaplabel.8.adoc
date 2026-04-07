@@ -41,7 +41,7 @@ include::man-common/help-version.adoc[]
 == ENVIRONMENT
 
 LIBBLKID_DEBUG=all::
-enables libblkid debug output.
+Enables libblkid debug output.
 
 == AUTHORS
 

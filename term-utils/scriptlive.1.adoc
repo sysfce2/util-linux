@@ -67,10 +67,10 @@ include::man-common/help-version.adoc[]
 == ENVIRONMENT
 
 *SCRIPTREPLAY_DEBUG*=all::
-enables scriptreplay debug output.
+Enables scriptreplay debug output.
 
 *ULPTY_DEBUG*=all::
-enables pty debug output.
+Enables pty debug output.
 
 == EXAMPLES
 
