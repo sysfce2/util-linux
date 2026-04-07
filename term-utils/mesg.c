@@ -142,6 +142,8 @@ int main(int argc, char *argv[])
 	if (!*argv) {
 		if (stat(tty, &sb))
 			err(MESG_EXIT_FAILURE, _("stat of %s failed"), tty);
+		if (!S_ISCHR(sb.st_mode))
+			errx(MESG_EXIT_FAILURE, _("%s: not a character device"), tty);
 		if (sb.st_mode & (S_IWGRP | S_IWOTH)) {
 			puts(_("is y"));
 			return IS_ALLOWED;
@@ -154,6 +156,8 @@ int main(int argc, char *argv[])
 		err(MESG_EXIT_FAILURE, _("cannot open %s"), tty);
 	if (fstat(fd, &sb))
 		err(MESG_EXIT_FAILURE, _("stat of %s failed"), tty);
+	if (!S_ISCHR(sb.st_mode))
+		errx(MESG_EXIT_FAILURE, _("%s: not a character device"), tty);
 
 	switch (rpmatch(argv[0])) {
 	case RPMATCH_YES:

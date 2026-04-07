@@ -114,6 +114,11 @@ static int check_tty(const char *tty, int *tty_writeable, time_t *tty_atime, int
 			warn("%s", tty);
 		return 1;
 	}
+	if (!S_ISCHR(s.st_mode)) {
+		if (showerror)
+			warnx(_("%s: not a character device"), tty);
+		return 1;
+	}
 	if (getuid() == 0)	/* root can always write */
 		*tty_writeable = 1;
 	else {
