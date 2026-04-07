@@ -72,7 +72,7 @@ partial success
 == ENVIRONMENT
 
 *ULPATH_DEBUG*=all::
-Enables path debug output.
+Enable path debug output.
 
 == AUTHORS
 

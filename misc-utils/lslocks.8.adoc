@@ -85,7 +85,7 @@ include::man-common/help-version.adoc[]
 include::man-common/env-smartcols.adoc[]
 
 LSLOCKS_COLUMNS=::
-Specifies a comma-separated list of output columns to print. All columns listed by *--list-columns* can be used.
+Specify a comma-separated list of output columns to print. All columns listed by *--list-columns* can be used.
 
 == OUTPUT
 

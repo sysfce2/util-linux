@@ -217,13 +217,13 @@ specification, or the device path or mountpoint does not exist).
 == ENVIRONMENT
 
 *LIBMOUNT_DEBUG*=all::
-Enables libmount debug output
+Enable libmount debug output
 
 *LIBMOUNT_FSTAB*=<path>::
-Overrides the default location of the _fstab_ file
+Override the default location of the _fstab_ file
 
 *LIBMOUNT_MTAB*=<path>::
-Overrides the default location of the _mtab_ file
+Override the default location of the _mtab_ file
 
 include::man-common/env-smartcols.adoc[]
 

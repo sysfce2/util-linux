@@ -199,13 +199,13 @@ The welcome message.
 == ENVIRONMENT
 
 *FDISK_DEBUG*=all::
-Enables fdisk debug output.
+Enable fdisk debug output.
 
 *LIBBLKID_DEBUG*=all::
-Enables libblkid debug output.
+Enable libblkid debug output.
 
 *LIBFDISK_DEBUG*=all::
-Enables libfdisk debug output.
+Enable libfdisk debug output.
 
 include::man-common/env-smartcols.adoc[]
 

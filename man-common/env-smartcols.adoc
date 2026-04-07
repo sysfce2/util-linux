@@ -1,5 +1,5 @@
 *LIBSMARTCOLS_DEBUG*=all::
-Enables libsmartcols debug output.
+Enable libsmartcols debug output.
 
 *LIBSMARTCOLS_DEBUG_PADDING*=on::
 Use visible padding characters.

@@ -436,10 +436,10 @@ The welcome message.
 == ENVIRONMENT
 
 *LIBBLKID_DEBUG*=all::
-Enables libblkid debug output.
+Enable libblkid debug output.
 
 *LIBFDISK_DEBUG*=all::
-Enables libfdisk debug output.
+Enable libfdisk debug output.
 
 include::man-common/env-smartcols.adoc[]
 
@@ -447,7 +447,7 @@ include::man-common/env-smartcols.adoc[]
 Use exclusive BSD lock. The mode is "1" or "0". See *--lock* for more details.
 
 *SFDISK_DEBUG*=all::
-Enables *sfdisk* debug output.
+Enable *sfdisk* debug output.
 
 == NOTES
 

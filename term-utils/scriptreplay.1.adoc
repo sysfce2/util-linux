@@ -81,7 +81,7 @@ include::man-common/help-version.adoc[]
 == ENVIRONMENT
 
 *SCRIPTREPLAY_DEBUG*=all::
-Enables scriptreplay debug output.
+Enable scriptreplay debug output.
 
 == EXAMPLES
 

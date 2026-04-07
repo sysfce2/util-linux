@@ -87,10 +87,10 @@ The command *fstrim --all* returns 0 (all succeeded), 32 (all failed) or 64 (som
 == ENVIRONMENT
 
 *LIBMOUNT_DEBUG*=all::
-Enables libmount debug output.
+Enable libmount debug output.
 
 *ULPATH_DEBUG*=all::
-Enables path debug output.
+Enable path debug output.
 
 == AUTHORS
 mailto:lczerner@redhat.com[Lukas Czerner],

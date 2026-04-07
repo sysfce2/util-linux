@@ -129,13 +129,13 @@ include::man-common/colors.adoc[]
 == ENVIRONMENT
 
 *CFDISK_DEBUG*=all::
-Enables cfdisk debug output.
+Enable cfdisk debug output.
 
 *LIBBLKID_DEBUG*=all::
-Enables libblkid debug output.
+Enable libblkid debug output.
 
 *LIBFDISK_DEBUG*=all::
-Enables libfdisk debug output.
+Enable libfdisk debug output.
 
 include::man-common/env-smartcols.adoc[]
 

@@ -104,10 +104,10 @@ include::man-common/help-version.adoc[]
 include::man-common/env-smartcols.adoc[]
 
 *LSMEM_COLUMNS*::
-Specifies a comma-separated list of output columns to print. All columns listed in *--help* can be used.
+Specify a comma-separated list of output columns to print. All columns listed in *--help* can be used.
 
 *ULPATH_DEBUG*=all::
-Enables path debug output.
+Enable path debug output.
 
 == AUTHORS
 
