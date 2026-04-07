@@ -63,7 +63,7 @@ include::man-common/help-version.adoc[]
 == ENVIRONMENT
 
 *EDITOR*::
-The editor specified by the string *EDITOR* will be invoked instead of the default editor *vi*(1).
+Override the standard editor *vi*(1).
 
 == HISTORY
 

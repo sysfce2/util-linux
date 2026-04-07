@@ -128,10 +128,10 @@ See *locale*(7).
 Override the system-supplied number of lines if set.
 
 *SHELL*::
-Used by the *!* command.
+Override the default shell to use for the *!* command.
 
 *TERM*::
-Determine the terminal type.
+Specify the terminal type.
 
 == NOTES
 

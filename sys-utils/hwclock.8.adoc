@@ -372,10 +372,10 @@ The operation failed or the command syntax was not valid.
 == ENVIRONMENT
 
 *TZ*::
-If this variable is set its value takes precedence over the system configured timezone.
+Override the system configured timezone.
 
 *TZDIR*::
-If this variable is set its value takes precedence over the system configured timezone database directory path.
+Override the default location of timezone database directory.
 
 == FILES
 

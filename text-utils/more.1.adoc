@@ -176,10 +176,10 @@ Start up an editor.
 == ENVIRONMENT
 
 *EDITOR*::
-The editor of choice when *VISUAL* is not specified.
+Override the default editor when *VISUAL* is not specified.
 
 *MORE*::
-This variable may be set with favored options to *more*.
+Specify favored options for *more*.
 
 *MORESECURE*::
 Run *more* in "secure" mode. See SECURITY for details.
@@ -194,13 +194,13 @@ Equivalent to MORESECURE.
 Disable exit-on-eof (see option *-e* for more details).
 
 *SHELL*::
-Current shell in use (normally set by the shell at login time).
+Override the default shell.
 
 *TERM*::
-The terminal type used by *more* to get the terminal characteristics necessary to manipulate the screen.
+Specify the terminal type used by *more* to get the terminal characteristics necessary to manipulate the screen.
 
 *VISUAL*::
-The editor the user prefers. Invoked when command key _v_ is pressed.
+Override the default editor to use when command key _v_ is pressed.
 
 == HISTORY
 

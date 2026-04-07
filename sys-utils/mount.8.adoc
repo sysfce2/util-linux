@@ -1757,7 +1757,7 @@ Enable libblkid debug output.
 Enable libmount debug output.
 
 *LIBMOUNT_FORCE_MOUNT2*={always|never|auto}::
-Force to use classic *mount*(2) system call (requires support for new file descriptors based mount API). The default is *auto*; in this case, libmount tries to be smart and use classic *mount*(2) only for well-known issues. If the new mount API is unavailable, libmount can still use traditional *mount*(2), although LIBMOUNT_FORCE_MOUNT2 is set to *never*.
+Force usage of classic *mount*(2) system call (requires support for new file descriptors based mount API). The default is *auto*; in this case, libmount tries to be smart and use classic *mount*(2) only for well-known issues. If the new mount API is unavailable, libmount can still use traditional *mount*(2), although LIBMOUNT_FORCE_MOUNT2 is set to *never*.
 
 *LIBMOUNT_FSTAB*=<path>::
 Override the default location of the _fstab_ file (ignored for suid).

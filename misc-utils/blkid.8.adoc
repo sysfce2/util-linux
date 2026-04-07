@@ -174,7 +174,8 @@ Defines LABEL and UUID evaluation method(s). Currently, the libblkid library sup
 
 == ENVIRONMENT
 
-Setting _LIBBLKID_DEBUG=all_ enables debug output.
+*LIBBLKID_DEBUG*=all::
+Enable libblkid debug output.
 
 == AUTHORS
 
