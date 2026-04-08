@@ -115,8 +115,8 @@ static bool zfs_process_value(blkid_probe pr, const char *name, size_t namelen,
 		if ((uint64_t)nvs_strlen + sizeof(*nvs) > max_value_size)
 			return (false);
 
-		DBG(LOWPROBE, ul_debug("nvstring: type %u string %*s",
-				       type, nvs_strlen, nvs->nvs_string));
+		DBG(LOWPROBE, ul_debug("nvstring: type %u string %.*s",
+				       type, (int)nvs_strlen, nvs->nvs_string));
 
 		blkid_probe_set_label(pr, nvs->nvs_string, nvs_strlen);
 		(*found)++;
@@ -227,8 +227,8 @@ static bool zfs_extract_guid_name(blkid_probe pr, void *buf, size_t size, bool f
 			return (false);
 
 		DBG(LOWPROBE,
-		    ul_debug("nvlist: size %u, namelen %u, name %*s",
-			     nvp_size, nvp_namelen, nvp_namelen,
+		    ul_debug("nvlist: size %u, namelen %u, name %.*s",
+			     nvp_size, nvp_namelen, (int)nvp_namelen,
 			     nvp->nvp_name));
 
 		max_value_size = nvp_size - (namesize + sizeof(*nvp));
