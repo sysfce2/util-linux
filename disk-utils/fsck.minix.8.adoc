@@ -31,10 +31,10 @@ The _device_ name will usually have the following form:
 ____
 [cols=",",]
 |===
-|/dev/hda[1-63] |IDE disk 1
-|/dev/hdb[1-63] |IDE disk 2
-|/dev/sda[1-15] |SCSI disk 1
-|/dev/sdb[1-15] |SCSI disk 2
+| /dev/hda[1-63] | IDE disk 1
+| /dev/hdb[1-63] | IDE disk 2
+| /dev/sda[1-15] | SCSI disk 1
+| /dev/sdb[1-15] | SCSI disk 2
 |===
 ____
 
