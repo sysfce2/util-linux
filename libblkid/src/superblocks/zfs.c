@@ -303,7 +303,7 @@ static int probe_zfs(blkid_probe pr,
 #else
 	int host_endian = 0;
 #endif
-	int swab_endian = 0;
+	int swap_endian = 0;
 	loff_t offset = 0;
 	int label_no;
 	struct nvs_header_t *label = NULL;
@@ -336,7 +336,7 @@ static int probe_zfs(blkid_probe pr,
 			continue;
 
 		if (host_endian != label->nvh_endian)
-			swab_endian = 1;
+			swap_endian = 1;
 
 		if (zfs_extract_guid_name(pr, label, VDEV_PHYS_SIZE, true)) {
 			found_label = true;
@@ -356,7 +356,7 @@ static int probe_zfs(blkid_probe pr,
 	    (unsigned char *) label))
 		return (1);
 
-	blkid_probe_set_fsendianness(pr, !swab_endian ?
+	blkid_probe_set_fsendianness(pr, !swap_endian ?
 			BLKID_ENDIANNESS_NATIVE : BLKID_ENDIANNESS_OTHER);
 
 	return (0);
