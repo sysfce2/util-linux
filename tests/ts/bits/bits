@@ -44,11 +44,20 @@ $TS_CMD_BITS -l 1,10000 >> $TS_OUTPUT 2>> $TS_ERRLOG
 ts_finalize_subtest
 
 ts_init_subtest "width"
-$TS_CMD_BITS -w 16384 -l 10000  >> $TS_OUTPUT 2>> $TS_ERRLOG
+$TS_CMD_BITS --width 16384 -l 10000  >> $TS_OUTPUT 2>> $TS_ERRLOG
 ts_finalize_subtest
 
 ts_init_subtest "width-truncate"
-$TS_CMD_BITS -w 32 -l 11,22,33,44 >> $TS_OUTPUT 2>> $TS_ERRLOG
+$TS_CMD_BITS --width 32 -l 11,22,33,44 >> $TS_OUTPUT 2>> $TS_ERRLOG
+ts_finalize_subtest
+
+ts_init_subtest "width-zero"
+$TS_CMD_BITS --width 0 -l 11,22,33,44 >> $TS_OUTPUT 2>> $TS_ERRLOG
+ts_finalize_subtest
+
+ts_init_subtest "width-greater-128KB"
+$TS_CMD_BITS --width $(( 129 * 1024 )) -l 11,22,33,44 >> $TS_OUTPUT 2>> $TS_ERRLOG
+sed -i -e "s@$($TS_HELPER_STRERROR ERANGE)@ERANGE@" $TS_OUTPUT $TS_ERRLOG
 ts_finalize_subtest
 
 ts_init_subtest "parse-mask"

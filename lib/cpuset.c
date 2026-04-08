@@ -98,8 +98,10 @@ int get_max_number_of_cpus(void)
  */
 cpu_set_t *cpuset_alloc(int ncpus, size_t *setsize, size_t *nbits)
 {
-	cpu_set_t *set = CPU_ALLOC(ncpus);
+	cpu_set_t *set = NULL;
 
+	if (ncpus)
+		set = CPU_ALLOC(ncpus);
 	if (!set)
 		return NULL;
 	if (setsize)
