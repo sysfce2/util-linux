@@ -560,9 +560,14 @@ int main(int argc, char **argv)
 
 	login_argv[login_argc] = NULL;	/* last login argv */
 
-	if (options.chroot && chroot(options.chroot) < 0)
-		log_err(_("%s: can't change root directory %s: %m"),
-			options.tty, options.chroot);
+	if (options.chroot) {
+		if (chroot(options.chroot) < 0)
+			log_err(_("%s: can't change root directory %s: %m"),
+				options.tty, options.chroot);
+		if (chdir("/") < 0)
+			log_err(_("%s: can't change working directory %s: %m"),
+				options.tty, "/");
+	}
 	if (options.chdir && chdir(options.chdir) < 0)
 		log_err(_("%s: can't change working directory %s: %m"),
 			options.tty, options.chdir);
