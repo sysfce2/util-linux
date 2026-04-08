@@ -597,7 +597,17 @@ static int eject_scsi(const struct eject_control *ctl)
 
 	io_hdr.cmdp = allowRmBlk;
 	status = ioctl(ctl->fd, SG_IO, (void *)&io_hdr);
-	if (status < 0 || io_hdr.host_status || io_hdr.driver_status)
+	if (status < 0 || io_hdr.host_status)
+		return 0;
+
+	/*
+	 * Ignore ILLEGAL REQUEST -- the device does not support
+	 * ALLOW_MEDIUM_REMOVAL, but it may still support START_STOP
+	 * for eject (e.g. USB mass storage devices).
+	 */
+	if (io_hdr.driver_status != 0 &&
+	    !(io_hdr.driver_status == DRIVER_SENSE && io_hdr.sbp &&
+		                             (io_hdr.sbp[2] & 0x0f) == ILLEGAL_REQUEST))
 		return 0;
 
 	io_hdr.cmdp = startStop1Blk;
