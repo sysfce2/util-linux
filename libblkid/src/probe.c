@@ -2020,9 +2020,9 @@ int blkid_probe_set_magic(blkid_probe pr, uint64_t offset,
 static void blkid_probe_log_csum_mismatch(blkid_probe pr, size_t n, const void *csum,
 		const void *expected)
 {
-	char csum_hex[256];
-	char expected_hex[sizeof(csum_hex)];
-	int hex_size = min(sizeof(csum_hex), n * 2);
+	char csum_hex[256 + 1] = "";
+	char expected_hex[sizeof(csum_hex)] = "";
+	int hex_size = min(sizeof(csum_hex) - 1, n * 2);
 
 	for (int i = 0; i < hex_size; i+=2) {
 		snprintf(&csum_hex[i], sizeof(csum_hex) - i, "%02X", ((const unsigned char *) csum)[i / 2]);
@@ -2031,9 +2031,9 @@ static void blkid_probe_log_csum_mismatch(blkid_probe pr, size_t n, const void *
 
 	DBG(LOWPROBE, ul_debug(
 		"incorrect checksum for type %s,"
-		" got %*s, expected %*s",
+		" got %s, expected %s",
 		blkid_probe_get_probername(pr),
-		hex_size, csum_hex, hex_size, expected_hex));
+		csum_hex, expected_hex));
 }
 
 
