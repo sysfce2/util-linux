@@ -327,8 +327,9 @@ static uid_t get_user(const char *s)
 {
 	uid_t uid;
 
+	errno = 0;
 	if (!ul_getuserpw_str(s, &uid) && uid == (uid_t) -1)
-		errx(EXIT_FAILURE, _("failed to parse uid '%s'"), s);
+		err(EXIT_FAILURE, _("failed to parse uid '%s'"), s);
 	return uid;
 }
 
@@ -336,8 +337,9 @@ static gid_t get_group(const char *s)
 {
 	gid_t gid;
 
+	errno = 0;
 	if (!ul_getgrp_str(s, &gid) && gid == (gid_t) -1)
-		errx(EXIT_FAILURE, _("failed to parse gid '%s'"), s);
+		err(EXIT_FAILURE, _("failed to parse gid '%s'"), s);
 	return gid;
 }
 
