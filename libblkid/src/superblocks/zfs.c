@@ -223,7 +223,7 @@ static bool zfs_extract_guid_name(blkid_probe pr, void *buf, size_t size, bool f
 				       size, nvp_size));
 
 		/* nvpair fits in buffer and name fits in nvpair? */
-		if (nvp_size > size || namesize + sizeof(*nvp) > nvp_size)
+		if (nvp_size > size || namesize + sizeof(*nvp) + 4 > nvp_size)
 			return (false);
 
 		DBG(LOWPROBE,
