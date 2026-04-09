@@ -1223,6 +1223,10 @@ AS_IF([test "x$have_slang" = xyes || test "x$have_ncursesw" = xyes || test "x$ha
 		     AC_DEFINE(HAVE_RESIZETERM, 1,
 			       [Define if curses library has the resizeterm().])
 	])
+	AC_CHECK_LIB([$CURSES_LIB_NAME], vw_printw, [
+		     AC_DEFINE(HAVE_VW_PRINTW, 1,
+			       [Define if curses library has the vw_printw().])
+	])
 ])
 
 

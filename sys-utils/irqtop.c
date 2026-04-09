@@ -86,6 +86,21 @@ struct irqtop_ctl {
 		softirq;
 };
 
+#ifndef OK
+# define OK 0
+#endif
+
+#ifndef HAVE_VW_PRINTW
+static inline int vw_printw(WINDOW *win, const char *fmt, va_list args)
+{
+	char buf[BUFSIZ];
+
+	if (vsnprintf(buf, sizeof(buf), fmt, args) < 0)
+		return ERR;
+	return waddstr(win, buf);
+}
+#endif
+
 static inline int irqtop_printf(struct irqtop_ctl *ctl, const char *fmt, ...)
 {
 	int ret = 0;
