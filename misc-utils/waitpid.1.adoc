@@ -60,7 +60,9 @@ mailto:thomas@t-8ch.de[Thomas Weißschuh]
 
 == SEE ALSO
 
-*waitpid*(2) *wait*(1P) *getino*(1)
+*waitpid*(2),
+*wait*(1P),
+*getino*(1)
 
 include::man-common/bugreports.adoc[]
 

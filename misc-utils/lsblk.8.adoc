@@ -253,7 +253,7 @@ mailto:kzak@redhat.com[Karel Zak]
 == SEE ALSO
 
 *blkid*(8),
-*findmnt*(8)
+*findmnt*(8),
 *ls*(1),
 *scols-filter*(5)
 

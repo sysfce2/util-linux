@@ -67,7 +67,10 @@ It is up to the administrator to decide if the user can login (optional/required
 
 == SEE ALSO
 
-*liblastlog2*(3), *pam.conf*(5), *pam.d*(5), *pam*(8)
+*liblastlog2*(3),
+*pam.conf*(5),
+*pam.d*(5),
+*pam*(8)
 
 include::man-common/bugreports.adoc[]
 
