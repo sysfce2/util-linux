@@ -74,7 +74,7 @@ static inline struct dirent *xreaddir(DIR *dp)
 
 	while ((d = readdir(dp))) {
 		if (!strcmp(d->d_name, ".") ||
-		    !strcmp(d->d_name, ".."))
+				!strcmp(d->d_name, ".."))
 			continue;
 		break;
 	}
@@ -96,7 +96,7 @@ static inline int close_range(unsigned int first, unsigned int last, int flags)
 
 # if !defined(HAVE_STATX) && defined(HAVE_STRUCT_STATX) && defined(SYS_statx)
 static inline int statx(int fd, const char *restrict path, int flags,
-		    unsigned int mask, struct statx *stx)
+			unsigned int mask, struct statx *stx)
 {
 	return syscall(SYS_statx, fd, path, flags, mask, stx);
 }
@@ -134,7 +134,7 @@ static inline bool is_dotdir_dirent(const struct dirent *d)
 {
 	return (d && d->d_name[0] == '.'
 		&& (d->d_name[1] == 0
-		    || (d->d_name[1] == '.' && d->d_name[2] == 0)));
+			|| (d->d_name[1] == '.' && d->d_name[2] == 0)));
 }
 
 #endif /* UTIL_LINUX_FILEUTILS */
