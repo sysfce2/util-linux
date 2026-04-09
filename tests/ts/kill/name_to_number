@@ -27,7 +27,8 @@ ts_check_test_command "$TS_CMD_KILL"
 ts_check_test_command "$TS_HELPER_SIGRECEIVE"
 
 # SIGRTMAX-0 and SIGRTMAX-1 are not usable under QEMU
-ts_skip_qemu_user
+is_qemu=$(ts_runs_on_qemu)
+ARCH="$(uname -m)"
 
 . "$TS_SELF/kill_functions.sh"
 
@@ -51,6 +52,9 @@ for SIG in $($TS_CMD_KILL -L); do
 		SIG="$SIG+0"
 	fi
 	if [ "x$SIG" = "xRTMAX" ]; then
+		if [ "$ARCH" == "s390x" ] || [ "$is_qemu" == "1" ]; then
+			continue
+		fi 
 		SIG="$SIG-0"
 	fi
 
