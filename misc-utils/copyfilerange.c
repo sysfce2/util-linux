@@ -32,6 +32,7 @@
 #include "nls.h"
 #include "closestream.h"
 #include "xalloc.h"
+#include "fileutils.h" /* fallback for copy_file_range() */
 
 static int verbose;
 
