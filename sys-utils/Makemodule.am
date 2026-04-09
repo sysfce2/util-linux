@@ -599,4 +599,7 @@ if HAVE_LINUX_LANDLOCK_H
 setpriv_SOURCES += sys-utils/setpriv-landlock.c
 endif
 setpriv_LDADD = $(LDADD) -lcap-ng libcommon.la
+if HAVE_ECONF
+setpriv_LDADD += $(ECONF_LIBS)
 endif
+endif # BUILD_SETPRIV
