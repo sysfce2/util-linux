@@ -104,7 +104,8 @@ check_PROGRAMS += \
 	test_ttyutils \
 	test_timeutils \
 	test_c_strtod \
-	test_logindefs
+	test_logindefs \
+	test_parsepid
 
 
 if LINUX
@@ -160,6 +161,10 @@ test_colors_LDADD = $(LDADD) libtcolors.la
 
 test_randutils_SOURCES = lib/randutils.c
 test_randutils_CFLAGS = $(AM_CFLAGS) -DTEST_PROGRAM_RANDUTILS
+
+test_parsepid_SOURCES = lib/pidutils.c
+test_parsepid_CFLAGS = $(AM_CFLAGS) -DTEST_PROGRAM_PARSEPID
+test_parsepid_LDADD = $(LDADD) libcommon.la
 
 if HAVE_OPENAT
 if HAVE_DIRFD

@@ -3551,6 +3551,17 @@ if not is_disabler(exe)
   exes += exe
 endif
 
+exe = executable(
+  'test_parsepid',
+  'lib/pidutils.c',
+  c_args : ['-DTEST_PROGRAM_PARSEPID'],
+  include_directories : dir_include,
+  link_with : lib_common,
+  build_by_default: program_tests)
+if not is_disabler(exe)
+  exes += exe
+endif
+
 if conf.get('HAVE_OPENAT').to_string() == '1' \
    and conf.get('HAVE_DIRFD').to_string() == '1'
   exe = executable(
