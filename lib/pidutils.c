@@ -85,7 +85,7 @@ int ul_parse_pid_str(char *pidstr, pid_t *pid_num, uint64_t *pfd_ino, int flags)
 void ul_parse_pid_str_or_err(char *pidstr, pid_t *pid_num, uint64_t *pfd_ino, int flags)
 {
 	if (ul_parse_pid_str(pidstr, pid_num, pfd_ino, flags) < 0) {
-		err(EXIT_FAILURE, N_("failed to parse PID argument '%s'"), pidstr);
+		err(EXIT_FAILURE, _("failed to parse PID argument '%s'"), pidstr);
 	}
 }
 
