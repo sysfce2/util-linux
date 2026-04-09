@@ -29,6 +29,9 @@
 #ifdef HAVE_LINUX_NSFS_H
 # include <linux/nsfs.h>
 #endif
+#ifndef AT_HANDLE_FID
+# define AT_HANDLE_FID 0x200
+#endif
 #ifndef NS_GET_USERNS
 # define NS_GET_USERNS           _IO(0xb7, 0x1)
 #endif
