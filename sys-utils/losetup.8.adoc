@@ -153,16 +153,16 @@ Since version 2.37 *losetup* uses *LOOP_CONFIGURE* ioctl to set up a new loop de
 
 == ENVIRONMENT
 
+include::man-common/env-smartcols.adoc[]
+
 *LOOPDEV_DEBUG*=all::
-enables loopdev debug output.
+Enable loopdev debug output.
 
 *ULPATH_DEBUG*=all::
-enables path debug output.
+Enable path debug output.
 
 *ULSYSFS_DEBUG*=all::
-enables sysfs debug output.
-
-include::man-common/env-smartcols.adoc[]
+Enable sysfs debug output.
 
 == FILES
 

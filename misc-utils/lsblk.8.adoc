@@ -222,22 +222,22 @@ include::man-common/colors.adoc[]
 
 == ENVIRONMENT
 
-*LSBLK_DEBUG*=all::
-enables *lsblk* debug output.
-
 *LIBBLKID_DEBUG*=all::
-enables *libblkid* debug output.
+Enable libblkid debug output.
 
 *LIBMOUNT_DEBUG*=all::
-enables *libmount* debug output.
+Enable libmount debug output.
 
 include::man-common/env-smartcols.adoc[]
 
 *LSBLK_COLUMNS*=::
-specifies a comma-separated list of output columns to print. All columns listed by *--list-columns* can be used.
+Specify a comma-separated list of output columns to print. All columns listed by *--list-columns* can be used.
+
+*LSBLK_DEBUG*=all::
+Enable lsblk debug output.
 
 *ULPATH_DEBUG*=all::
-enables *path* debug output.
+Enable path debug output.
 
 == NOTES
 

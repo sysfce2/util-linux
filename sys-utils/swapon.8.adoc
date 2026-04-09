@@ -171,11 +171,11 @@ The old versions before v2.36 has no documented exit status, 0 means success in 
 
 == ENVIRONMENT
 
-*LIBMOUNT_DEBUG*=all::
-enables *libmount* debug output.
-
 *LIBBLKID_DEBUG*=all::
-enables *libblkid* debug output.
+Enable libblkid debug output.
+
+*LIBMOUNT_DEBUG*=all::
+Enable libmount debug output.
 
 include::man-common/env-smartcols.adoc[]
 

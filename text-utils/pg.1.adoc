@@ -118,22 +118,20 @@ If the user presses the interrupt or quit key while *pg* reads from the input fi
 
 == ENVIRONMENT
 
-The following environment variables affect the behavior of *pg*:
-
 *COLUMNS*::
-Overrides the system-supplied number of columns if set.
+Override the system-supplied number of columns if set.
 
 *LANG*, *LC_ALL*, *LC_COLLATE*, *LC_CTYPE*, *LC_MESSAGES*::
 See *locale*(7).
 
 *LINES*::
-Overrides the system-supplied number of lines if set.
+Override the system-supplied number of lines if set.
 
 *SHELL*::
-Used by the *!* command.
+Override the default shell to use for the *!* command.
 
 *TERM*::
-Determines the terminal type.
+Specify the terminal type.
 
 == NOTES
 

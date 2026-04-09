@@ -125,7 +125,7 @@ include::man-common/help-version.adoc[]
 include::man-common/env-smartcols.adoc[]
 
 *LSFD_DEBUG*=all::
-enables lsfd debug output.
+Enable lsfd debug output.
 
 == OUTPUT COLUMNS
 

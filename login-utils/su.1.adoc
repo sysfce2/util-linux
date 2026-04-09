@@ -135,10 +135,10 @@ The requested command was not found
 == ENVIRONMENT
 
 *SU_DEBUG*=all::
-enables su debug output.
+Enable su debug output.
 
 *ULPTY_DEBUG*=all::
-enables pty debug output.
+Enable pty debug output.
 
 == FILES
 

@@ -71,10 +71,10 @@ include::man-common/help-version.adoc[]
 
 == ENVIRONMENT
 
-LSCLOCKS_COLUMNS=::
-Specifies a comma-separated list of output columns to print. All columns listed in *OUTPUT COLUMNS* can be used.
-
 include::man-common/env-smartcols.adoc[]
+
+*LSCLOCKS_COLUMNS*=::
+Specify a comma-separated list of output columns to print. All columns listed in *OUTPUT COLUMNS* can be used.
 
 == OUTPUT COLUMNS
 

@@ -1750,20 +1750,20 @@ The exit status value of the helper is returned as the exit status of *mount*(8)
 
 == ENVIRONMENT
 
-*LIBMOUNT_FORCE_MOUNT2*={always|never|auto}::
-force to use classic *mount*(2) system call (requires support for new file descriptors based mount API). The default is *auto*; in this case, libmount tries to be smart and use classic *mount*(2) only for well-known issues. If the new mount API is unavailable, libmount can still use traditional *mount*(2), although LIBMOUNT_FORCE_MOUNT2 is set to *never*.
-
-*LIBMOUNT_FSTAB*=<path>::
-overrides the default location of the _fstab_ file (ignored for suid)
+*LIBBLKID_DEBUG*=all::
+Enable libblkid debug output.
 
 *LIBMOUNT_DEBUG*=all::
-enables libmount debug output
+Enable libmount debug output.
 
-*LIBBLKID_DEBUG*=all::
-enables libblkid debug output
+*LIBMOUNT_FORCE_MOUNT2*={always|never|auto}::
+Force usage of classic *mount*(2) system call (requires support for new file descriptors based mount API). The default is *auto*; in this case, libmount tries to be smart and use classic *mount*(2) only for well-known issues. If the new mount API is unavailable, libmount can still use traditional *mount*(2), although LIBMOUNT_FORCE_MOUNT2 is set to *never*.
+
+*LIBMOUNT_FSTAB*=<path>::
+Override the default location of the _fstab_ file (ignored for suid).
 
 *LOOPDEV_DEBUG*=all::
-enables loop device setup debug output
+Enable loop device setup debug output.
 
 == FILES
 

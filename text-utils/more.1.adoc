@@ -175,34 +175,32 @@ Start up an editor.
 
 == ENVIRONMENT
 
-The *more* command respects the following environment variables, if they exist:
+*EDITOR*::
+Override the default editor when *VISUAL* is not specified.
 
 *MORE*::
-This variable may be set with favored options to *more*.
-
-*SHELL*::
-Current shell in use (normally set by the shell at login time).
-
-*TERM*::
-The terminal type used by *more* to get the terminal characteristics necessary to manipulate the screen.
-
-*VISUAL*::
-The editor the user prefers. Invoked when command key _v_ is pressed.
-
-*EDITOR*::
-The editor of choice when *VISUAL* is not specified.
-
-*POSIXLY_CORRECT*::
-Disable exit-on-eof (see option *-e* for more details).
+Specify favored options for *more*.
 
 *MORESECURE*::
 Run *more* in "secure" mode. See SECURITY for details.
 
+*MORE_SHELL_LINES*::
+Specify the _number_ of lines per screenful. It has the same effect as the *-n* and *--lines* options. See in OPTIONS for details. Also, note that the environment variable's value will be overridden if any of these options are set.
+
 *PAGERSECURE*::
 Equivalent to MORESECURE.
 
-*MORE_SHELL_LINES*::
-Specify the _number_ of lines per screenful. It has the same effect as the *-n* and *--lines* options. See in OPTIONS for details. Also, note that the environment variable's value will be overridden if any of these options are set.
+*POSIXLY_CORRECT*::
+Disable exit-on-eof (see option *-e* for more details).
+
+*SHELL*::
+Override the default shell.
+
+*TERM*::
+Specify the terminal type used by *more* to get the terminal characteristics necessary to manipulate the screen.
+
+*VISUAL*::
+Override the default editor to use when command key _v_ is pressed.
 
 == HISTORY
 

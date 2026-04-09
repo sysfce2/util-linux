@@ -114,7 +114,7 @@ By default *whereis* tries to find files from hard-coded paths, which are define
 == ENVIRONMENT
 
 *WHEREIS_DEBUG*=all::
-enables debug output.
+Enable debug output.
 
 == EXAMPLES
 

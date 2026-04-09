@@ -189,13 +189,13 @@ Any other use of the hash character is not interpreted as introducing a comment.
 
 == ENVIRONMENT
 
-*TERMINAL_COLORS_DEBUG*=all::
-enables debug output.
-
 *NO_COLOR*::
-if defined, this disables output colorization unless explicitly enabled by a
+Disable output colorization unless explicitly enabled by a
 command-line option. See https://no-color.org/ for more details. Supported
 since util-linux version 2.41.
+
+*TERMINAL_COLORS_DEBUG*=all::
+Enable terminal colors debug output.
 
 == FILES
 

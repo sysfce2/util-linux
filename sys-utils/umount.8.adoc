@@ -190,11 +190,11 @@ The exit status value of the helper is returned as the exit status of *umount*(8
 
 == ENVIRONMENT
 
-*LIBMOUNT_FSTAB*=<path>::
-overrides the default location of the _fstab_ file (ignored for *suid*)
-
 *LIBMOUNT_DEBUG*=all::
-enables *libmount* debug output
+Enable libmount debug output.
+
+*LIBMOUNT_FSTAB*=<path>::
+Override the default location of the _fstab_ file (ignored for *suid*).
 
 == FILES
 

@@ -198,10 +198,10 @@ Tell *agetty* that printing the hostname should be suppressed in the login: prom
 == ENVIRONMENT
 
 *ULNETADDRQ_DEBUG*=all::
-enables netaddrq debug output.
+Enable netaddrq debug output.
 
 *ULNETLINK_DEBUG*=all::
-enables netlink debug output.
+Enable netlink debug output.
 
 == EXAMPLE
 

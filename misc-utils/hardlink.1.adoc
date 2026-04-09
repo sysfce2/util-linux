@@ -156,7 +156,7 @@ include::man-common/help-version.adoc[]
 == ENVIRONMENT
 
 *ULFILEEQ_DEBUG*=all::
-Enables debug output for file comparisons.
+Enable file comparison debug output.
 
 == BUGS
 

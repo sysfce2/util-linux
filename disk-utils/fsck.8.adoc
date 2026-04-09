@@ -129,25 +129,23 @@ Please note that *fsck* is not designed to pass arbitrarily complicated options 
 
 == ENVIRONMENT
 
-The *fsck* program's behavior is affected by the following environment variables:
-
 *FSCK_FORCE_ALL_PARALLEL*::
-If this environment variable is set, *fsck* will attempt to check all of the specified filesystems in parallel, regardless of whether the filesystems appear to be on the same device. (This is useful for RAID systems or high-end storage systems such as those sold by companies such as IBM or EMC.) Note that the _fs_passno_ value is still used.
+Check all of the specified filesystems in parallel, regardless of whether the filesystems appear to be on the same device. (This is useful for RAID systems or high-end storage systems such as those sold by companies such as IBM or EMC.) Note that the _fs_passno_ value is still used.
 
 *FSCK_MAX_INST*::
-This environment variable will limit the maximum number of filesystem checkers that can be running at one time. This allows configurations which have a large number of disks to avoid *fsck* starting too many filesystem checkers at once, which might overload CPU and memory resources available on the system. If this value is zero, then an unlimited number of processes can be spawned. This is currently the default, but future versions of *fsck* may attempt to automatically determine how many filesystem checks can be run based on gathering accounting data from the operating system.
-
-*PATH*::
-The *PATH* environment variable is used to find filesystem checkers.
+Limit the maximum number of filesystem checkers that can be running at one time. This allows configurations which have a large number of disks to avoid *fsck* starting too many filesystem checkers at once, which might overload CPU and memory resources available on the system. If this value is zero, then an unlimited number of processes can be spawned. This is currently the default, but future versions of *fsck* may attempt to automatically determine how many filesystem checks can be run based on gathering accounting data from the operating system.
 
 *FSTAB_FILE*::
-This environment variable allows the system administrator to override the standard location of the _/etc/fstab_ file. It is also useful for developers who are testing *fsck*.
+Override the standard location of the _/etc/fstab_ file.
 
-*LIBBLKID_DEBUG=all*::
-enables libblkid debug output.
+*LIBBLKID_DEBUG*=all::
+Enable libblkid debug output.
 
-*LIBMOUNT_DEBUG=all*::
-enables libmount debug output.
+*LIBMOUNT_DEBUG*=all::
+Enable libmount debug output.
+
+*PATH*::
+Used to find filesystem checkers.
 
 == FILES
 

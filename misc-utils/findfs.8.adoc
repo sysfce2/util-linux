@@ -67,8 +67,8 @@ usage error, wrong number of arguments or unknown option
 
 == ENVIRONMENT
 
-LIBBLKID_DEBUG=all::
-enables libblkid debug output.
+*LIBBLKID_DEBUG*=all::
+Enable libblkid debug output.
 
 == AUTHORS
 

@@ -66,7 +66,11 @@ include::man-common/help-version.adoc[]
 
 == ENVIRONMENT
 
-*sulogin* looks for the environment variable *SUSHELL* or *sushell* to determine what shell to start. If the environment variable is not set, it will try to execute root's shell from _/etc/passwd_. If that fails, it will fall back to _/bin/sh_.
+*SUSHELL*::
+Specify the shell to start. Overrides *sushell*.
+
+*sushell*::
+Specify the shell to start. If the environment variable is not set, it will try to execute root's shell from _/etc/passwd_. If that fails, it will fall back to _/bin/sh_.
 
 == AUTHORS
 

@@ -92,7 +92,7 @@ partial success
 == ENVIRONMENT
 
 *ULPATH_DEBUG*=all::
-enables path debug output.
+Enable path debug output.
 
 == EXAMPLES
 

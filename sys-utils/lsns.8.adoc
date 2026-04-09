@@ -102,10 +102,10 @@ An ioctl was unknown to the kernel.
 
 == ENVIRONMENT
 
-*LSNS_DEBUG*=all::
-enables *lsns* debug output.
-
 include::man-common/env-smartcols.adoc[]
+
+*LSNS_DEBUG*=all::
+Enable lsns debug output.
 
 == AUTHORS
 

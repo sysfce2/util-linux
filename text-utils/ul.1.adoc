@@ -66,10 +66,8 @@ include::man-common/help-version.adoc[]
 
 == ENVIRONMENT
 
-The following environment variable is used:
-
 *TERM*::
-The *TERM* variable is used to relate a tty device with its device capability description (see *terminfo*(5)). *TERM* is set at login time, either by the default terminal type specified in _/etc/ttys_ or as set during the login process by the user in their _login_ file (see *setenv*(3)).
+Relate a tty device with its device capability description (see *terminfo*(5)). *TERM* is set at login time, either by the default terminal type specified in _/etc/ttys_ or as set during the login process by the user in their _login_ file (see *setenv*(3)).
 
 == HISTORY
 

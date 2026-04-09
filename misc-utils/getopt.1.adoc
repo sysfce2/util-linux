@@ -135,11 +135,11 @@ Example scripts for (ba)sh and (t)csh are provided with the *getopt*(1) distribu
 
 == ENVIRONMENT
 
-*POSIXLY_CORRECT*::
-This environment variable is examined by the *getopt*(3) routines. If it is set, parsing stops as soon as a parameter is found that is not an option or an option argument. All remaining parameters are also interpreted as non-option parameters, regardless whether they start with a '*-*'.
-
 *GETOPT_COMPATIBLE*::
-Forces *getopt* to use the first calling format as specified in the *SYNOPSIS*.
+Force *getopt* to use the first calling format as specified in the *SYNOPSIS*.
+
+*POSIXLY_CORRECT*::
+Examined by the *getopt*(3) routines. If it is set, parsing stops as soon as a parameter is found that is not an option or an option argument. All remaining parameters are also interpreted as non-option parameters, regardless whether they start with a '*-*'.
 
 == BUGS
 

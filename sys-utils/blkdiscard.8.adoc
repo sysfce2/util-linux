@@ -72,7 +72,7 @@ failure; since v2.39, the device does not support discard operation
 == ENVIRONMENT
 
 *LIBBLKID_DEBUG*=all::
-enables libblkid debug output.
+Enable libblkid debug output.
 
 == AUTHORS
 

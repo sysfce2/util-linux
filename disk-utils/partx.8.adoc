@@ -102,13 +102,13 @@ include::man-common/help-version.adoc[]
 
 == ENVIRONMENT
 
-LIBBLKID_DEBUG=all::
-enables libblkid debug output.
+*LIBBLKID_DEBUG*=all::
+Enable libblkid debug output.
 
 include::man-common/env-smartcols.adoc[]
 
 *LOOPDEV_DEBUG*=all::
-enables loopdev debug output.
+Enable loopdev debug output.
 
 == EXAMPLE
 

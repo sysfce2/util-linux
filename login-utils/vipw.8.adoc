@@ -62,10 +62,8 @@ include::man-common/help-version.adoc[]
 
 == ENVIRONMENT
 
-If the following environment variable exists, it will be utilized by *vipw* and *vigr*:
-
 *EDITOR*::
-The editor specified by the string *EDITOR* will be invoked instead of the default editor *vi*(1).
+Override the standard editor *vi*(1).
 
 == HISTORY
 

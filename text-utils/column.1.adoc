@@ -255,7 +255,7 @@ will be colorized by direct color names.
 == ENVIRONMENT
 
 *COLUMNS*::
-is used to determine the size of the screen if no other information is available.
+Specify the size of the screen if no other information is available.
 
 include::man-common/env-smartcols.adoc[]
 

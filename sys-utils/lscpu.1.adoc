@@ -125,19 +125,19 @@ include::man-common/help-version.adoc[]
 
 == ENVIRONMENT
 
-LSCPU_COLUMNS=::
-Specifies a comma-separated list of output columns to print. All columns listed by *--list-columns* for the options *-e* and *-p* can be used.
+*LSCPU_CACHES_COLUMNS*=::
+Specify a comma-separated list of output columns to print. All columns for the option *-C* can be used.
 
-LSCPU_CACHES_COLUMNS=::
-Same as *LSCPU_COLUMNS* with the difference that columns only listed for the *-C* option can be used.
+*LSCPU_COLUMNS*=::
+Specify a comma-separated list of output columns to print. All columns listed by *--list-columns* for the options *-e* and *-p* can be used.
 
 *LSCPU_DEBUG*=all::
-enables lscpu debug output.
+Enable lscpu debug output.
 
 include::man-common/env-smartcols.adoc[]
 
 *ULPATH_DEBUG*=all::
-enables path debug output.
+Enable path debug output.
 
 == COLUMNS
 
