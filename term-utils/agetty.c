@@ -34,6 +34,7 @@
 #include <pwd.h>
 #include <netdb.h>
 #include <sys/utsname.h>
+#include <syslog.h>
 
 #include "strutils.h"
 #include "all-io.h"
@@ -85,18 +86,6 @@
 
 #ifdef __linux__
 #  include <sys/kd.h>
-#  define USE_SYSLOG
-#elif defined(__GNU__)
-#  define USE_SYSLOG
-#endif
-
-#ifdef __FreeBSD_kernel__
-#define USE_SYSLOG
-#endif
-
-/* If USE_SYSLOG is undefined all diagnostics go to /dev/console. */
-#ifdef	USE_SYSLOG
-#  include <syslog.h>
 #endif
 
 /*
@@ -693,9 +682,6 @@ static void output_version(void)
 #endif
 #ifdef AGETTY_RELOAD
 		"reload",
-#endif
-#ifdef USE_SYSLOG
-		"syslog",
 #endif
 #ifdef USE_SYSTEMD
 		"systemd",
@@ -2544,44 +2530,16 @@ static void list_speeds(void)
 }
 
 /*
- * Helper function reports errors to console or syslog.
+ * Helper function reports errors to syslog.
  * Will be used by log_err() and log_warn() therefore
  * it takes a format as well as va_list.
  */
 static void dolog(int priority
-#ifndef USE_SYSLOG
-		  __attribute__((__unused__))
-#endif
 		  , const char *fmt, va_list ap)
 {
-#ifdef USE_SYSLOG
-	/*
-	 * If the diagnostic is reported via syslog(3), the process name is
-	 * automatically prepended to the message. If we write directly to
-	 * /dev/console, we must prepend the process name ourselves.
-	 */
 	openlog("agetty", LOG_PID, LOG_AUTHPRIV);
 	vsyslog(priority, fmt, ap);
 	closelog();
-#else
-	/*
-	 * Write the diagnostic directly to /dev/console if we do not use
-	 * the syslog(3) facility.
-	 */
-	char buf[BUFSIZ];
-	char new_fmt[BUFSIZ];
-	int fd;
-
-	snprintf(new_fmt, sizeof(new_fmt), "%s: %s\r\n",
-		 program_invocation_short_name, fmt);
-	/* Terminate with CR-LF since the console mode is unknown. */
-	vsnprintf(buf, sizeof(buf), new_fmt, ap);
-
-	if ((fd = open("/dev/console", 1)) >= 0) {
-		write_all(fd, buf, strlen(buf));
-		close(fd);
-	}
-#endif	/* USE_SYSLOG */
 }
 
 static void exit_slowly(int code)
