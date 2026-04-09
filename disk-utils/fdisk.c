@@ -111,7 +111,6 @@ int get_user_reply(const char *prompt, char *buf, size_t bufsz)
 	struct pollfd fds[] = {
 		{ .fd = fileno(stdin), .events = POLLIN }
 	};
-	size_t sz;
 	int ret = 0;
 
 	DBG(ASK, ul_debug("asking for user reply %s", is_interactive ? "[interactive]" : ""));
@@ -153,7 +152,7 @@ int get_user_reply(const char *prompt, char *buf, size_t bufsz)
 			/* read input and copy to buf[] */
 			rl_callback_read_char();
 			if (!reply_running && reply_line) {
-				sz = strlen(reply_line);
+				size_t sz = strlen(reply_line);
 				if (sz == 0)
 					buf[sz++] = '\n';
 				else
@@ -181,9 +180,8 @@ int get_user_reply(const char *prompt, char *buf, size_t bufsz)
 	/*
 	 * cleanup the reply
 	 */
-	sz = ltrim_whitespace((unsigned char *) buf);
-	if (sz && *(buf + sz - 1) == '\n')
-		*(buf + sz - 1) = '\0';
+	rtrim_whitespace((unsigned char *) buf);
+	ltrim_whitespace((unsigned char *) buf);
 
 done:
 #ifdef HAVE_LIBREADLINE
