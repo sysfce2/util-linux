@@ -187,8 +187,12 @@ static int parse_dev(blkid_cache cache, blkid_dev *dev, char **cp)
 	start = skip_over_blank(start + 1);
 	end = skip_over_word(start);
 
-	DBG(READ, ul_debug("device should be %*s",
-			       (int)(end - start), start));
+	ON_DBG(READ, {
+		char c = *end;
+		*end = '\0';
+		ul_debug("device should be %s", start);
+		*end = c;
+	});
 
 	if (**cp == '>')
 		*cp = end;

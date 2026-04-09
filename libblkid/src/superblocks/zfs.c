@@ -115,8 +115,8 @@ static bool zfs_process_value(blkid_probe pr, const char *name, size_t namelen,
 		if ((uint64_t)nvs_strlen + sizeof(*nvs) > max_value_size)
 			return (false);
 
-		DBG(LOWPROBE, ul_debug("nvstring: type %u string %*s",
-				       type, nvs_strlen, nvs->nvs_string));
+		DBG(LOWPROBE, ul_debug("nvstring: type %u string %.*s",
+				       type, (int)nvs_strlen, nvs->nvs_string));
 
 		blkid_probe_set_label(pr, nvs->nvs_string, nvs_strlen);
 		(*found)++;
@@ -223,12 +223,12 @@ static bool zfs_extract_guid_name(blkid_probe pr, void *buf, size_t size, bool f
 				       size, nvp_size));
 
 		/* nvpair fits in buffer and name fits in nvpair? */
-		if (nvp_size > size || namesize + sizeof(*nvp) > nvp_size)
+		if (nvp_size > size || namesize + sizeof(*nvp) + 4 > nvp_size)
 			return (false);
 
 		DBG(LOWPROBE,
-		    ul_debug("nvlist: size %u, namelen %u, name %*s",
-			     nvp_size, nvp_namelen, nvp_namelen,
+		    ul_debug("nvlist: size %u, namelen %u, name %.*s",
+			     nvp_size, nvp_namelen, (int)nvp_namelen,
 			     nvp->nvp_name));
 
 		max_value_size = nvp_size - (namesize + sizeof(*nvp));
@@ -303,7 +303,7 @@ static int probe_zfs(blkid_probe pr,
 #else
 	int host_endian = 0;
 #endif
-	int swab_endian = 0;
+	int swap_endian = 0;
 	loff_t offset = 0;
 	int label_no;
 	struct nvs_header_t *label = NULL;
@@ -336,7 +336,7 @@ static int probe_zfs(blkid_probe pr,
 			continue;
 
 		if (host_endian != label->nvh_endian)
-			swab_endian = 1;
+			swap_endian = 1;
 
 		if (zfs_extract_guid_name(pr, label, VDEV_PHYS_SIZE, true)) {
 			found_label = true;
@@ -356,7 +356,7 @@ static int probe_zfs(blkid_probe pr,
 	    (unsigned char *) label))
 		return (1);
 
-	blkid_probe_set_fsendianness(pr, !swab_endian ?
+	blkid_probe_set_fsendianness(pr, !swap_endian ?
 			BLKID_ENDIANNESS_NATIVE : BLKID_ENDIANNESS_OTHER);
 
 	return (0);
