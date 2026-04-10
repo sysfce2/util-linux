@@ -106,9 +106,6 @@ while [ -n "$1" ]; do
 	--parallel)
 		paraller_jobs=$(num_cpus)
 		;;
-	--parsable)
-		OPTS="$OPTS $1"
-		;;
 	--exclude=*)
 		EXCLUDETESTS="${1##--exclude=}"
 		;;
