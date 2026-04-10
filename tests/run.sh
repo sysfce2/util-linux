@@ -193,7 +193,7 @@ if [ -n "$SUBTESTS" ]; then
 		fi
 	done
 else
-	if [ -z "$SYSCOMMANDS" -a ! -f "$top_builddir/test_ttyutils" ]; then
+	if [ -z "$SYSCOMMANDS" ] && [ ! -f "$top_builddir/test_ttyutils" ]; then
 		echo "Tests not compiled! Run 'make check-programs' to fix the problem."
 		exit 1
 	fi
