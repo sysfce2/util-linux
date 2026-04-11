@@ -395,10 +395,10 @@ int main(int argc, char *argv[])
 			ncpus = atoi(optarg);
 			break;
 		case 'm':
-			mask = strdup(optarg);
+			mask = optarg;
 			break;
 		case 'r':
-			range = strdup(optarg);
+			range = optarg;
 			break;
 		default:
 			goto usage_err;
@@ -435,8 +435,6 @@ int main(int argc, char *argv[])
 	printf("[%s]\n", cpulist_create(buf, buflen, set, setsize));
 
 	free(buf);
-	free(mask);
-	free(range);
 	cpuset_free(set);
 
 	return EXIT_SUCCESS;
