@@ -168,7 +168,7 @@ static void handle_range(char* str, struct rangeitem *range)
 	copy_range(range);
 }
 
-static void handle_range_files(struct rangeitem *range, size_t nrange_files, char **range_files)
+static void handle_range_files(struct rangeitem *range, size_t nrange_files, const char **range_files)
 {
 	for (size_t i = 0; i < nrange_files; i++) {
 		FILE *f = fopen(range_files[i], "r");
@@ -187,7 +187,6 @@ static void handle_range_files(struct rangeitem *range, size_t nrange_files, cha
 			handle_range(line, range);
 		}
 
-		free(range_files[i]);
 		free(line);
 		fclose(f);
 	}
@@ -196,7 +195,7 @@ static void handle_range_files(struct rangeitem *range, size_t nrange_files, cha
 
 int main(const int argc, char **argv)
 {
-	char **range_files = NULL;
+	const char **range_files = NULL;
 	size_t nrange_files = 0;
 	struct stat sb;
 	struct rangeitem range = {0};
@@ -220,7 +219,7 @@ int main(const int argc, char **argv)
 		case 'r':
 			if (!range_files)
 				range_files = xmalloc(sizeof(char *) * argc);
-			range_files[nrange_files++] = xstrdup(optarg);
+			range_files[nrange_files++] = optarg;
 			break;
 		case 'v':
 			verbose = 1;
