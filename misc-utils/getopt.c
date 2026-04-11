@@ -246,7 +246,6 @@ static int generate_output(struct getopt_control *ctl, char *argv[], int argc)
 		free((char *)ctl->long_options[longindex].name);
 	free(ctl->long_options);
 	free(ctl->optstr);
-	free(ctl->name);
 	return exit_code;
 }
 
@@ -451,8 +450,7 @@ int main(int argc, char *argv[])
 			add_long_options(&ctl, optarg);
 			break;
 		case 'n':
-			free(ctl.name);
-			ctl.name = xstrdup(optarg);
+			ctl.name = optarg;
 			break;
 		case 'q':
 			ctl.quiet_errors = 1;
