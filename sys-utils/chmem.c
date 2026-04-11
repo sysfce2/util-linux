@@ -721,7 +721,7 @@ int main(int argc, char **argv)
 			desc->verbose = 1;
 			break;
 		case 'z':
-			zone = xstrdup(optarg);
+			zone = optarg;
 			break;
 		case 'c':
 			cmd = CMD_MEMORY_CONFIGURE;
