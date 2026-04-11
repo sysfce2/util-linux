@@ -994,7 +994,7 @@ int main(int argc, char **argv)
 		.domain_len = LAST_DOMAIN_LEN,
 		.fullnames_mode = false,
 	};
-	char **files = NULL;
+	const char **files = NULL;
 	struct number_buffer nb = {
 		.pos = 0
 	};
@@ -1065,7 +1065,7 @@ int main(int argc, char **argv)
 		case 'f':
 			if (!files)
 				files = xmalloc(sizeof(char *) * argc);
-			files[nfiles++] = xstrdup(optarg);
+			files[nfiles++] = optarg;
 			break;
 		case 'd':
 			ctl.usedns = 1;
@@ -1133,13 +1133,12 @@ int main(int argc, char **argv)
 
 	if (!files) {
 		files = xmalloc(sizeof(char *));
-		files[nfiles++] = xstrdup(ctl.lastb ? _PATH_BTMP : _PATH_WTMP);
+		files[nfiles++] = ctl.lastb ? _PATH_BTMP : _PATH_WTMP;
 	}
 
 	for (i = 0; i < nfiles; i++) {
 		get_boot_time(&ctl.boot_time);
 		process_wtmp_file(&ctl, files[i]);
-		free(files[i]);
 	}
 	free(files);
 	return EXIT_SUCCESS;
