@@ -229,7 +229,7 @@ echo "                 Don't execute on production system!                 "
 echo
 
 # TODO: add more information about system
-printf "%13s: %-30s    " "kernel" "$(uname -r)"
+printf "%13s: %-30s    " "kernel" "$(uname -s) $(uname -r)"
 echo
 echo
 echo "      options: $(echo $OPTS | sed 's/ / \\\n               /g')"
