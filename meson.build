@@ -3991,6 +3991,16 @@ exe = executable(
   build_by_default: program_tests)
 exes += exe
 
+exe = executable(
+  'test_scols_termreduce',
+  'tests/helpers/test_scols_termreduce.c',
+   include_directories : includes,
+   link_with : [lib_smartcols],
+   build_by_default: program_tests)
+if not is_disabler(exe)
+  exes += exe
+endif
+
 ############################################################
 
 if conf.get('HAVE_OPENAT').to_string() == '1'
