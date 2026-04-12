@@ -257,7 +257,8 @@ static struct irq_stat *get_irqinfo(const char *input_file, int softirq,
 
 	/* read header firstly */
 	if (getline(&line, &len, irqfile) < 0) {
-		warn(_("cannot read %s"), input_file);
+		if (!feof(irqfile))
+			warn(_("cannot read %s"), input_file);
 		goto close_file;
 	}
 
