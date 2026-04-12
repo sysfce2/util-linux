@@ -635,7 +635,8 @@ static int file_xattrs_equal(const struct file *a, const struct file *b)
 	return ret;
 }
 #else /* !USE_XATTR */
-static int file_xattrs_equal(const struct file *a, const struct file *b)
+static int file_xattrs_equal(const struct file *a __attribute__((__unused__)),
+			     const struct file *b __attribute__((__unused__)))
 {
 	return TRUE;
 }
