@@ -172,7 +172,7 @@ ssize_t procfs_process_get_syscall(struct path_cxt *pc, char *buf, size_t bufsz)
 	return procfs_process_get_data_for(pc, buf, bufsz, "syscall");
 }
 
-int procfs_process_get_stat_nth(struct path_cxt *pc, int n, uintmax_t *re)
+int procfs_process_get_stat_nth(struct path_cxt *pc, int n, uint64_t *re)
 {
 	ssize_t rc;
 	char *key = NULL, *tok, *p;
@@ -587,7 +587,7 @@ static int test_process_stat_nth(int argc, char *argv[], const char *prefix)
 {
 	pid_t pid;
 	struct path_cxt *pc;
-	uintmax_t num = 0;
+	uint64_t num = 0;
 	int n, ret;
 
 	if (argc != 3)
@@ -603,7 +603,7 @@ static int test_process_stat_nth(int argc, char *argv[], const char *prefix)
 	if (ret)
 		errx(EXIT_FAILURE, "read %dth number failed: %s", n, strerror(-ret));
 
-	printf("%d: %dth %ju\n", (int) pid, n, num);
+	printf("%d: %dth %"PRIu64"\n", (int) pid, n, num);
 	ul_unref_path(pc);
 	return EXIT_SUCCESS;
 }

@@ -602,7 +602,7 @@ static int kill_verbose(const struct kill_control *ctl)
 
 static int check_signal_handler(const struct kill_control *ctl)
 {
-	uintmax_t sigcgt = 0;
+	uint64_t sigcgt = 0;
 	int rc = 0, has_hnd = 0;
 	struct path_cxt *pc;
 
