@@ -1058,7 +1058,7 @@ static int parse_start_value(struct fdisk_script *dp, struct fdisk_partition *pa
 	}
 
 done:
-	DBG_OBJ(SCRIPT, dp, ul_debug("  start parse result: rc=%d, move=%s, start=%ju, default=%s",
+	DBG_OBJ(SCRIPT, dp, ul_debug("  start parse result: rc=%d, move=%s, start=%"PRIu64", default=%s",
 				rc, pa->movestart == FDISK_MOVE_DOWN ? "down" :
 				    pa->movestart == FDISK_MOVE_UP ? "up" : "none",
 				    pa->start,
@@ -1115,7 +1115,7 @@ static int parse_size_value(struct fdisk_script *dp, struct fdisk_partition *pa,
 	}
 
 done:
-	DBG_OBJ(SCRIPT, dp, ul_debug("  size parse result: rc=%d, move=%s, size=%ju, default=%s",
+	DBG_OBJ(SCRIPT, dp, ul_debug("  size parse result: rc=%d, move=%s, size=%"PRIu64", default=%s",
 				rc, pa->resize == FDISK_RESIZE_REDUCE ? "reduce" :
 				    pa->resize == FDISK_RESIZE_ENLARGE ? "enlarge" : "none",
 				    pa->size,

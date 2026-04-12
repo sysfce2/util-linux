@@ -2334,7 +2334,7 @@ static int gpt_verify_disklabel(struct fdisk_context *cxt)
 			   P_("A total of %ju free sectors is available in %u segment.",
 			      "A total of %ju free sectors is available in %u segments "
 			      "(the largest is %s).", nsegments),
-			   free_sectors, nsegments, strsz ? : "0 B");
+			   (uintmax_t)free_sectors, nsegments, strsz ? : "0 B");
 		free(strsz);
 
 	} else
@@ -2510,7 +2510,7 @@ static int gpt_add_partition(
 
 			user_f = fdisk_ask_number_get_result(ask);
 			if (user_f != find_first_available(gpt, user_f)) {
-				fdisk_warnx(cxt, _("Sector %ju already used."), user_f);
+				fdisk_warnx(cxt, _("Sector %ju already used."), (uintmax_t)user_f);
 				continue;
 			}
 			break;
@@ -2592,14 +2592,14 @@ static int gpt_add_partition(
 	/* Be paranoid and check against on-disk setting rather than against libfdisk cxt */
 	if (user_l > le64_to_cpu(pheader->last_usable_lba)) {
 		fdisk_warnx(cxt, _("The last usable GPT sector is %ju, but %ju is requested."),
-				le64_to_cpu(pheader->last_usable_lba), user_l);
+				(uintmax_t)le64_to_cpu(pheader->last_usable_lba), (uintmax_t)user_l);
 		rc = -EINVAL;
 		goto done;
 	}
 
 	if (user_f < le64_to_cpu(pheader->first_usable_lba)) {
 		fdisk_warnx(cxt, _("The first usable GPT sector is %ju, but %ju is requested."),
-				le64_to_cpu(pheader->first_usable_lba), user_f);
+				(uintmax_t)le64_to_cpu(pheader->first_usable_lba), (uintmax_t)user_f);
 		rc = -EINVAL;
 		goto done;
 	}

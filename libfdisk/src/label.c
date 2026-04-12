@@ -1,3 +1,4 @@
+#include <inttypes.h>
 
 #include "fdiskP.h"
 #include "cctype.h"
@@ -318,7 +319,7 @@ int fdisk_list_disklabel(struct fdisk_context *cxt)
 			continue;
 		switch (item.type) {
 		case 'j':
-			fdisk_info(cxt, "%s: %ju", item.name, item.data.num64);
+			fdisk_info(cxt, "%s: %"PRIu64, item.name, item.data.num64);
 			break;
 		case 's':
 			if (item.data.str && item.name)
