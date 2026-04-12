@@ -78,7 +78,6 @@ jobs:
           path-to-lcov: ./coverage.info
 
   meson:
-    needs: build
     runs-on: ubuntu-latest
     concurrency:
       group: ${{ github.workflow }}-meson-${{ github.ref }}
