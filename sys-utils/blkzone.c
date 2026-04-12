@@ -264,8 +264,8 @@ static int blkzone_report(struct blkzone_control *ctl)
 			err(EXIT_FAILURE, _("%s: BLKREPORTZONE ioctl failed"), ctl->devname);
 
 		if (ctl->verbose)
-			printf(_("Found %"PRIu32" zones from 0x%"PRIx64"\n"),
-				zi->nr_zones, ctl->offset);
+			printf(_("Found %ju zones from 0x%jx\n"),
+				(uintmax_t) zi->nr_zones, (uintmax_t) ctl->offset);
 
 		if (!zi->nr_zones)
 			break;
@@ -303,18 +303,18 @@ static int blkzone_report(struct blkzone_control *ctl)
 			if (only_capacity_sum) {
 				capacity_sum += cap;
 			} else if (has_zone_capacity(zi)) {
-				printf(_("  start: 0x%09"PRIx64", len 0x%06"PRIx64
-					", cap 0x%06"PRIx64", wptr %s"
+				printf(_("  start: 0x%09jx, len 0x%06jx"
+					", cap 0x%06jx, wptr %s"
 					" reset:%u non-seq:%u, zcond:%2u(%s) [type: %u(%s)]\n"),
-					start, len, cap, wp_str,
+					(uintmax_t) start, (uintmax_t) len, (uintmax_t) cap, wp_str,
 					entry.reset, entry.non_seq,
 					cond, condition_str[cond & (ARRAY_SIZE(condition_str) - 1)],
 					type, type_text[type]);
 			} else {
-				printf(_("  start: 0x%09"PRIx64", len 0x%06"PRIx64
+				printf(_("  start: 0x%09jx, len 0x%06jx"
 					", wptr %s"
 					" reset:%u non-seq:%u, zcond:%2u(%s) [type: %u(%s)]\n"),
-					start, len, wp_str,
+					(uintmax_t) start, (uintmax_t) len, wp_str,
 					entry.reset, entry.non_seq,
 					cond, condition_str[cond & (ARRAY_SIZE(condition_str) - 1)],
 					type, type_text[type]);
@@ -327,7 +327,7 @@ static int blkzone_report(struct blkzone_control *ctl)
 	}
 
 	if (only_capacity_sum)
-		printf(_("0x%09"PRIx64"\n"), capacity_sum);
+		printf(_("0x%09jx\n"), (uintmax_t) capacity_sum);
 
 	free(zi);
 	close(fd);
@@ -352,9 +352,9 @@ static int blkzone_action(struct blkzone_control *ctl)
 	fd = init_device(ctl, O_WRONLY | (ctl->force ? 0 : O_EXCL));
 
 	if (ctl->offset % zonesize )
-		errx(EXIT_FAILURE, _("%s: offset %" PRIu64 " is not aligned "
+		errx(EXIT_FAILURE, _("%s: offset %ju is not aligned "
 			"to zone size %lu"),
-			ctl->devname, ctl->offset, zonesize);
+			ctl->devname, (uintmax_t) ctl->offset, zonesize);
 
 	if (ctl->offset > ctl->total_sectors)
 		errx(EXIT_FAILURE, _("%s: offset is greater than device size"), ctl->devname);
@@ -371,9 +371,9 @@ static int blkzone_action(struct blkzone_control *ctl)
 	if (ctl->length &&
 	   (zlen % zonesize) &&
 	    ctl->offset + zlen != ctl->total_sectors)
-		errx(EXIT_FAILURE, _("%s: number of sectors %" PRIu64 " is not aligned "
+		errx(EXIT_FAILURE, _("%s: number of sectors %ju is not aligned "
 			"to zone size %lu"),
-			ctl->devname, ctl->length, zonesize);
+			ctl->devname, (uintmax_t) ctl->length, zonesize);
 
 	za.sector = ctl->offset;
 	za.nr_sectors = zlen;
@@ -382,11 +382,11 @@ static int blkzone_action(struct blkzone_control *ctl)
 		err(EXIT_FAILURE, _("%s: %s ioctl failed"),
 		    ctl->devname, ctl->command->ioctl_name);
 	else if (ctl->verbose)
-		printf(_("%s: successful %s of zones in range from %" PRIu64 ", to %" PRIu64),
+		printf(_("%s: successful %s of zones in range from %ju, to %ju"),
 			ctl->devname,
 			ctl->command->name,
-			ctl->offset,
-			ctl->offset + zlen);
+			(uintmax_t) ctl->offset,
+			(uintmax_t) ctl->offset + zlen);
 	close(fd);
 	return 0;
 }

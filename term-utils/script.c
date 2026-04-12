@@ -692,7 +692,7 @@ static int callback_log_stream_activity(void *data, int fd, char *buf, size_t bu
 	/* check output limit */
 	if (ctl->maxsz != 0 && ctl->outsz >= ctl->maxsz) {
 		if (!ctl->quiet)
-			printf(_("Script terminated, max output files size %"PRIu64" exceeded.\n"), ctl->maxsz);
+			printf(_("Script terminated, max output files size %ju exceeded.\n"), (uintmax_t) ctl->maxsz);
 		DBG(IO, ul_debug("output size %"PRIu64", exceeded limit %"PRIu64, ctl->outsz, ctl->maxsz));
 		logging_done(ctl, _("max output size exceeded"));
 		return 1;

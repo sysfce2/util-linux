@@ -74,8 +74,8 @@ static inline int get_pidfd(const struct waitpid_control *ctl, struct process_in
 	if (pi->pidfd_ino) {
 		fd = ul_get_valid_pidfd(pi->pid, pi->pidfd_ino);
 		if (fd < 0 && ctl->verbose)
-			warnx(_("pidfd inode %"PRIu64" not found for PID %d"),
-					pi->pidfd_ino, pi->pid);
+			warnx(_("pidfd inode %ju not found for PID %d"),
+					(uintmax_t) pi->pidfd_ino, pi->pid);
 	} else {
 		fd = pidfd_open(pi->pid, 0);
 	}

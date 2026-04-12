@@ -285,8 +285,9 @@ int main(int argc, char **argv)
 			fprintf(stderr, _("Inodes: %ld (in %llu blocks)\n"),
 				inodes, ino_blocks);
 		fprintf(stderr, _("Blocks: %llu\n"), total_blocks);
-		fprintf(stderr, _("Inode end: %"PRIu32", Data end: %"PRIu32"\n"),
-			le32_to_cpu(sb.s_start) - 1, le32_to_cpu(sb.s_end));
+		fprintf(stderr, _("Inode end: %ju, Data end: %ju\n"),
+			(uintmax_t) le32_to_cpu(sb.s_start) - 1,
+			(uintmax_t) le32_to_cpu(sb.s_end));
 	}
 
 	if (write(fd, &sb, sizeof(sb)) != sizeof(sb))

@@ -560,11 +560,11 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 
 	if (ctl.verbose)
-		printf(_("alarm %"PRId64", sys_time %"PRId64", "
-			 "rtc_time %"PRId64", seconds %"PRId64"\n"),
-				(int64_t) alarm, (int64_t) ctl.sys_time,
-				(int64_t) ctl.rtc_time,
-				(int64_t) seconds);
+		printf(_("alarm %jd, sys_time %jd, "
+			 "rtc_time %jd, seconds %jd\n"),
+				(intmax_t) alarm, (intmax_t) ctl.sys_time,
+				(intmax_t) ctl.rtc_time,
+				(intmax_t) seconds);
 
 	if (suspend != DISABLE_MODE && suspend != SHOW_MODE) {
 		/* perform alarm setup when the show or disable modes are not set */

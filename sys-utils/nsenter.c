@@ -252,8 +252,8 @@ static void open_target_fd_by_nsid(int *fd, const char *idstr)
 
 	*fd = open_by_handle_at(nsfs_fd, fh, O_RDONLY);
 	if (*fd < 0)
-		err(EXIT_FAILURE, _("cannot open namespace of id %"PRIu64),
-		    ns_id);
+		err(EXIT_FAILURE, _("cannot open namespace of id %ju"),
+		    (uintmax_t) ns_id);
 }
 #endif /* USE_NAMESPACE_ID_SUPPORT */
 

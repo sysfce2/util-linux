@@ -140,12 +140,12 @@ static int fstrim_filesystem(struct fstrim_control *ctl, const char *path, const
 				(uint64_t) range.len);
 		if (devname)
 			/* TRANSLATORS: The standard value here is a very large number. */
-			printf(_("%s: %s (%" PRIu64 " bytes) trimmed on %s\n"),
-				path, str, (uint64_t) range.len, devname);
+			printf(_("%s: %s (%ju bytes) trimmed on %s\n"),
+				path, str, (uintmax_t) range.len, devname);
 		else
 			/* TRANSLATORS: The standard value here is a very large number. */
-			printf(_("%s: %s (%" PRIu64 " bytes) trimmed\n"),
-				path, str, (uint64_t) range.len);
+			printf(_("%s: %s (%ju bytes) trimmed\n"),
+				path, str, (uintmax_t) range.len);
 
 		free(str);
 	}

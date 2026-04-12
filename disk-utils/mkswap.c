@@ -735,8 +735,8 @@ int main(int argc, char **argv)
 	else if (ctl.npages > sz && !ctl.force)
 		errx(EXIT_FAILURE,
 			_("error: "
-			  "size %llu KiB is larger than device size %"PRIu64" KiB"),
-			ctl.npages * (ctl.pagesize / 1024), sz * (ctl.pagesize / 1024));
+			  "size %llu KiB is larger than device size %ju KiB"),
+			ctl.npages * (ctl.pagesize / 1024), (uintmax_t) (sz * (ctl.pagesize / 1024)));
 
 	if (ctl.npages < MIN_GOODPAGES)
 		errx(EXIT_FAILURE,
@@ -788,8 +788,8 @@ int main(int argc, char **argv)
 	strsz = size_to_human_string(SIZE_SUFFIX_SPACE | SIZE_SUFFIX_3LETTER, sz);
 
 	if (!ctl.quiet)
-		printf(_("Setting up swapspace version %d, size = %s (%"PRIu64" bytes)\n"),
-			version, strsz, sz);
+		printf(_("Setting up swapspace version %d, size = %s (%ju bytes)\n"),
+			version, strsz, (uintmax_t) sz);
 	free(strsz);
 
 	set_signature(&ctl);

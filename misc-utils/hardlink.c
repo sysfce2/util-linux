@@ -424,10 +424,10 @@ static void print_stats(void)
 	jlog(SUMMARY, printf("%-25s %s", _("Saved:"), ssz));
 	free(ssz);
 
-	jlog(SUMMARY, printf(_("%-25s %"PRId64".%06"PRId64" seconds"),
+	jlog(SUMMARY, printf(_("%-25s %jd.%06jd seconds"),
 				_("Duration:"),
-				(int64_t) delta.tv_sec,
-				(int64_t) delta.tv_usec));
+				(intmax_t) delta.tv_sec,
+				(intmax_t) delta.tv_usec));
 }
 
 /**

@@ -272,8 +272,8 @@ static int ask_number(struct fdisk_context *cxt,
 			snprintf(prompt, sizeof(prompt), _("%s (%s, default %c): "),
 					q, range, tochar(dflt));
 		else
-			snprintf(prompt, sizeof(prompt), _("%s (%s, default %"PRIu64"): "),
-					q, range, dflt);
+			snprintf(prompt, sizeof(prompt), _("%s (%s, default %ju): "),
+					q, range, (uintmax_t) dflt);
 
 	} else if (dflt >= low && dflt <= high) {
 		if (inchar)
@@ -281,14 +281,14 @@ static int ask_number(struct fdisk_context *cxt,
 					q, tochar(low), tochar(high), tochar(dflt));
 		else
 			snprintf(prompt, sizeof(prompt),
-					_("%s (%"PRIu64"-%"PRIu64", default %"PRIu64"): "),
-					q, low, high, dflt);
+					_("%s (%ju-%ju, default %ju): "),
+					q, (uintmax_t) low, (uintmax_t) high, (uintmax_t) dflt);
 	} else if (inchar)
 		snprintf(prompt, sizeof(prompt), _("%s (%c-%c): "),
 				q, tochar(low), tochar(high));
 	else
-		snprintf(prompt, sizeof(prompt), _("%s (%"PRIu64"-%"PRIu64"): "),
-				q, low, high);
+		snprintf(prompt, sizeof(prompt), _("%s (%ju-%ju): "),
+				q, (uintmax_t) low, (uintmax_t) high);
 
 	do {
 		int rc = get_user_reply(prompt, buf, bufsz);
@@ -339,15 +339,15 @@ static int ask_offset(struct fdisk_context *cxt,
 				q, low, high, base, dflt, range));
 
 	if (range && dflt >= low && dflt <= high)
-		snprintf(prompt, sizeof(prompt), _("%s (%s, default %"PRIu64"): "),
-		         q, range, dflt);
+		snprintf(prompt, sizeof(prompt), _("%s (%s, default %ju): "),
+		         q, range, (uintmax_t) dflt);
 	else if (dflt >= low && dflt <= high)
 		snprintf(prompt, sizeof(prompt),
-		         _("%s (%"PRIu64"-%"PRIu64", default %"PRIu64"): "),
-		         q, low, high, dflt);
+		         _("%s (%ju-%ju, default %ju): "),
+		         q, (uintmax_t) low, (uintmax_t) high, (uintmax_t) dflt);
 	else
-		snprintf(prompt, sizeof(prompt), _("%s (%"PRIu64"-%"PRIu64"): "),
-		         q, low, high);
+		snprintf(prompt, sizeof(prompt), _("%s (%ju-%ju): "),
+		         q, (uintmax_t) low, (uintmax_t) high);
 
 	do {
 		uintmax_t num = 0;
@@ -799,9 +799,9 @@ static int do_discard(struct fdisk_context *cxt, struct fdisk_partition *pa)
 	range[0] = (uint64_t) fdisk_partition_get_start(pa);
 	range[1] = (uint64_t) fdisk_partition_get_size(pa);
 
-	snprintf(buf, sizeof(buf), _("All data in the region (%"PRIu64
-				     "-%"PRIu64") will be lost! Continue?"),
-			range[0], range[0] + range[1] - 1);
+	snprintf(buf, sizeof(buf), _("All data in the region (%ju"
+				     "-%ju) will be lost! Continue?"),
+			(uintmax_t) range[0], (uintmax_t) (range[0] + range[1] - 1));
 
 	range[0] *= (uint64_t) ss;
 	range[1] *= (uint64_t) ss;
@@ -869,7 +869,7 @@ static void discard_freespace(struct fdisk_context *cxt)
 		goto done;
 
 	if (!fdisk_partition_has_size(pa) || !fdisk_partition_has_start(pa)) {
-		fdisk_warnx(cxt, _("Free space %"PRIu64 "has an unspecified range"), n);
+		fdisk_warnx(cxt, _("Free space %ju has an unspecified range"), (uintmax_t) n);
 		goto done;
 	}
 
@@ -999,8 +999,8 @@ static void dump_blkdev(struct fdisk_context *cxt, const char *name,
 {
 	int fd = fdisk_get_devfd(cxt);
 
-	fdisk_info(cxt, _("\n%s: offset = %"PRIu64", size = %zu bytes."),
-			name, offset, size);
+	fdisk_info(cxt, _("\n%s: offset = %ju, size = %zu bytes."),
+			name, (uintmax_t) offset, size);
 
 	assert(fd >= 0);
 

@@ -96,8 +96,8 @@ static void show_uclamp_pid_info(pid_t pid, char *cmd)
 	else
 		comm = pid_get_cmdname(pid);
 
-	printf(_("%s (%d) util_clamp: min: %"PRIu32" max: %"PRIu32"\n"),
-	       comm ? : "unknown", pid, sa.sched_util_min, sa.sched_util_max);
+	printf(_("%s (%d) util_clamp: min: %ju max: %ju\n"),
+	       comm ? : "unknown", pid, (uintmax_t) sa.sched_util_min, (uintmax_t) sa.sched_util_max);
 
 	if (!cmd)
 		free(comm);
