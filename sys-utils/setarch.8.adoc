@@ -105,7 +105,7 @@ mailto:kzak@redhat.com[Karel Zak]
 
 *personality*(2),
 *select*(2),
-*proc_pid_personality(5)
+*proc_pid_personality*(5)
 
 include::man-common/bugreports.adoc[]
 
