@@ -41,7 +41,7 @@ uint64_t pidfd_get_inode(int pidfd)
 	rc = statx(pidfd, "", AT_EMPTY_PATH, STATX_INO, &stx);
 	if (rc < 0) {
 		close(pidfd);
-		err(EXIT_FAILURE, N_("failed to statx() pidfd"));
+		err(EXIT_FAILURE, _("failed to statx() pidfd"));
 	}
 	return stx.stx_ino;
 }
@@ -72,7 +72,7 @@ int ul_get_valid_pidfd_or_err(pid_t pid, uint64_t pidfd_ino __attribute__((__unu
 
 	pfd = ul_get_valid_pidfd(pid, pidfd_ino);
 	if (pfd < 0)
-		err(EXIT_FAILURE, N_("failed to obtain a valid file descriptor for PID %d"), pid);
+		err(EXIT_FAILURE, _("failed to obtain a valid file descriptor for PID %d"), pid);
 
 	return pfd;
 }
