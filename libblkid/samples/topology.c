@@ -54,8 +54,8 @@ int main(int argc, char *argv[])
 				blkid_topology_get_physical_sector_size(tp));
 		printf("\tdax support          : %lu\n",
 				blkid_topology_get_dax(tp));
-		printf("\tdiskseq              : %"PRIu64"\n",
-				blkid_topology_get_diskseq(tp));
+		printf("\tdiskseq              : %ju\n",
+				(uintmax_t) blkid_topology_get_diskseq(tp));
 	}
 
 	/*

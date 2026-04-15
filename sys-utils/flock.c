@@ -424,10 +424,10 @@ int main(int argc, char *argv[])
 
 		gettime_monotonic(&time_done);
 		timersub(&time_done, &time_start, &delta);
-		printf(_("%s: getting lock took %"PRId64".%06"PRId64" seconds\n"),
+		printf(_("%s: getting lock took %jd.%06jd seconds\n"),
 		       program_invocation_short_name,
-		       (int64_t) delta.tv_sec,
-		       (int64_t) delta.tv_usec);
+		       (intmax_t) delta.tv_sec,
+		       (intmax_t) delta.tv_usec);
 	}
 	status = EX_OK;
 

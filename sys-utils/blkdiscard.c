@@ -62,13 +62,13 @@ static void print_stats(int act, char *path, uint64_t stats[])
 {
 	switch (act) {
 	case ACT_ZEROOUT:
-		printf(_("%s: Zero-filled %" PRIu64 " bytes from the offset %" PRIu64"\n"), \
-			path, stats[1], stats[0]);
+		printf(_("%s: Zero-filled %ju bytes from the offset %ju\n"), \
+			path, (uintmax_t) stats[1], (uintmax_t) stats[0]);
 		break;
 	case ACT_SECURE:
 	case ACT_DISCARD:
-		printf(_("%s: Discarded %" PRIu64 " bytes from the offset %" PRIu64"\n"), \
-			path, stats[1], stats[0]);
+		printf(_("%s: Discarded %ju bytes from the offset %ju\n"), \
+			path, (uintmax_t) stats[1], (uintmax_t) stats[0]);
 		break;
 	}
 }
@@ -248,8 +248,8 @@ int main(int argc, char **argv)
 
 	/* check offset alignment to the sector size */
 	if (range[0] % secsize)
-		errx(EXIT_FAILURE, _("%s: offset %" PRIu64 " is not aligned "
-			 "to sector size %i"), path, range[0], secsize);
+		errx(EXIT_FAILURE, _("%s: offset %ju is not aligned "
+			 "to sector size %i"), path, (uintmax_t) range[0], secsize);
 
 	/* is the range end behind the end of the device ?*/
 	if (range[0] > blksize)
@@ -262,8 +262,8 @@ int main(int argc, char **argv)
 
 	/* check length alignment to the sector size */
 	if (range[1] % secsize)
-		errx(EXIT_FAILURE, _("%s: length %" PRIu64 " is not aligned "
-			 "to sector size %i"), path, range[1], secsize);
+		errx(EXIT_FAILURE, _("%s: length %ju is not aligned "
+			 "to sector size %i"), path, (uintmax_t) range[1], secsize);
 #ifdef HAVE_LIBBLKID
 	if (force) {
 		if (!quiet)

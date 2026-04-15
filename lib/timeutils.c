@@ -555,7 +555,7 @@ int strtimespec_iso(const struct timespec *ts, int flags, char *buf, size_t bufs
 	if (rc)
 		return format_iso_time(&tm, ts->tv_nsec, flags, buf, bufsz);
 
-	warnx(_("time %"PRId64" is out of range."), (int64_t)(ts->tv_sec));
+	warnx(_("time %jd is out of range."), (intmax_t)(ts->tv_sec));
 	return -1;
 }
 
@@ -590,7 +590,7 @@ int strtime_iso(const time_t *t, int flags, char *buf, size_t bufsz)
 	if (rc)
 		return format_iso_time(&tm, 0, flags, buf, bufsz);
 
-	warnx(_("time %"PRId64" is out of range."), (int64_t)*t);
+	warnx(_("time %jd is out of range."), (intmax_t)*t);
 	return -1;
 }
 

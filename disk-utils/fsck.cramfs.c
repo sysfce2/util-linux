@@ -202,8 +202,8 @@ static void test_super(int *start)
 
 	/* What are valid superblock sizes? */
 	if (super.size < *start + sizeof(struct cramfs_super))
-		errx(FSCK_EX_UNCORRECTED, _("superblock size (%"PRIu32") too small"),
-		     super.size);
+		errx(FSCK_EX_UNCORRECTED, _("superblock size (%ju) too small"),
+		     (uintmax_t) super.size);
 
 	if (super.flags & CRAMFS_FLAG_FSID_VERSION_2) {
 		if (super.fsid.files == 0)
@@ -242,8 +242,8 @@ static void test_crc(int start)
 			if (tmp < 0)
 				err(FSCK_EX_ERROR, _("cannot read %s"), filename);
 			if (tmp != (ssize_t) super.size)
-				errx(FSCK_EX_ERROR, _("failed to read %"PRIu32" bytes from file %s"),
-					super.size, filename);
+				errx(FSCK_EX_ERROR, _("failed to read %ju bytes from file %s"),
+					(uintmax_t) super.size, filename);
 		}
 	}
 	if (buf != MAP_FAILED) {

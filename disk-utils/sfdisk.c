@@ -1417,9 +1417,9 @@ static int command_discard_free(struct sfdisk *sf, int argc, char **argv)
 		range[0] = (uint64_t) fdisk_partition_get_start(pa);
 		range[1] = (uint64_t) fdisk_partition_get_size(pa);
 
-		fdisk_info(sf->cxt, _("Discarding region %"PRIu64
-					     "-%"PRIu64""),
-				range[0], range[0] + range[1] - 1);
+		fdisk_info(sf->cxt, _("Discarding region %ju-%ju"),
+				(uintmax_t) range[0],
+				(uintmax_t) (range[0] + range[1] - 1));
 
 		range[0] *= ss;
 		range[1] *= ss;

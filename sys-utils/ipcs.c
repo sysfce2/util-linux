@@ -612,9 +612,9 @@ static void print_shm(int shmid, int unit)
 	       shmdata->shm_perm.mode & 0777);
 	ipc_print_size(unit, unit == IPC_UNIT_HUMAN ? _("size=") : _("bytes="),
 		       shmdata->shm_segsz, "\t", 0);
-	printf(_("lpid=%d\tcpid=%d\tnattch=%"PRIu64"\n"),
+	printf(_("lpid=%d\tcpid=%d\tnattch=%ju\n"),
 	       shmdata->shm_lprid, shmdata->shm_cprid,
-	       shmdata->shm_nattch);
+	       (uintmax_t) shmdata->shm_nattch);
 	printf(_("att_time=%-26.24s\n"),
 	       shmdata->shm_atim ? ctime64(&(shmdata->shm_atim)) : _("Not set"));
 	printf(_("det_time=%-26.24s\n"),

@@ -1122,9 +1122,9 @@ static void print_summary(struct lscpu_cxt *cxt)
 			snprintf(field, sizeof(field), hierarchic ? _("%s:") : _("%s cache:"), name);
 			if (cxt->bytes)
 				add_summary_sprint(tb, sec, field,
-						P_("%" PRIu64 " (%d instance)",
-						   "%" PRIu64 " (%d instances)", n),
-						sz, n);
+						P_("%ju (%d instance)",
+						   "%ju (%d instances)", n),
+						(uintmax_t) sz, n);
 			else {
 				char *tmp = size_to_human_string(
 						SIZE_SUFFIX_3LETTER |

@@ -209,7 +209,7 @@ static int do_pr_read_keys(int fd)
 
 	if (pr_rk.num_keys) {
 		for (uint32_t i = 0; i < pr_rk.num_keys; i++) {
-			printf(_("%#" PRIx64 "\n"), (uint64_t)keys[i]);
+			printf(_("%#jx\n"), (uintmax_t)keys[i]);
 		}
 	} else {
 		printf(_("No registered keys\n"));
@@ -247,7 +247,7 @@ static int do_pr_read_reservation(int fd)
 	type_str = type_to_str(pr_type, ARRAY_SIZE(pr_type), pr_rr.type);
 
 	if (pr_rr.key) {
-		printf(_("Key: %#" PRIx64 "\n"), (uint64_t)pr_rr.key);
+		printf(_("Key: %#jx\n"), (uintmax_t)pr_rr.key);
 		printf(_("Generation: %#x\n"), pr_rr.generation);
 		printf(_("Type: %s\n"), type_str);
 	} else {
