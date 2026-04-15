@@ -23,7 +23,13 @@ if [ "$TS_USE_SYSTEM_COMMANDS" == "yes" ]; then
 	TS_CMD_KILL="$(which kill)"
 fi
 
-ts_skip_qemu_user
+# SIGRTMAX-0 and SIGRTMAX-1 are not usable under QEMU
+is_qemu=$(ts_runs_on_qemu)
+ARCH="$(uname -m)"
+
+if [ "$ARCH" == "s390x" ] || [ "$is_qemu" == "1" ]; then
+			TS_KNOWN_FAIL="yes"
+fi
 
 ts_check_test_command "$TS_CMD_KILL"
 ts_check_test_command "$TS_HELPER_SIGSTATE"
