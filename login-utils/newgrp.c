@@ -38,6 +38,7 @@ static char *xgetpass(FILE *input, const char *prompt)
 	const int fd = fileno(input);
 	size_t dummy = 0;
 	ssize_t len;
+	int save_errno;
 
 	fputs(prompt, stdout);
 	if (isatty(fd)) {
@@ -50,12 +51,17 @@ static char *xgetpass(FILE *input, const char *prompt)
 			err(EXIT_FAILURE, _("could not set terminal attributes"));
 	}
 	len = getline(&pass, &dummy, input);
+	save_errno = errno;
 	if (isatty(fd))
 		/* restore terminal */
 		if (tcsetattr(fd, TCSANOW, &saved))
 			err(EXIT_FAILURE, _("could not set terminal attributes"));
-	if (len < 0)
+	if (len < 0) {
+		if (feof(input))
+			errx(EXIT_FAILURE, _("failed to read password"));
+		errno = save_errno;
 		err(EXIT_FAILURE, _("getline() failed"));
+	}
 	if (0 < len && *(pass + len - 1) == '\n')
 		*(pass + len - 1) = '\0';
 	return pass;
