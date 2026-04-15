@@ -366,7 +366,7 @@ static void dos_init(struct fdisk_context *cxt)
 		  "partition table format cannot be used on drives for "
 		  "volumes larger than %lu bytes for %lu-byte "
 		  "sectors. Use GUID partition table format (GPT)."),
-			szstr, bytes,
+			szstr, (uintmax_t) bytes,
 			UINT_MAX * cxt->sector_size,
 			cxt->sector_size);
 		free(szstr);
@@ -1341,7 +1341,7 @@ static int add_partition(struct fdisk_context *cxt, size_t n,
 
 		temp = start;
 
-		DBG(LABEL, ul_debug("DOS: >>> search for first free from %ju", start));
+		DBG(LABEL, ul_debug("DOS: >>> search for first free from %"PRIu64, start));
 		rc = find_first_free_sector(cxt, is_logical, start, &dflt);
 		if (rc == -ENOSPC)
 			fdisk_warnx(cxt, _("No free sectors available."));
@@ -1388,8 +1388,8 @@ static int add_partition(struct fdisk_context *cxt, size_t n,
 
 			rc = find_last_free(cxt, is_logical, start, limit, &last);
 			if (rc == 0 && last - start + 1 < fdisk_partition_get_size(pa)) {
-				DBG(LABEL, ul_debug("DOS: area <%ju,%ju> too small [wanted=%ju aval=%ju]",
-							(uintmax_t) start, (uintmax_t) last,
+				DBG(LABEL, ul_debug("DOS: area <%"PRIu64",%"PRIu64"> too small [wanted=%"PRIu64" aval=%"PRIu64"]",
+							start, last,
 							fdisk_partition_get_size(pa),
 							last - start));
 
@@ -1423,7 +1423,7 @@ static int add_partition(struct fdisk_context *cxt, size_t n,
 		assert(start >= cxt->first_lba);
 
 		pe->offset = start - cxt->first_lba;
-		DBG(LABEL, ul_debug("DOS: setting EBR offset to %ju [start=%ju]", pe->offset, start));
+		DBG(LABEL, ul_debug("DOS: setting EBR offset to %"PRIu64" [start=%"PRIu64"]", pe->offset, start));
 
 		if (pe->offset == l->ext_offset) { /* must be corrected */
 			pe->offset++;
@@ -1850,7 +1850,7 @@ static int dos_verify_disklabel(struct fdisk_context *cxt)
 				"than the maximum %ju."), (uintmax_t) total, (uintmax_t) n_sectors);
 		else if (total < n_sectors)
 			fdisk_info(cxt, _("Remaining %ju unallocated %lu-byte "
-				"sectors."), (uintmax_t) n_sectors - total, cxt->sector_size);
+				"sectors."), (uintmax_t) (n_sectors - total), cxt->sector_size);
 	} else
 		fdisk_warnx(cxt,
 			P_("%d error detected.", "%d errors detected.", nerrors),

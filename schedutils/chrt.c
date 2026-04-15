@@ -241,19 +241,19 @@ fallback:
 
 	if (runtime && supports_custom_slice(policy)) {
 		if (ctl->altered)
-			printf(_("pid %d's new runtime parameter: %ju\n"), pid, runtime);
+			printf(_("pid %d's new runtime parameter: %ju\n"), pid, (uintmax_t)runtime);
 		else
-			printf(_("pid %d's current runtime parameter: %ju\n"), pid, runtime);
+			printf(_("pid %d's current runtime parameter: %ju\n"), pid, (uintmax_t)runtime);
 	}
 
 #ifdef SCHED_DEADLINE
 	if (policy == SCHED_DEADLINE) {
 		if (ctl->altered)
 			printf(_("pid %d's new runtime/deadline/period parameters: %ju/%ju/%ju\n"),
-					pid, runtime, deadline, period);
+					pid, (uintmax_t)runtime, (uintmax_t)deadline, (uintmax_t)period);
 		else
 			printf(_("pid %d's current runtime/deadline/period parameters: %ju/%ju/%ju\n"),
-					pid, runtime, deadline, period);
+					pid, (uintmax_t)runtime, (uintmax_t)deadline, (uintmax_t)period);
 	}
 #endif
 }

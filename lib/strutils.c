@@ -1513,10 +1513,10 @@ int main(int argc, char *argv[])
 		return test_strutils_normalize(argc - 1, argv + 1);
 
 	} else if (argc == 3 && strcmp(argv[1], "--strtos64") == 0) {
-		printf("'%s'-->%jd\n", argv[2], strtos64_or_err(argv[2], "strtos64 failed"));
+		printf("'%s'-->%"PRId64"\n", argv[2], strtos64_or_err(argv[2], "strtos64 failed"));
 		return EXIT_SUCCESS;
 	} else if (argc == 3 && strcmp(argv[1], "--strtou64") == 0) {
-		printf("'%s'-->%ju\n", argv[2], strtou64_or_err(argv[2], "strtou64 failed"));
+		printf("'%s'-->%"PRIu64"\n", argv[2], strtou64_or_err(argv[2], "strtou64 failed"));
 		return EXIT_SUCCESS;
 	} else if (argc == 3 && strcmp(argv[1], "--strtos32") == 0) {
 		printf("'%s'-->%d\n", argv[2], strtos32_or_err(argv[2], "strtos32 failed"));

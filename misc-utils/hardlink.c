@@ -881,7 +881,7 @@ static int inserter(const char *fpath, const struct stat *sb,
 	}
 
 	jlog(VERBOSE2, printf(" %5zu: [%" PRIu64 "/%" PRIu64 "/%zu] %s",
-			stats.files, sb->st_dev, sb->st_ino,
+			stats.files, (uint64_t)sb->st_dev, sb->st_ino,
 			(size_t) sb->st_nlink, fpath));
 
 	if ((opts.max_size > 0) && ((uintmax_t) sb->st_size > opts.max_size)) {

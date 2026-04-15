@@ -131,7 +131,7 @@ static void do_taskset(struct taskset *ts, size_t setsize, cpu_set_t *set)
 
 	/* set new mask */
 	if (sched_setaffinity(ts->pid, setsize, set) < 0) {
-		uintmax_t flags = 0;
+		uint64_t flags = 0;
 		struct path_cxt *pc;
 		int errsv = errno;
 

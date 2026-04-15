@@ -70,7 +70,7 @@ void list_disk_geometry(struct fdisk_context *cxt)
 	color_scheme_enable("header", UL_COLOR_BOLD);
 	fdisk_info(cxt,	_("Disk %s: %s, %ju bytes, %ju sectors"),
 			fdisk_get_devname(cxt), strsz,
-			bytes, (uintmax_t) fdisk_get_nsectors(cxt));
+			(uintmax_t)bytes, (uintmax_t) fdisk_get_nsectors(cxt));
 	color_disable();
 	free(strsz);
 

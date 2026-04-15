@@ -682,7 +682,8 @@ void resize_partition(struct fdisk_context *cxt)
 	struct fdisk_partition *pa = NULL, *npa = NULL, *next = NULL;
 	char *query = NULL, *response = NULL, *default_size;
 	struct fdisk_table *tb = NULL;
-	uint64_t max_size, size, secs;
+	uint64_t max_size, secs;
+	uintmax_t size;
 	size_t i;
 	int rc;
 
