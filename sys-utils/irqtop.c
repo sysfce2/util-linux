@@ -86,6 +86,37 @@ struct irqtop_ctl {
 		softirq;
 };
 
+#ifndef OK
+# define OK 0
+#endif
+
+#ifndef HAVE_VW_PRINTW
+static inline int vw_printw(WINDOW *win, const char *fmt, va_list args)
+{
+	char buf[BUFSIZ];
+
+	if (vsnprintf(buf, sizeof(buf), fmt, args) < 0)
+		return ERR;
+	return waddstr(win, buf);
+}
+#endif
+
+/* Write pre-formatted data to the screen, followed by @nl newlines */
+static inline void irqtop_puts(struct irqtop_ctl *ctl, const char *data, int nl)
+{
+	if (ctl->batch) {
+		fputs(data, stdout);
+		while (nl--)
+			fputc('\n', stdout);
+	} else {
+		waddstr(ctl->win, (char *) data);
+		while (nl--)
+			waddch(ctl->win, '\n');
+		wrefresh(ctl->win);
+	}
+}
+
+/* Write formatted output to the screen */
 static inline int irqtop_printf(struct irqtop_ctl *ctl, const char *fmt, ...)
 {
 	int ret = 0;
@@ -169,7 +200,7 @@ static int update_screen(struct irqtop_ctl *ctl, struct irq_output *out)
 	if (cpus) {
 		scols_print_table_to_string(cpus, &data);
 		if (data && *data)
-			irqtop_printf(ctl, "%s\n\n", data);
+			irqtop_puts(ctl, data, 2);
 		free(data);
 	}
 
@@ -184,14 +215,14 @@ static int update_screen(struct irqtop_ctl *ctl, struct irq_output *out)
 		*p = '\0';
 		if (!ctl->batch)
 			attron(A_REVERSE);
-		irqtop_printf(ctl, "%s\n", data);
+		irqtop_puts(ctl, data, 1);
 		if (!ctl->batch)
 			attroff(A_REVERSE);
 		data = p + 1;
 	}
 
 	if (data && *data)
-		irqtop_printf(ctl, "%s\n\n", data);
+		irqtop_puts(ctl, data, 2);
 	free(data0);
 
 	/* clean up */

@@ -320,6 +320,8 @@ foreach curses_libs : [lib_slang, lib_ncursesw, lib_ncurses]
     conf.set('HAVE_USE_DEFAULT_COLORS', have ? 1 : false)
     have = cc.has_function('resizeterm', dependencies : curses_libs)
     conf.set('HAVE_RESIZETERM', have ? 1 : false)
+    have = cc.has_function('vw_printw', dependencies : curses_libs)
+    conf.set('HAVE_VW_PRINTW', have ? 1 : false)
     break
   endif
 endforeach
