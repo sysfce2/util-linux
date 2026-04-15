@@ -978,9 +978,10 @@ static gid_t add_supp_group(const char *name, gid_t **groups, size_t *ngroups)
 		        "specifying more than %d supplemental groups is not possible",
 			NGROUPS_MAX - 1), NGROUPS_MAX - 1);
 
+	errno = 0;
 	gr = ul_getgrp_str(name, NULL);
 	if (!gr)
-		errx(EXIT_FAILURE, _("group %s does not exist"), name);
+		err(EXIT_FAILURE, _("group %s does not exist"), name);
 
 	DBG(MISC, ul_debug("add %s group [name=%s, GID=%d]", name, gr->gr_name, (int) gr->gr_gid));
 

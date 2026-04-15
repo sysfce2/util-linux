@@ -166,34 +166,44 @@ char *xgetlogin(void)
  *
  * If @result is not NULL, it will always be set to the parsed GID on success
  * or (gid_t) -1 on failure.
+ *
+ * On failure NULL is returned and errno is set to indicate the error.
  */
 struct group *ul_getgrp_str(const char *str, gid_t *result)
 {
-        int rc;
-        uint64_t num;
-        struct group *gr;
+	int rc;
+	uint64_t num;
+	struct group *gr;
 
-        if (result)
-                *result = (gid_t) -1;
+	if (result)
+		*result = (gid_t) -1;
 
-        rc = ul_strtou64(str, &num, 10);
-        if (rc == -ERANGE)
-                return NULL;
-        if (rc == -EINVAL) {
-                errno = 0;
-                gr = getgrnam(str);
-                if (gr && result)
-                        *result = gr->gr_gid;
-                return gr;
-        }
-        if (num > MAX_OF_UINT_TYPE(gid_t)) {
-                errno = ERANGE;
-                return NULL;
-        }
+	rc = ul_strtou64(str, &num, 10);
+	if (rc == -ERANGE || num > MAX_OF_UINT_TYPE(gid_t)) {
+		errno = ERANGE;
+		return NULL;
+	}
 
-        if (result)
-                *result = (gid_t) num;
-        return getgrgid((gid_t) num);
+	/* maybe an actual name */
+	if (rc == -EINVAL) {
+		errno = 0;
+		gr = getgrnam(str);
+		if (gr && result)
+			*result = gr->gr_gid;
+		else if (!gr && !errno)
+			errno = EINVAL;
+		return gr;
+	}
+
+	if (result)
+		*result = (gid_t) num;
+
+	errno = 0;
+	gr = getgrgid((gid_t) num);
+	if (!gr && !errno)
+		errno = EINVAL;
+
+	return gr;
 }
 
 /*
@@ -201,34 +211,44 @@ struct group *ul_getgrp_str(const char *str, gid_t *result)
  *
  * If @result is not NULL, it will always be set to the parsed UID on success
  * or (uid_t) -1 on failure.
+ *
+ * On failure NULL is returned and errno is set to indicate the error.
  */
 struct passwd *ul_getuserpw_str(const char *str, uid_t *result)
 {
-        int rc;
-        uint64_t num;
-        struct passwd *pw;
+	int rc;
+	uint64_t num;
+	struct passwd *pw;
 
-        if (result)
-                *result = (uid_t) -1;
+	if (result)
+		*result = (uid_t) -1;
 
-        rc = ul_strtou64(str, &num, 10);
-        if (rc == -ERANGE)
-                return NULL;
-        if (rc == -EINVAL) {
-                errno = 0;
-                pw = getpwnam(str);
-                if (pw && result)
-                        *result = pw->pw_uid;
-                return pw;
-        }
-        if (num > MAX_OF_UINT_TYPE(uid_t)) {
-                errno = ERANGE;
-                return NULL;
-        }
+	rc = ul_strtou64(str, &num, 10);
+	if (rc == -ERANGE || num > MAX_OF_UINT_TYPE(uid_t)) {
+		errno = ERANGE;
+		return NULL;
+	}
 
-        if (result)
-                *result = (uid_t) num;
-        return getpwuid((uid_t) num);
+	/* maybe an actual name */
+	if (rc == -EINVAL) {
+		errno = 0;
+		pw = getpwnam(str);
+		if (pw && result)
+			*result = pw->pw_uid;
+		else if (!pw && !errno)
+			errno = EINVAL;
+		return pw;
+	}
+
+	if (result)
+		*result = (uid_t) num;
+
+	errno = 0;
+	pw = getpwuid((uid_t) num);
+	if (!pw && !errno)
+		errno = EINVAL;
+
+	return pw;
 }
 
 #ifdef TEST_PROGRAM
