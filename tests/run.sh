@@ -106,9 +106,6 @@ while [ -n "$1" ]; do
 	--parallel)
 		paraller_jobs=$(num_cpus)
 		;;
-	--parsable)
-		OPTS="$OPTS $1"
-		;;
 	--exclude=*)
 		EXCLUDETESTS="${1##--exclude=}"
 		;;
@@ -196,7 +193,7 @@ if [ -n "$SUBTESTS" ]; then
 		fi
 	done
 else
-	if [ -z "$SYSCOMMANDS" -a ! -f "$top_builddir/test_ttyutils" ]; then
+	if [ -z "$SYSCOMMANDS" ] && [ ! -f "$top_builddir/test_ttyutils" ]; then
 		echo "Tests not compiled! Run 'make check-programs' to fix the problem."
 		exit 1
 	fi
@@ -246,8 +243,7 @@ if [ "$paraller_jobs" -ne 1 ]; then
 	OPTS="$OPTS --parallel"
 fi
 
-count=0
-mkdir -p $top_builddir/tests/
+mkdir -p "$top_builddir"/tests/
 >| $top_builddir/tests/failures
 printf "%s\n" ${comps[*]} |
 	sort |
