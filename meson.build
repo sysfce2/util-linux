@@ -3105,7 +3105,9 @@ if opt and not is_disabler(exe)
   exes += exe
 endif
 
-opt = get_option('build-copyfilerange').require(LINUX and conf.get('HAVE_COPY_FILE_RANGE').to_string() == '1').allowed()
+have_copy_file_range = conf.get('HAVE_COPY_FILE_RANGE').to_string() == '1' \
+  or cc.has_header_symbol('sys/syscall.h', 'SYS_copy_file_range')
+opt = get_option('build-copyfilerange').require(LINUX and have_copy_file_range).allowed()
 exe = executable(
   'copyfilerange',
   copyfilerange_sources,
