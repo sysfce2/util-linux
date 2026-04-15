@@ -55,7 +55,9 @@ static int probe_bsd_pt(blkid_probe pr, const struct blkid_idmag *mag)
 		/* caller does not ask for details about partitions */
 		return rc;
 
-	data = blkid_probe_get_sector(pr, BLKID_MAG_SECTOR(mag));
+	data = blkid_probe_get_buffer(pr,
+			(uint64_t) BLKID_MAG_SECTOR(mag) << 9,
+			BLKID_MAG_LASTOFFSET(mag) + sizeof(struct bsd_disklabel));
 	if (!data) {
 		if (errno)
 			rc = -errno;
