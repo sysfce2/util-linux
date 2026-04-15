@@ -755,7 +755,9 @@ int main(int argc, char **argv)
 			break;
 		case 'L':
 			ctl.eval = 1;
+			free(search_value);
 			search_value = xstrdup(optarg);
+			free(search_type);
 			search_type = xstrdup("LABEL");
 			break;
 		case 'n':
@@ -766,7 +768,9 @@ int main(int argc, char **argv)
 			break;
 		case 'U':
 			ctl.eval = 1;
+			free(search_value);
 			search_value = xstrdup(optarg);
+			free(search_type);
 			search_type = xstrdup("UUID");
 			break;
 		case 'i':

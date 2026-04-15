@@ -1446,7 +1446,7 @@ static void initialize(int argc, char **argv, struct login_context *cxt)
 			break;
 
 		case 's':
-			cxt->shell_arg = xstrdup(optarg);
+			cxt->shell_arg = optarg;
 			break;
 
 		case 'V':

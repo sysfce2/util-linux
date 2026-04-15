@@ -28,7 +28,6 @@
 #include "closestream.h"
 #include "optutils.h"
 #include "strutils.h"
-#include "xalloc.h"
 #include "pathnames.h"
 
 #include "irq-common.h"
@@ -106,7 +105,7 @@ int main(int argc, char **argv)
 	cpu_set_t *cpuset = NULL;
 	size_t setsize = 0;
 	int softirq = 0;
-	char *input_file = NULL;
+	const char *input_file = NULL;
 
 	setlocale(LC_ALL, "");
 	bindtextdomain(PACKAGE, LOCALEDIR);
@@ -124,7 +123,7 @@ int main(int argc, char **argv)
 			out.pairs = 1;
 			break;
 		case 'i':
-			input_file = xstrdup(optarg);
+			input_file = optarg;
 			break;
 		case 'n':
 			out.no_headings = 1;
@@ -169,9 +168,9 @@ int main(int argc, char **argv)
 
 	if (input_file == NULL) {
 		if (softirq == 1)
-			input_file = xstrdup(_PATH_PROC_SOFTIRQS);
+			input_file = _PATH_PROC_SOFTIRQS;
 		else
-			input_file = xstrdup(_PATH_PROC_INTERRUPTS);
+			input_file = _PATH_PROC_INTERRUPTS;
 	}
 
 	/* default */
@@ -192,8 +191,6 @@ int main(int argc, char **argv)
 
 	if (print_irq_data(input_file, &out, softirq, threshold, setsize, cpuset) < 0)
 		return EXIT_FAILURE;
-
-	free(input_file);
 
 	return EXIT_SUCCESS;
 }
