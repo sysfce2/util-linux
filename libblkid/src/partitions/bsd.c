@@ -49,7 +49,7 @@ static int probe_bsd_pt(blkid_probe pr, const struct blkid_idmag *mag)
 	int i, nparts = BSD_MAXPARTITIONS;
 	const unsigned char *data;
 	int rc = BLKID_PROBE_NONE;
-	uint32_t abs_offset = 0;
+	uint64_t abs_offset = 0;
 
 	if (blkid_partitions_need_typeonly(pr))
 		/* caller does not ask for details about partitions */
@@ -115,7 +115,7 @@ static int probe_bsd_pt(blkid_probe pr, const struct blkid_idmag *mag)
 
 	for (i = 0, p = l->d_partitions; i < nparts; i++, p++) {
 		blkid_partition par;
-		uint32_t start, size;
+		uint64_t start, size;
 
 		if (p->p_fstype == BSD_FS_UNUSED)
 			continue;
@@ -131,8 +131,8 @@ static int probe_bsd_pt(blkid_probe pr, const struct blkid_idmag *mag)
 		    && le32_to_cpu(l->d_partitions[2].p_offset) == 0)
 			start += abs_offset;
 
-		if (parent && blkid_partition_get_start(parent) == start
-			   && blkid_partition_get_size(parent) == size) {
+		if (parent && (uint64_t) blkid_partition_get_start(parent) == start
+			   && (uint64_t) blkid_partition_get_size(parent) == size) {
 			DBG(LOWPROBE, ul_debug(
 				"WARNING: BSD partition (%d) same like parent, "
 				"ignore", i));
