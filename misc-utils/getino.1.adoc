@@ -82,7 +82,9 @@ mailto:cgoesc2@wgu.edu[Christian Goeschel Ndjomouo]
 
 == SEE ALSO
 
-*kill*(1) *pidfd_open(2)* *namespaces(7)*
+*kill*(1),
+*pidfd_open*(2),
+*namespaces*(7)
 
 include::man-common/bugreports.adoc[]
 

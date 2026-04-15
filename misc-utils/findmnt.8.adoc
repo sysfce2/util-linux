@@ -260,7 +260,7 @@ mailto:kzak@redhat.com[Karel Zak]
 == SEE ALSO
 
 *fstab*(5),
-*mount*(8)
+*mount*(8),
 *scols-filter*(5)
 
 include::man-common/bugreports.adoc[]

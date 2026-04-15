@@ -115,6 +115,7 @@ mailto:pauld@redhat.com[Phil Auld]
 Copyright {copyright} 2024 Thijs Raymakers and Phil Auld. This is free software licensed under the EUPL.
 
 == SEE ALSO
+
 *chrt*(1),
 *nice*(1),
 *renice*(1),
