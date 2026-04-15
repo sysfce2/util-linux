@@ -349,8 +349,13 @@ real_blksz:
 	/* Use the actual block size from here on out */
 	bs = pbs[i];
 
-	/* get descriptor list address and block count */
+	/* get descriptor list address and block count;
+	 * UDF volume descriptor sequence is short (PVD, LVD, USD, IUVD, TD, etc.),
+	 * cap iteration to avoid DoS from crafted anchor length
+	 * (the kernel uses UDF_MAX_TD_NESTING=64 for a similar purpose) */
 	count = le32_to_cpu(vd->type.anchor.length) / bs;
+	if (count > 64)
+		count = 64;
 	loc = le32_to_cpu(vd->type.anchor.location);
 
 	/* pick the primary descriptor from the list and read UDF identifiers */
