@@ -111,7 +111,7 @@ conf.set('HAVE_MOUNTFD_API', have_mountfd_api ? 1 : false)
 have_struct_statx = cc.has_type('struct statx', args : '-D_GNU_SOURCE', prefix : '#include <sys/stat.h>')
 conf.set('HAVE_STRUCT_STATX', have_struct_statx ? 1 : false)
 have = cc.has_member('struct statx', 'stx_mnt_id',
-                     prefix : '#include <linux/stat.h>')
+                     prefix : '#include <sys/stat.h>')
 conf.set('HAVE_STRUCT_STATX_STX_MNT_ID', have ? 1 : false)
 
 
