@@ -78,7 +78,6 @@ jobs:
           path-to-lcov: ./coverage.info
 
   meson:
-    needs: build
     runs-on: ubuntu-latest
     concurrency:
       group: ${{ github.workflow }}-meson-${{ github.ref }}
@@ -96,6 +95,8 @@ jobs:
         run: .github/workflows/cibuild.sh MESONCONF
       - name: Meson build
         run: .github/workflows/cibuild.sh MESONBUILD
+      - name: Check
+        run: .github/workflows/cibuild.sh CHECK
 
   distcheck:
     needs: build

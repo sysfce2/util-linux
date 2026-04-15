@@ -197,7 +197,9 @@ for phase in "${PHASES[@]}"; do
             done
         fi
 
-        make checkusage
+        if [[ -f Makefile ]]; then # autotools build
+                make checkusage
+        fi
 
         ./tests/run.sh --show-diff
 

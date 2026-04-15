@@ -3,13 +3,7 @@ dir_libsmartcols = include_directories('.', 'src')
 defs = configuration_data()
 defs.set('LIBSMARTCOLS_VERSION', pc_version)
 
-configure_file(
-  input : 'src/libsmartcols.h.in',
-  output : 'libsmartcols.h',
-  configuration : defs,
-  install : build_libsmartcols,
-  install_dir : get_option('includedir') / 'libsmartcols',
-)
+subdir('src')
 
 scols_bison = generator(
   bison,
