@@ -747,11 +747,14 @@ AS_IF([test "x$ul_cv_syscall_statmount" = xno ||
    ])
 
 
-AC_CHECK_FUNCS([isnan], [],
-	[AC_CHECK_LIB([m], [isnan], [MATH_LIBS="-lm"])]
-	[AC_CHECK_LIB([m], [__isnan], [MATH_LIBS="-lm"])]
-)
+AC_CHECK_LIB([m], [floor], [MATH_LIBS="-lm"])
 AC_SUBST([MATH_LIBS])
+
+AC_CHECK_FUNCS([isnan], [],
+	[AC_CHECK_LIB([m], [isnan], [ISNAN_LIBS="-lm"])]
+	[AC_CHECK_LIB([m], [__isnan], [ISNAN_LIBS="-lm"])]
+)
+AC_SUBST([ISNAN_LIBS])
 
 
 dnl lib/mononotic.c may require -lrt
