@@ -110,7 +110,7 @@ static inline ssize_t copy_file_range(int fd_in, off_t *off_in,
 	return syscall(SYS_copy_file_range, fd_in, off_in, fd_out,
 		off_out, size, flags);
 }
-# define HAVE_COPY_FILE_RANGE 1
+#  define HAVE_COPY_FILE_RANGE 1
 # endif /* SYS_copy_file_range */
 
 #endif	/* HAVE_SYS_SYSCALL_H */
