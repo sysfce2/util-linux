@@ -65,7 +65,7 @@ if HAVE_LINUXPAM
 login_LDADD += -lpam_misc
 endif
 if HAVE_AUDIT
-login_LDADD += -laudit
+login_LDADD += $(AUDIT_LIBS)
 endif
 if HAVE_SELINUX
 login_LDADD += $(SELINUX_LIBS)
