@@ -252,5 +252,5 @@ test_logindefs_SOURCES = lib/logindefs.c
 test_logindefs_CPPFLAGS = -DTEST_PROGRAM $(AM_CPPFLAGS)
 test_logindefs_LDADD = $(LDADD) libcommon.la
 if HAVE_ECONF
-test_logindefs_LDADD += -leconf
+test_logindefs_LDADD += $(ECONF_LIBS)
 endif
