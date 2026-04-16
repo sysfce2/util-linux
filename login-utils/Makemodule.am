@@ -43,7 +43,7 @@ if HAVE_LIBCRYPT
 sulogin_LDADD += -lcrypt
 endif
 if HAVE_SELINUX
-sulogin_LDADD += -lselinux
+sulogin_LDADD += $(SELINUX_LIBS)
 endif
 
 check_PROGRAMS += test_consoles
@@ -68,7 +68,7 @@ if HAVE_AUDIT
 login_LDADD += -laudit
 endif
 if HAVE_SELINUX
-login_LDADD += -lselinux
+login_LDADD += $(SELINUX_LIBS)
 endif
 if HAVE_ECONF
 login_LDADD += $(ECONF_LIBS)
@@ -138,7 +138,7 @@ if HAVE_SELINUX
 chfn_chsh_sources += \
 	lib/selinux-utils.c \
 	include/selinux-utils.h
-chfn_chsh_ldadd += -lselinux
+chfn_chsh_ldadd += $(SELINUX_LIBS)
 endif
 
 chfn_SOURCES = \
@@ -240,7 +240,7 @@ lslogins_SOURCES = \
 lslogins_LDADD = $(LDADD) libcommon.la libsmartcols.la
 lslogins_CFLAGS = $(AM_CFLAGS) -I$(ul_libsmartcols_incdir)
 if HAVE_SELINUX
-lslogins_LDADD += -lselinux
+lslogins_LDADD += $(SELINUX_LIBS)
 endif
 if HAVE_SYSTEMD
 lslogins_LDADD += $(SYSTEMD_LIBS) $(SYSTEMD_JOURNAL_LIBS)
@@ -266,7 +266,7 @@ vipw_SOURCES = \
 	login-utils/setpwnam.h
 vipw_LDADD = $(LDADD) libcommon.la
 if HAVE_SELINUX
-vipw_LDADD += -lselinux
+vipw_LDADD += $(SELINUX_LIBS)
 endif
 install-exec-hook-vipw::
 	cd $(DESTDIR)$(usrsbin_execdir) && ln -sf vipw vigr
