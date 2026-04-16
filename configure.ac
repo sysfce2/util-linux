@@ -1752,9 +1752,11 @@ AC_ARG_WITH([libz],
   AS_HELP_STRING([--without-libz], [compile without libz]),
   [], [with_libz=auto]
 )
-AS_IF([test "x$with_libz" = xno], [have_z=no], [
-  AC_CHECK_LIB([z], [crc32], [have_z=yes], [have_z=no])
+have_z=no
+AS_IF([test "x$with_libz" = xno], [], [
+  PKG_CHECK_MODULES([Z], [zlib], [have_z=yes], [have_z=no])
 ])
+AC_SUBST([Z_LIBS])
 
 AC_ARG_WITH([libmagic],
   AS_HELP_STRING([--without-libmagic], [compile without libmagic]),

@@ -122,13 +122,13 @@ sbin_PROGRAMS += fsck.cramfs
 MANPAGES += disk-utils/fsck.cramfs.8
 dist_noinst_DATA += disk-utils/fsck.cramfs.8.adoc
 fsck_cramfs_SOURCES = disk-utils/fsck.cramfs.c $(cramfs_common_sources)
-fsck_cramfs_LDADD = $(LDADD) -lz libcommon.la
+fsck_cramfs_LDADD = $(LDADD) $(Z_LIBS) libcommon.la
 
 sbin_PROGRAMS += mkfs.cramfs
 MANPAGES += disk-utils/mkfs.cramfs.8
 dist_noinst_DATA += disk-utils/mkfs.cramfs.8.adoc
 mkfs_cramfs_SOURCES = disk-utils/mkfs.cramfs.c $(cramfs_common_sources)
-mkfs_cramfs_LDADD = $(LDADD) -lz libcommon.la
+mkfs_cramfs_LDADD = $(LDADD) $(Z_LIBS) libcommon.la
 endif
 
 if BUILD_FDFORMAT
