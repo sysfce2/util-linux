@@ -1678,12 +1678,14 @@ AC_ARG_WITH([cap_ng],
   AS_HELP_STRING([--without-cap-ng], [compile without libcap-ng]),
   [], [with_cap_ng=auto]
 )
+have_cap_ng=no
 AS_IF([test "x$with_cap_ng" = xno], [
   AM_CONDITIONAL([HAVE_CAP_NG], [false])
-  have_cap_ng=no
 ],[
-  UL_CHECK_LIB([cap-ng], [capng_apply], [cap_ng])
+  PKG_CHECK_MODULES([CAP_NG], [libcap-ng], [have_cap_ng=yes], [have_cap_ng=no])
+  AM_CONDITIONAL([HAVE_CAP_NG], [test "x$have_cap_ng" = xyes])
 ])
+AC_SUBST([CAP_NG_LIBS])
 
 
 AC_ARG_ENABLE([setpriv],

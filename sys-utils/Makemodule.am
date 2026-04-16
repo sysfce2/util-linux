@@ -598,7 +598,7 @@ dist_noinst_HEADERS += sys-utils/setpriv-landlock.h
 if HAVE_LINUX_LANDLOCK_H
 setpriv_SOURCES += sys-utils/setpriv-landlock.c
 endif
-setpriv_LDADD = $(LDADD) -lcap-ng libcommon.la
+setpriv_LDADD = $(LDADD) $(CAP_NG_LIBS) libcommon.la
 if HAVE_ECONF
 setpriv_LDADD += $(ECONF_LIBS)
 endif
