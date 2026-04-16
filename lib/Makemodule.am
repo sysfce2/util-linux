@@ -183,7 +183,7 @@ test_pty_SOURCES = lib/pty-session.c \
 		   include/pty-session.h \
 		   lib/monotonic.c
 test_pty_CFLAGS = $(AM_CFLAGS) -DTEST_PROGRAM_PTY
-test_pty_LDADD = $(LDADD) libcommon.la $(MATH_LIBS) $(REALTIME_LIBS) -lutil
+test_pty_LDADD = $(LDADD) libcommon.la $(REALTIME_LIBS) -lutil
 endif
 
 if LINUX

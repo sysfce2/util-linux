@@ -3600,8 +3600,7 @@ if have_pty
     c_args : ['-DTEST_PROGRAM_PTY'],
     include_directories : dir_include,
     link_with : [lib_common],
-    dependencies : [lib_m,
-                    realtime_libs,
+    dependencies : [realtime_libs,
                     lib_util],
     build_by_default: program_tests)
   if not is_disabler(exe)
