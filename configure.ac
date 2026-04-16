@@ -1103,15 +1103,21 @@ AC_ARG_WITH([udev], AS_HELP_STRING([--without-udev], [compile without udev suppo
   [], [with_udev=auto]
 )
 
+have_udev=no
 AS_IF([test "x$with_udev" = xno], [
   AM_CONDITIONAL([HAVE_UDEV], [false])
 ], [
-  UL_CHECK_LIB([udev], [udev_new])
+  PKG_CHECK_MODULES([UDEV], [libudev], [have_udev=yes], [have_udev=no])
   AS_CASE([$with_udev:$have_udev],
     [yes:no],
       [AC_MSG_ERROR([udev selected but libudev not found])]
   )
+  AS_IF([test "x$have_udev" = xyes], [
+    AC_DEFINE([HAVE_LIBUDEV], [1], [Define if udev is available])
+    AM_CONDITIONAL([HAVE_UDEV], [true])
+  ])
 ])
+AC_SUBST([UDEV_LIBS])
 
 
 dnl wide-char ncurses

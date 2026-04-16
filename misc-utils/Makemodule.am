@@ -205,7 +205,7 @@ findmnt_SOURCES = misc-utils/findmnt.c \
 		  misc-utils/findmnt-verify.c \
 		  misc-utils/findmnt.h
 if HAVE_UDEV
-findmnt_LDADD += -ludev
+findmnt_LDADD += $(UDEV_LIBS)
 endif
 endif # BUILD_FINDMNT
 
