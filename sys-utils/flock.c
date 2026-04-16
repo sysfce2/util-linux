@@ -330,7 +330,7 @@ int main(int argc, char *argv[])
 				     _("%s requires exactly one command argument"),
 				     argv[optind + 1]);
 			cmd_argv = sh_c_argv;
-			cmd_argv[0] = (char *)ul_default_shell(0, NULL);
+			cmd_argv[0] = (char *)ul_default_shell(UL_SHELL_NOPWD, NULL);
 			cmd_argv[1] = "-c";
 			cmd_argv[2] = argv[optind + 2];
 			cmd_argv[3] = NULL;
