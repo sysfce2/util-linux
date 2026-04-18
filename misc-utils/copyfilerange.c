@@ -148,7 +148,7 @@ static void copy_range(struct rangeitem *range) {
 						range->out_fd, &range->out_offset, chunk, 0);
 		if (copied < 0)
 			errx(EXIT_FAILURE, _("failed to copy range %jd:%jd:%ju "
-						"from %s to %s with %ju remaining: %m\n"),
+						"from %s to %s with %ju remaining: %m"),
 						(intmax_t) range->in_offset, (intmax_t) range->out_offset,
 								range->length, range->in_filename,
 								range->out_filename, remaining);
@@ -162,7 +162,7 @@ static void copy_range(struct rangeitem *range) {
 static void handle_range(char* str, struct rangeitem *range)
 {
 	if (parse_range(str, range) != 0)
-		errx(EXIT_FAILURE, _("invalid range format: %s\n"), str);
+		errx(EXIT_FAILURE, _("invalid range format: %s"), str);
 
 	if (!range->length)
 		range->length = range->in_st_size - range->in_offset;
