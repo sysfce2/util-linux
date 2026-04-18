@@ -5,9 +5,6 @@
  * Written by Eric Sandeen <sandeen@redhat.com>
  *            Karel Zak <kzak@redhat.com>
  *
- * cvtnum routine taken from xfsprogs,
- * Copyright (c) 2003-2005 Silicon Graphics, Inc.
- *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation.
