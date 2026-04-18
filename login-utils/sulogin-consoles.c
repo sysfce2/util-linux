@@ -815,8 +815,10 @@ int main(int argc, char *argv[])
 		fd = STDIN_FILENO;
 	}
 
-	if (!name)
-		errx(EXIT_FAILURE, "usage: %s [<tty>]\n", program_invocation_short_name);
+	if (!name) {
+		fprintf(stderr, "usage: %s [<tty>]\n", program_invocation_short_name);
+		return EXIT_FAILURE;
+	}
 
 	INIT_LIST_HEAD(&consoles);
 	re = detect_consoles(name, fd, &consoles);
