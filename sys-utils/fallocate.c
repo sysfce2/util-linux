@@ -479,6 +479,10 @@ int main(int argc, char **argv)
 		if (length == 0)
 			errx(EXIT_FAILURE, _("invalid length"));
 	}
+	if (length > SINT_MAX(off_t) - offset) {
+		errno = ERANGE;
+		err(EXIT_FAILURE, _("invalid range specified"));
+	}
 
 	/* O_CREAT makes sense only for the default fallocate(2) behavior
 	 * when mode is no specified and new space is allocated */
