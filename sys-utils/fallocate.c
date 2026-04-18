@@ -498,23 +498,23 @@ int main(int argc, char **argv)
 			char *str = size_to_human_string(SIZE_SUFFIX_3LETTER | SIZE_SUFFIX_SPACE, length);
 
 			if (mode & FALLOC_FL_PUNCH_HOLE)
-				fprintf(stdout, _("%s: %s (%ju bytes) hole created.\n"),
-								filename, str, length);
+				fprintf(stdout, _("%s: %s (%jd bytes) hole created.\n"),
+								filename, str, (intmax_t) length);
 			else if (mode & FALLOC_FL_COLLAPSE_RANGE)
-				fprintf(stdout, _("%s: %s (%ju bytes) removed.\n"),
-								filename, str, length);
+				fprintf(stdout, _("%s: %s (%jd bytes) removed.\n"),
+								filename, str, (intmax_t) length);
 			else if (mode & FALLOC_FL_INSERT_RANGE)
-				fprintf(stdout, _("%s: %s (%ju bytes) inserted.\n"),
-								filename, str, length);
+				fprintf(stdout, _("%s: %s (%jd bytes) inserted.\n"),
+								filename, str, (intmax_t) length);
 			else if (mode & FALLOC_FL_ZERO_RANGE)
-				fprintf(stdout, _("%s: %s (%ju bytes) zeroed.\n"),
-								filename, str, length);
+				fprintf(stdout, _("%s: %s (%jd bytes) zeroed.\n"),
+								filename, str, (intmax_t) length);
 			else if (mode & FALLOC_FL_WRITE_ZEROES)
-				fprintf(stdout, _("%s: %s (%ju bytes) written as zeroes.\n"),
-								filename, str, length);
+				fprintf(stdout, _("%s: %s (%jd bytes) written as zeroes.\n"),
+								filename, str, (intmax_t) length);
 			else
-				fprintf(stdout, _("%s: %s (%ju bytes) allocated.\n"),
-								filename, str, length);
+				fprintf(stdout, _("%s: %s (%jd bytes) allocated.\n"),
+								filename, str, (intmax_t) length);
 			free(str);
 		}
 	}
