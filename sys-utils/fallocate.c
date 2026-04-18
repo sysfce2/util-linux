@@ -108,14 +108,18 @@ static void __attribute__((__noreturn__)) usage(void)
 	exit(EXIT_SUCCESS);
 }
 
-static loff_t cvtnum(char *s)
+static off_t cvtnum(char *s)
 {
 	uintmax_t x;
 
 	if (strtosize(s, &x))
 		return -1LL;
+	if (x > (uintmax_t) SINT_MAX(off_t)) {
+		errno = ERANGE;
+		return -1;
+	}
 
-	return x;
+	return (off_t) x;
 }
 
 static void xfallocate(int fd, int mode, off_t offset, off_t length)
@@ -367,8 +371,8 @@ int main(int argc, char **argv)
 	int	mode = 0;
 	int	dig = 0;
 	int	posix = 0;
-	loff_t	length = -2LL;
-	loff_t	offset = 0;
+	off_t	length = -2;
+	off_t	offset = 0;
 
 	static const struct option longopts[] = {
 	    { "help",           no_argument,       NULL, 'h' },
@@ -462,13 +466,13 @@ int main(int argc, char **argv)
 
 	if (dig || report) {
 		/* for --dig-holes and --report-holes the default is analyze all file */
-		if (length == -2LL)
+		if (length == -2)
 			length = 0;
 		if (length < 0)
 			errx(EXIT_FAILURE, _("invalid length"));
 	} else {
 		/* it's safer to require the range specification (--length --offset) */
-		if (length == -2LL)
+		if (length == -2)
 			errx(EXIT_FAILURE, _("no length argument specified"));
 		if (length <= 0)
 			errx(EXIT_FAILURE, _("invalid length"));
