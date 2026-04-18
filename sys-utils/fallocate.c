@@ -371,7 +371,7 @@ int main(int argc, char **argv)
 	int	mode = 0;
 	int	dig = 0;
 	int	posix = 0;
-	off_t	length = -2;
+	off_t	length = -1;
 	off_t	offset = 0;
 
 	static const struct option longopts[] = {
@@ -421,12 +421,16 @@ int main(int argc, char **argv)
 			break;
 		case 'l':
 			length = cvtnum(optarg);
+			if (length < 0)
+				err(EXIT_FAILURE, _("invalid length"));
 			break;
 		case 'n':
 			mode |= FALLOC_FL_KEEP_SIZE;
 			break;
 		case 'o':
 			offset = cvtnum(optarg);
+			if (offset < 0)
+				err(EXIT_FAILURE, _("invalid offset"));
 			break;
 		case 'p':
 			mode |= FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE;
@@ -466,19 +470,15 @@ int main(int argc, char **argv)
 
 	if (dig || report) {
 		/* for --dig-holes and --report-holes the default is analyze all file */
-		if (length == -2)
-			length = 0;
 		if (length < 0)
-			errx(EXIT_FAILURE, _("invalid length"));
+			length = 0;
 	} else {
 		/* it's safer to require the range specification (--length --offset) */
-		if (length == -2)
+		if (length < 0)
 			errx(EXIT_FAILURE, _("no length argument specified"));
-		if (length <= 0)
+		if (length == 0)
 			errx(EXIT_FAILURE, _("invalid length"));
 	}
-	if (offset < 0)
-		errx(EXIT_FAILURE, _("invalid offset"));
 
 	/* O_CREAT makes sense only for the default fallocate(2) behavior
 	 * when mode is no specified and new space is allocated */
