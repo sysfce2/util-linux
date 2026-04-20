@@ -30,7 +30,10 @@ ts_check_prog "useradd"
 ts_check_prog "userdel"
 
 ts_log "Initialize user"
-useradd -u 9899 --shell /bin/bash testuser_chfn_test
+useradd -u 9899 --shell /bin/bash testuser_chfn_test \
+    || ts_skip "coul not create test user (testuser)"
+
+
 grep testuser /etc/passwd >> $TS_OUTPUT
 $TS_CMD_CHFN --full-name test_gecos --office none --office-phone 111 \
                                                 testuser_chfn_test >>$TS_OUTPUT

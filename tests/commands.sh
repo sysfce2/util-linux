@@ -78,6 +78,7 @@ TS_CMD_BLKDISCARD=${TS_CMD_BLKID-"${ts_commandsdir}blkdiscard"}
 TS_CMD_BLKID=${TS_CMD_BLKID-"${ts_commandsdir}blkid"}
 TS_CMD_CAL=${TS_CMD_CAL-"${ts_commandsdir}cal"}
 TS_CMD_CHOOM=${TS_CMD_CHOOM:-"${ts_commandsdir}choom"}
+TS_CMD_CHSH=${TS_CMD_CHSH:-"${ts_commandsdir}chsh"}
 TS_CMD_COLCRT=${TS_CMD_COLCRT:-"${ts_commandsdir}colcrt"}
 TS_CMD_COLRM=${TS_CMD_COLRM:-"${ts_commandsdir}colrm"}
 TS_CMD_COL=${TS_CMD_COL:-"${ts_commandsdir}col"}
