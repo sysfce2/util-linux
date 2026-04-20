@@ -35,7 +35,7 @@ This program does not use the _/etc/gettydefs_ (System V) or _/etc/gettytab_ (Su
 == ARGUMENTS
 
 _port_::
-A path name relative to the _/dev_ directory. If a "-" is specified, *agetty* assumes that its standard input is already connected to a tty port and that a connection to a remote user has already been established.
+A pathname relative to the _/dev_ directory. If a "-" is specified, *agetty* assumes that its standard input is already connected to a tty port and that a connection to a remote user has already been established.
 +
 Under System V, a "-" _port_ argument should be preceded by a "--".
 
