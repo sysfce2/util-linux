@@ -87,7 +87,7 @@ BLKID_SUBLKS_VERSION::
 
 BLKID_SUBLKS_MAGIC::
 
-- SBMAGIC - super block magic string
+- SBMAGIC - superblock magic string
 
 - SBMAGIC_OFFSET - offset of SBMAGIC
 
