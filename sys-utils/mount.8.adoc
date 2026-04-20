@@ -963,7 +963,7 @@ Set blocksize (default 512). This option is obsolete.
 Set the owner and group of all files. (Default: the UID and GID of the current process.)
 
 **umask=**__value__::
-Set the umask (the bitmask of the permissions that are *not* present). The default is the umask of the current process. The value is given in octal.
+Set the umask (the bit mask of the permissions that are *not* present). The default is the umask of the current process. The value is given in octal.
 
 **dmask=**__value__::
 Set the umask applied to directories only. The default is the umask of the current process. The value is given in octal.
@@ -1096,7 +1096,7 @@ Don't complain about invalid mount options.
 Set the owner and group of all files. (Default: the UID and GID of the current process.)
 
 **umask=**__value__::
-Set the umask (the bitmask of the permissions that are *not* present). The default is the umask of the current process. The value is given in octal.
+Set the umask (the bit mask of the permissions that are *not* present). The default is the umask of the current process. The value is given in octal.
 
 *case=*{**lower**|*asis*}::
 Convert all files names to lower case, or leave them. (Default: *case=lower*.)
