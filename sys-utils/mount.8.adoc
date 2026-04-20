@@ -1181,7 +1181,7 @@ These options are accepted but ignored.
 
 === Mount options for msdos
 
-See mount options for fat. If the _msdos_ filesystem detects an inconsistency, it reports an error and sets the file system read-only. The filesystem can be made writable again by remounting it.
+See mount options for fat. If the _msdos_ filesystem detects an inconsistency, it reports an error and sets the filesystem read-only. The filesystem can be made writable again by remounting it.
 
 === Mount options for ncpfs
 

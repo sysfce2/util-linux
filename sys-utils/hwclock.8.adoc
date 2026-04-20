@@ -79,7 +79,7 @@ The kernel also keeps a timezone value, the *--hctosys* function sets it to the 
 +
 When used in a startup script, making the *--hctosys* function the first caller of *settimeofday*(2) from boot, it will set the NTP '11 minute mode' timescale via the _persistent_clock_is_local_ kernel variable. If the Hardware Clock's timescale configuration is changed then a reboot is required to inform the kernel. See the discussion below, under *Automatic Hardware Clock Synchronization by the Kernel*.
 +
-This is a good function to use in one of the system startup scripts before the file systems are mounted read/write.
+This is a good function to use in one of the system startup scripts before the filesystems are mounted read/write.
 +
 This function should never be used on a running system. Jumping system time will cause problems, such as corrupted filesystem timestamps. Also, if something has changed the Hardware Clock, like NTP's '11 minute mode', then *--hctosys* will set the time incorrectly by including drift compensation.
 +
