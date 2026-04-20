@@ -111,7 +111,7 @@ Human readable filesystem identifier. See also *-L*.
 UUID=__uuid__::
 Filesystem universally unique identifier. The format of the UUID is usually a series of hex digits separated by hyphens. See also *-U*.
 +
-Note that *mount* uses UUIDs as strings. The UUIDs from the command line or from *fstab*(5) are not converted to internal binary representation. The string representation of the UUID should be based on lower case characters.
+Note that *mount* uses UUIDs as strings. The UUIDs from the command line or from *fstab*(5) are not converted to internal binary representation. The string representation of the UUID should be based on lowercase characters.
 
 PARTLABEL=__label__::
 Human readable partition identifier. This identifier is independent on filesystem and does not change by *mkfs* or *mkswap* operations. It's supported for example for GUID Partition Tables (GPT).
@@ -994,7 +994,7 @@ With this option you can relax it.
 Three different levels of pickiness can be chosen:
 
 *r*[*elaxed*];;
-Upper and lower case are accepted and equivalent, long name parts are truncated (e.g. _verylongname.foobar_ becomes _verylong.foo_), leading and embedded spaces are accepted in each name part (name and extension).
+Uppercase and lowercase are accepted and equivalent, long name parts are truncated (e.g. _verylongname.foobar_ becomes _verylong.foo_), leading and embedded spaces are accepted in each name part (name and extension).
 
 *n*[*ormal*];;
 Like "relaxed", but many special characters (*, ?, <, spaces, etc.) are rejected. This is the default.
@@ -1099,7 +1099,7 @@ Set the owner and group of all files. (Default: the UID and GID of the current p
 Set the umask (the bit mask of the permissions that are *not* present). The default is the umask of the current process. The value is given in octal.
 
 *case=*{**lower**|*asis*}::
-Convert all files names to lower case, or leave them. (Default: *case=lower*.)
+Convert all files names to lowercase, or leave them. (Default: *case=lower*.)
 
 **conv=**__mode__::
 This option is obsolete and may fail or being ignored.
@@ -1122,13 +1122,13 @@ Disable the use of Rock Ridge extensions, even if available. Cf. *map*.
 Disable the use of Microsoft Joliet extensions, even if available. Cf. *map*.
 
 *check=*{*r*[*elaxed*]|*s*[*trict*]}::
-With *check=relaxed*, a filename is first converted to lower case before doing the lookup. This is probably only meaningful together with *norock* and *map=normal*. (Default: *check=strict*.)
+With *check=relaxed*, a filename is first converted to lowercase before doing the lookup. This is probably only meaningful together with *norock* and *map=normal*. (Default: *check=strict*.)
 
 **uid=**__value__ and **gid=**__value__::
 Give all files in the filesystem the indicated user or group id, possibly overriding the information found in the Rock Ridge extensions. (Default: *uid=0,gid=0*.)
 
 *map=*{*n*[*ormal*]|*o*[*ff*]|*a*[*corn*]}::
-For non-Rock Ridge volumes, normal name translation maps upper to lower case ASCII, drops a trailing ';1', and converts ';' to '.'. With *map=off* no name translation is done. See *norock*. (Default: *map=normal*.) *map=acorn* is like *map=normal* but also apply Acorn extensions if present.
+For non-Rock Ridge volumes, normal name translation maps upper to lowercase ASCII, drops a trailing ';1', and converts ';' to '.'. With *map=off* no name translation is done. See *norock*. (Default: *map=normal*.) *map=acorn* is like *map=normal* but also apply Acorn extensions if present.
 
 **mode=**__value__::
 For non-Rock Ridge volumes, give all files the indicated mode. (Default: read and execute permission for everybody.) Octal mode values require a leading 0.
@@ -1602,13 +1602,13 @@ UTF8 is the filesystem safe 8-bit encoding of Unicode that is used by the consol
 Defines the behavior for creation and display of filenames which fit into 8.3 characters. If a long name for a file exists, it will always be the preferred one for display. There are four __mode__s:
 
 *lower*;;
-Force the short name to lower case upon display; store a long name when the short name is not all upper case.
+Force the short name to lowercase upon display; store a long name when the short name is not all upper case.
 
 *win95*;;
 Force the short name to upper case upon display; store a long name when the short name is not all upper case.
 
 *winnt*;;
-Display the short name as is; store a long name when the short name is not all lower case or all upper case.
+Display the short name as is; store a long name when the short name is not all lowercase or all upper case.
 
 *mixed*;;
 Display the short name as is; store a long name when the short name is not all upper case. This mode is the default since Linux 2.6.32.
