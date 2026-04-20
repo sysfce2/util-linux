@@ -53,7 +53,7 @@ include::man-common/help-version.adoc[]
 
 == WARNING
 
-The renaming has no safeguards by default or without any one of the options *--no-overwrite*, *--interactive* or *--no-act*. If the user has permission to rewrite file names, the command will perform the action without any questions. For example, the result can be quite drastic when the command is run as root in the _/lib_ directory. Always make a backup before running the command, unless you truly know what you are doing.
+The renaming has no safeguards by default or without any one of the options *--no-overwrite*, *--interactive* or *--no-act*. If the user has permission to rewrite filenames, the command will perform the action without any questions. For example, the result can be quite drastic when the command is run as root in the _/lib_ directory. Always make a backup before running the command, unless you truly know what you are doing.
 
 == EDGE CASES
 

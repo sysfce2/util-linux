@@ -268,7 +268,7 @@ KNAME <``string``>::
 //
 // Not only u but also p is decorated with underline.
 //
-Raw file name extracted from
+Raw filename extracted from
 from ``/proc/``_pid_``/fd/``_fd_ or ``/proc/``_pid_``/map_files/``_region_.
 
 KTHREAD <``boolean``>::
@@ -685,7 +685,7 @@ Do the same in an alternative way: ::
 # lsfd -Q 'ASSOC eq "exe"'
 ....
 
-Do the same but print only file names: ::
+Do the same but print only filenames: ::
 ....
 # lsfd -o NAME -Q 'ASSOC eq "exe"' | sort -u
 ....

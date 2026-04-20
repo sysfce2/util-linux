@@ -1212,7 +1212,7 @@ Files with the Windows-specific SYSTEM (FILE_ATTRIBUTE_SYSTEM) attribute will be
 Updates the Windows-specific HIDDEN (FILE_ATTRIBUTE_HIDDEN) attribute when creating and moving or renaming files. Files whose names start with a dot will have the HIDDEN attribute set and files whose names do not start with a dot will have it unset.
 
 **windows_names**::
-Prevents the creation of files and directories with a name not allowed by Windows, either because it contains some not allowed character (which are the characters “ * / : < > ? \ | and those whose code is less than 0x20), because the name (with or without extension) is a reserved file name (CON, AUX, NUL, PRN, LPT1-9, COM1-9) or because the last character is a space or a dot. Existing such files can still be read and renamed.
+Prevents the creation of files and directories with a name not allowed by Windows, either because it contains some not allowed character (which are the characters “ * / : < > ? \ | and those whose code is less than 0x20), because the name (with or without extension) is a reserved filename (CON, AUX, NUL, PRN, LPT1-9, COM1-9) or because the last character is a space or a dot. Existing such files can still be read and renamed.
 
 **discard**::
 Enable support of the TRIM command for improved performance on delete operations, which is recommended for use with the solid-state drives (SSD).
@@ -1372,7 +1372,7 @@ Instructs version 3.6 reiserfs software to mount a version 3.5 filesystem, using
 Choose which hash function reiserfs will use to find files within directories.
 +
 *rupasov*;;
-A hash invented by Yury Yu. Rupasov. It is fast and preserves locality, mapping lexicographically close file names to close hash values. This option should not be used, as it causes a high probability of hash collisions.
+A hash invented by Yury Yu. Rupasov. It is fast and preserves locality, mapping lexicographically close filenames to close hash values. This option should not be used, as it causes a high probability of hash collisions.
 
 *tea*;;
 A Davis-Meyer function implemented by Jeremy Fitzhardinge. It uses hash permuting bits in the name. It gets high randomness and, therefore, low probability of hash collisions at some CPU cost. This may be used if *EHASHCOLLISION* errors are experienced with the r5 hash.
