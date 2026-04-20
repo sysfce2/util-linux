@@ -162,7 +162,7 @@ ____
 *mount /dev/foo /dir*
 ____
 
-This default behaviour can be changed by using the *--options-source-force* command-line option to always read configuration from _fstab_. For non-root users *mount* always reads the _fstab_ configuration.
+This default behaviour can be changed by using the *--options-source-force* command-line option to always read configuration from _fstab_. For unprivileged users *mount* always reads the _fstab_ configuration.
 
 === Non-superuser mounts
 
@@ -180,9 +180,9 @@ ____
 *mount /cd*
 ____
 
-Note that *mount* is very strict about non-root users and all paths specified on command line are verified before _fstab_ is parsed or a helper program is executed. It's strongly recommended to use a valid mountpoint to specify filesystem, otherwise *mount* may fail. For example it's a bad idea to use NFS or CIFS source on command line.
+Note that *mount* is very strict about unprivileged users and all paths specified on command line are verified before _fstab_ is parsed or a helper program is executed. It's strongly recommended to use a valid mountpoint to specify filesystem, otherwise *mount* may fail. For example it's a bad idea to use NFS or CIFS source on command line.
 
-Since util-linux 2.35, *mount* does not exit when user permissions are inadequate according to libmount's internal security rules. Instead, it drops suid permissions and continues as regular non-root user. This behavior supports use-cases where root permissions are not necessary (e.g., fuse filesystems, user namespaces, etc).
+Since util-linux 2.35, *mount* does not exit when user permissions are inadequate according to libmount's internal security rules. Instead, it drops suid permissions and continues as regular unprivileged user. This behavior supports use-cases where root permissions are not necessary (e.g., fuse filesystems, user namespaces, etc).
 
 For more details, see *fstab*(5). Only the user that mounted a filesystem can unmount it again. If any user should be able to unmount it, then use *users* instead of *user* in the _fstab_ line. The *owner* option is similar to the *user* option, with the restriction that the user must be the owner of the special file. This may be useful e.g. for _/dev/fd_ if a login script makes the console user owner of this device. The *group* option is similar, with the restriction that the user must be a member of the group of the special file.
 
@@ -345,7 +345,7 @@ Note that *mount* does not pass this option to the **/sbin/mount.**__type__ help
 Ensures that the filesystem is mounted as a unique instance and that the
 filesystem superblock is not reused by the kernel. The filesystem may be reused
 later if mounted without the option. The option affects only the current mount
-and is allowed for non-root users as well.
+and is allowed for unprivileged users as well.
 +
 See also the **--onlyonce** option. The difference between *--onlyonce* and
 *--exclusive* is that "onlyonce" ensures the same source is not mounted on the
@@ -794,7 +794,7 @@ Allows disabling of canonicalization for mount source and target paths. By defau
 +
 The command-line option *--no-canonicalize* overrides this mount option and affects all path and tag conversions in all situations, but for backward compatibility, it does not modify *open_tree*(2) syscall flags and does not allow the bind-mount over a symbolic link use case.
 +
-Note that *mount*(8) still sanitizes and canonicalizes the source and target paths specified on the command line by non-root users, regardless of the X-mount.nocanonicalize setting.
+Note that *mount*(8) still sanitizes and canonicalizes the source and target paths specified on the command line by unprivileged users, regardless of the X-mount.nocanonicalize setting.
 
 *X-mount.noloop*::
 Do not create and mount a loop device, even if the source of the mount is a regular file.

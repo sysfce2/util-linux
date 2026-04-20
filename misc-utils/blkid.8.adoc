@@ -32,7 +32,7 @@ The *blkid* program is the command-line interface to working with the *libblkid*
 *It is recommended to use* *lsblk*(8) *command to get information about block devices, or lsblk --fs to get an overview of filesystems, or* *findmnt*(8) *to search in already mounted filesystems.*
 
 ____
-*lsblk*(8) provides more information, better control on output formatting, easy to use in scripts and it does not require root permissions to get actual information. *blkid* reads information directly from devices and for non-root users it returns cached unverified information. *blkid* is mostly designed for system services and to test *libblkid*(3) functionality.
+*lsblk*(8) provides more information, better control on output formatting, easy to use in scripts and it does not require root permissions to get actual information. *blkid* reads information directly from devices and for unprivileged users it returns cached unverified information. *blkid* is mostly designed for system services and to test *libblkid*(3) functionality.
 ____
 
 When _device_ is specified, tokens from only this device are displayed. It is possible to specify multiple _device_ arguments on the command line. If none is given, all partitions or unpartitioned devices which appear in _/proc/partitions_ are shown, if they are recognized.

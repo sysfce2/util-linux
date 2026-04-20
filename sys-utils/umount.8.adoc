@@ -61,7 +61,7 @@ Unmount all mountpoints in the current mount namespace for the specified filesys
 *-c*, *--no-canonicalize*::
 Do not canonicalize paths. The paths canonicalization is based on *stat*(2) and *readlink*(2) system calls. These system calls may hang in some cases (for example on NFS if server is not available). The option has to be used with canonical path to the mount point.
 +
-This option is silently ignored by *umount* for non-root users.
+This option is silently ignored by *umount* for unprivileged users.
 +
 For more details about this option see the *mount*(8) man page. Note that *umount* does not pass this option to the **/sbin/umount.**__type__ helpers.
 
@@ -123,7 +123,7 @@ Normally, only the superuser can umount filesystems. However, when _fstab_ conta
 
 Since version 2.34 the *umount* command can be used to perform umount operation also for fuse filesystems if kernel mount table contains user's ID. In this case _fstab_ *user=* mount option is not required.
 
-Since version 2.35 *umount* command does not exit when user permissions are inadequate by internal *libmount* security rules. It drops suid permissions and continue as regular non-root user. This can be used to support use-cases where root permissions are not necessary (e.g., fuse filesystems, user namespaces, etc).
+Since version 2.35 *umount* command does not exit when user permissions are inadequate by internal *libmount* security rules. It drops suid permissions and continue as regular unprivileged user. This can be used to support use-cases where root permissions are not necessary (e.g., fuse filesystems, user namespaces, etc).
 
 == LOOP DEVICE
 
