@@ -359,7 +359,7 @@ The baud-rate detection feature (the *--extract-baud* option) requires that the 
 
 == DIAGNOSTICS
 
-Depending on how the program was configured, all diagnostics are written to the console device or reported via the *syslog*(3) facility. Error messages are produced if the _port_ argument does not specify a terminal device; if there is no utmp entry for the current process (System V only); and so on.
+Depending on how the program was configured, all diagnostics are written to the console device or reported via the *syslog*(3) facility. Error messages are produced if the _port_ argument does not specify a terminal device; if there is no utmp entry for the calling process (System V only); and so on.
 
 == AUTHORS
 

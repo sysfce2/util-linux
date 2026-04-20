@@ -879,7 +879,7 @@ Set the permission mask for ADFS 'owner' permissions and 'other' permissions, re
 === Mount options for affs
 
 **uid=**__value__ and **gid=**__value__::
-Set the owner and group of the root of the filesystem (default: uid=gid=0, but with option *uid* or *gid* without specified value, the UID and GID of the current process are taken).
+Set the owner and group of the root of the filesystem (default: uid=gid=0, but with option *uid* or *gid* without specified value, the UID and GID of the calling process are taken).
 
 **setuid=**__value__ and **setgid=**__value__::
 Set the owner and group of all files.
@@ -975,7 +975,7 @@ Set the umask applied to regular files only. The default is the umask of the cur
 This option controls the permission check of mtime/atime.  Possible values:
 
 *20*;;
-If the current process is in the group of the file's group ID,
+If the calling process is in the group of the file's group ID,
 you can change the timestamp.
 +
 *2*;;
@@ -985,7 +985,7 @@ Other users can change the timestamp.
 The default is set from the above *dmask* option. (If the directory
 is writable, *utime*(2) is also allowed.  That is: ~dmask & 022.)
  +
-Normally *utime*(2) checks that the current process is the owner of the
+Normally *utime*(2) checks that the calling process is the owner of the
 file, or that it has the *CAP_FOWNER* capability. But FAT filesystems
 don't have UID/GID on disk, so the normal check is too inflexible.
 With this option you can relax it.

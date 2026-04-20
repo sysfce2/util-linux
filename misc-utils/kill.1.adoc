@@ -46,7 +46,7 @@ Each _PID_ can be expressed in one of the following ways:
 _n_;;
 where _n_ is larger than 0. The process with PID _n_ is signaled.
 *0*;;
-All processes in the current process group are signaled.
+All processes in the calling process group are signaled.
 *-1*;;
 All processes with a PID larger than 1 are signaled.
 **-**__n__;;
