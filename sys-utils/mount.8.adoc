@@ -1045,7 +1045,7 @@ To maintain backward compatibility, *-o nfs* is also accepted, defaulting to *st
 This option disables the conversion of timestamps between local time (as used by Windows on FAT) and UTC (which Linux uses internally). This is particularly useful when mounting devices (like digital cameras) that are set to UTC in order to avoid the pitfalls of local time.
 
 **time_offset=**__minutes__::
-Set offset for conversion of timestamps from local time used by FAT to UTC. I.e., _minutes_ will be subtracted from each timestamp to convert it to UTC used internally by Linux. This is useful when the time zone set in the kernel via *settimeofday*(2) is not the time zone used by the filesystem. Note that this option still does not provide correct time stamps in all cases in presence of DST - time stamps in a different DST setting will be off by one hour.
+Set offset for conversion of timestamps from local time used by FAT to UTC. I.e., _minutes_ will be subtracted from each timestamp to convert it to UTC used internally by Linux. This is useful when the timezone set in the kernel via *settimeofday*(2) is not the timezone used by the filesystem. Note that this option still does not provide correct timestamps in all cases in presence of DST - timestamps in a different DST setting will be off by one hour.
 
 *quiet*::
 Turn on the _quiet_ flag. Attempts to chown or chmod files do not return errors, although they fail. Use with caution!
