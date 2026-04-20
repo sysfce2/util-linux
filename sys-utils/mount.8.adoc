@@ -926,18 +926,18 @@ Sets the mode of the mountpoint.
 
 === Mount options for devpts
 
-The devpts filesystem is a pseudo filesystem, traditionally mounted on _/dev/pts_. In order to acquire a pseudo terminal, a process opens _/dev/ptmx_; the number of the pseudo terminal is then made available to the process and the pseudo terminal slave can be accessed as _/dev/pts/_<number>.
+The devpts filesystem is a pseudo filesystem, traditionally mounted on _/dev/pts_. In order to acquire a pseudoterminal, a process opens _/dev/ptmx_; the number of the pseudoterminal is then made available to the process and the pseudoterminal slave can be accessed as _/dev/pts/_<number>.
 
 **uid=**__value__ and **gid=**__value__::
-This sets the owner or the group of newly created pseudo terminals to the specified values. When nothing is specified, they will be set to the UID and GID of the creating process. For example, if there is a tty group with GID 5, then *gid=5* will cause newly created pseudo terminals to belong to the tty group.
+This sets the owner or the group of newly created pseudoterminals to the specified values. When nothing is specified, they will be set to the UID and GID of the creating process. For example, if there is a tty group with GID 5, then *gid=5* will cause newly created pseudoterminals to belong to the tty group.
 
 **mode=**__value__::
-Set the mode of newly created pseudo terminals to the specified value. The default is 0600. A value of *mode=620* and *gid=5* makes "mesg y" the default on newly created pseudo terminals.
+Set the mode of newly created pseudoterminals to the specified value. The default is 0600. A value of *mode=620* and *gid=5* makes "mesg y" the default on newly created pseudoterminals.
 
 *newinstance*::
-Create a private instance of the devpts filesystem, such that indices of pseudo terminals allocated in this new instance are independent of indices created in other instances of devpts.
+Create a private instance of the devpts filesystem, such that indices of pseudoterminals allocated in this new instance are independent of indices created in other instances of devpts.
 +
-All mounts of devpts without this *newinstance* option share the same set of pseudo terminal indices (i.e., legacy mode). Each mount of devpts with the *newinstance* option has a private set of pseudo terminal indices.
+All mounts of devpts without this *newinstance* option share the same set of pseudoterminal indices (i.e., legacy mode). Each mount of devpts with the *newinstance* option has a private set of pseudoterminal indices.
 +
 This option is mainly used to support containers in the Linux kernel. It is implemented in Linux kernel versions starting with 2.6.29. Further, this mount option is valid only if *CONFIG_DEVPTS_MULTIPLE_INSTANCES* is enabled in the kernel configuration.
 +
