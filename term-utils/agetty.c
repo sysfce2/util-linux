@@ -3194,6 +3194,27 @@ static void load_credentials(struct options *op)
 		if (strcmp(d->d_name, "agetty.autologin") == 0)
 			cred_read_str(pc, d->d_name, op,
 				      offsetof(struct options, autolog));
+		else if (strcmp(d->d_name, "agetty.delay") == 0)
+			cred_read_num(pc, d->d_name, op,
+				      offsetof(struct options, delay), 'u');
+		else if (strcmp(d->d_name, "agetty.nice") == 0)
+			cred_read_num(pc, d->d_name, op,
+				      offsetof(struct options, nice), 'd');
+		else if (strcmp(d->d_name, "agetty.hangup") == 0)
+			cred_read_bool(pc, d->d_name,
+				       &op->flags, F_HANGUP, 0);
+		else if (strcmp(d->d_name, "agetty.noclear") == 0)
+			cred_read_bool(pc, d->d_name,
+				       &op->flags, F_NOCLEAR, 0);
+		else if (strcmp(d->d_name, "agetty.nohints") == 0)
+			cred_read_bool(pc, d->d_name,
+				       &op->flags, F_NOHINTS, 0);
+		else if (strcmp(d->d_name, "agetty.nohostname") == 0)
+			cred_read_bool(pc, d->d_name,
+				       &op->flags, F_NOHOSTNAME, 0);
+		else if (strcmp(d->d_name, "agetty.noissue") == 0)
+			cred_read_bool(pc, d->d_name,
+				       &op->flags, F_ISSUE, 1);
 	}
 	closedir(dir);
 }
