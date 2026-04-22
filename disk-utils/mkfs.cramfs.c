@@ -779,7 +779,6 @@ int main(int argc, char **argv)
 			break;
 		case 'p':
 			opt_pad = PAD_SIZE;
-			fslen_ub += PAD_SIZE;
 			break;
 		case 's':
 			/* old option, ignored */
@@ -803,6 +802,8 @@ int main(int argc, char **argv)
 	}
 	dirname = argv[optind];
 	outfile = argv[optind + 1];
+
+	fslen_ub += opt_pad;
 
 	if (blksize == 0)
 		blksize = getpagesize();
