@@ -3094,6 +3094,20 @@ static void reload_agettys(void)
 #endif
 }
 
+static int cred_read_str(struct path_cxt *pc, const char *name,
+			 struct options *op, size_t offset)
+{
+	char *str = NULL, **dest;
+
+	if (ul_path_read_string(pc, &str, name) < 0)
+		return -1;
+
+	dest = (char **) ((char *) op + offset);
+	free(*dest);
+	*dest = str;
+	return 0;
+}
+
 static void load_credentials(struct options *op)
 {
 	char *env;
@@ -3118,13 +3132,9 @@ static void load_credentials(struct options *op)
 	}
 
 	while ((d = xreaddir(dir))) {
-		char *str;
-
-		if (strcmp(d->d_name, "agetty.autologin") == 0) {
-			ul_path_read_string(pc, &str, d->d_name);
-			free(op->autolog);
-			op->autolog = str;
-		}
+		if (strcmp(d->d_name, "agetty.autologin") == 0)
+			cred_read_str(pc, d->d_name, op,
+				      offsetof(struct options, autolog));
 	}
 	closedir(dir);
 }
