@@ -3145,6 +3145,28 @@ static int cred_read_num(struct path_cxt *pc, const char *name,
 	return rc;
 }
 
+static int cred_read_bool(struct path_cxt *pc, const char *name,
+			  int *flags, int flag, int invert)
+{
+	char *str = NULL;
+	bool res;
+	int rc;
+
+	if (ul_path_read_string(pc, &str, name) < 0)
+		return -1;
+
+	rc = ul_strtobool(str, &res);
+	if (rc)
+		log_warn(_("invalid '%s' credential value"), name);
+	else if (res != invert)
+		*flags |= flag;
+	else
+		*flags &= ~flag;
+
+	free(str);
+	return rc;
+}
+
 static void load_credentials(struct options *op)
 {
 	char *env;
