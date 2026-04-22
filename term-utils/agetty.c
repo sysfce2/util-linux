@@ -3108,6 +3108,43 @@ static int cred_read_str(struct path_cxt *pc, const char *name,
 	return 0;
 }
 
+static int cred_read_num(struct path_cxt *pc, const char *name,
+			 struct options *op, size_t offset, int type)
+{
+	char *str = NULL;
+	int rc;
+
+	if (ul_path_read_string(pc, &str, name) < 0)
+		return -1;
+
+	switch (type) {
+	case 'u':
+	{
+		uint32_t num;
+		rc = ul_strtou32(str, &num, 10);
+		if (rc == 0)
+			*((unsigned int *) ((char *) op + offset)) = num;
+		break;
+	}
+	case 'd':
+	{
+		int32_t num;
+		rc = ul_strtos32(str, &num, 10);
+		if (rc == 0)
+			*((int *) ((char *) op + offset)) = num;
+		break;
+	}
+	default:
+		rc = -EINVAL;
+		break;
+	}
+
+	if (rc)
+		log_warn(_("invalid '%s' credential value"), name);
+	free(str);
+	return rc;
+}
+
 static void load_credentials(struct options *op)
 {
 	char *env;
