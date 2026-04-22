@@ -26,6 +26,7 @@
 */
 
 #include <pwd.h>
+#include <ctype.h>
 #include <errno.h>
 #include <time.h>
 #include <stdio.h>
@@ -657,6 +658,131 @@ out_import_lastlog:
 	sqlite3_close(db);
 done:
 	fclose(ll_fp);
+
+	return retval;
+}
+
+static const char *valid_journal_modes[] = {
+	"WAL", "DELETE", "TRUNCATE", "PERSIST", "MEMORY", "OFF", NULL
+};
+
+static int
+is_valid_journal_mode(const char *mode)
+{
+	for (size_t i = 0; valid_journal_modes[i]; i++)
+		if (strcasecmp(mode, valid_journal_modes[i]) == 0)
+			return 1;
+	return 0;
+}
+
+/* Set journal mode.
+   Returns 0 on success, -ENOMEM or -1 on other failure. */
+extern int
+ll2_set_journal_mode(struct ll2_context *context, const char *mode,
+		     char **error)
+{
+	sqlite3 *db;
+	sqlite3_stmt *res = NULL;
+	const unsigned char *actual;
+	char *sql = NULL;
+	int retval = 0;
+
+	if (!mode || !is_valid_journal_mode(mode)) {
+		if (error && asprintf(error, "Invalid journal mode: %s", mode ? mode : "(null)") < 0)
+			return -ENOMEM;
+		return -1;
+	}
+
+	retval = open_database_rw(context, &db, error);
+	if (retval != 0)
+		return retval;
+
+	if (asprintf(&sql, "PRAGMA journal_mode = %s;", mode) < 0) {
+		sqlite3_close(db);
+		return -ENOMEM;
+	}
+
+	if (sqlite3_prepare_v2(db, sql, -1, &res, 0) != SQLITE_OK) {
+		retval = -1;
+		if (error && asprintf(error, "Failed to set journal mode to %s: %s",
+				     mode, sqlite3_errmsg(db)) < 0)
+			retval = -ENOMEM;
+		goto out;
+	}
+
+	if (sqlite3_step(res) != SQLITE_ROW) {
+		retval = -1;
+		if (error && asprintf(error, "Failed to set journal mode to %s: %s",
+				     mode, sqlite3_errmsg(db)) < 0)
+			retval = -ENOMEM;
+		goto out;
+	}
+
+	/* Verify SQLite actually applied the requested mode */
+	actual = sqlite3_column_text(res, 0);
+	if (!actual || strcasecmp((const char *)actual, mode) != 0) {
+		retval = -1;
+		if (error && asprintf(error,
+				     "Journal mode not changed: requested %s, got %s",
+				     mode, actual ? (const char *)actual : "(null)") < 0)
+			retval = -ENOMEM;
+	}
+
+out:
+	if (res)
+		sqlite3_finalize(res);
+	free(sql);
+	sqlite3_close(db);
+
+	return retval;
+}
+
+/* Get current journal mode.
+   Returns 0 on success, -ENOMEM or -1 on other failure. */
+extern int
+ll2_get_journal_mode(struct ll2_context *context, char **mode, char **error)
+{
+	sqlite3 *db;
+	sqlite3_stmt *res = NULL;
+	int retval = 0;
+	static const char *sql = "PRAGMA journal_mode;";
+
+	retval = open_database_ro(context, &db, error);
+	if (retval != 0)
+		return retval;
+
+	if (sqlite3_prepare_v2(db, sql, -1, &res, 0) != SQLITE_OK) {
+		retval = -1;
+		if (error && asprintf(error, "Failed to query journal mode: %s",
+				     sqlite3_errmsg(db)) < 0)
+				retval = -ENOMEM;
+		goto out;
+	}
+
+	int step = sqlite3_step(res);
+	if (step == SQLITE_ROW) {
+		const unsigned char *mode_str = sqlite3_column_text(res, 0);
+		if (mode_str && mode) {
+			*mode = strdup((const char *)mode_str);
+			if (*mode == NULL) {
+				retval = -ENOMEM;
+			} else {
+				/* Convert to uppercase for consistency */
+				for (char *p = *mode; *p; p++)
+					*p = toupper((unsigned char)*p);
+			}
+		}
+	} else {
+		retval = -1;
+		if (error && asprintf(error, "Failed to get journal mode: %s",
+				     sqlite3_errmsg(db)) < 0)
+				retval = -ENOMEM;
+	}
+
+out:
+	if (res)
+		sqlite3_finalize(res);
+	sqlite3_close(db);
 
 	return retval;
 }
