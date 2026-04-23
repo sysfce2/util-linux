@@ -181,7 +181,7 @@ getopt_sources = files(
 )
 getopt_manadocs = files('getopt.1.adoc')
 
-if not get_option('build-getopt').disabled()
+if get_option('build-getopt').allowed()
   install_data(
     'getopt-example.bash',
     'getopt-example.tcsh',

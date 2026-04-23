@@ -84,7 +84,7 @@ build_libblkid = get_option('build-libblkid').allowed()
 conf.set('HAVE_LIBBLKID', build_libblkid ? 1 : false)
 summary('libblkid', build_libblkid ? 'enabled' : 'disabled', section : 'components')
 
-build_libuuid = not get_option('build-libuuid').disabled()
+build_libuuid = get_option('build-libuuid').allowed()
 conf.set('HAVE_LIBUUID', build_libuuid ? 1 : false)
 summary('libuuid', build_libuuid ? 'enabled' : 'disabled', section : 'components')
 
@@ -141,13 +141,13 @@ conf.set('USE_LIBMOUNT_SUPPORT_NAMESPACES', 1)
 conf.set('USE_LIBMOUNT_MOUNTFD_SUPPORT', have_mountfd_api ? 1 : false)
 summary('libmount', build_libmount ? 'enabled' : 'disabled', section : 'components')
 
-build_libsmartcols = not get_option('build-libsmartcols').disabled()
+build_libsmartcols = get_option('build-libsmartcols').allowed()
 summary('libsmartcols', build_libsmartcols ? 'enabled' : 'disabled', section : 'components')
 
-build_libfdisk = not get_option('build-libfdisk').require(get_option('build-libblkid').allowed()).disabled()
+build_libfdisk = get_option('build-libfdisk').require(get_option('build-libblkid').allowed()).allowed()
 summary('libfdisk', build_libfdisk ? 'enabled' : 'disabled', section : 'components')
 
-build_uuidd = not get_option('build-uuidd').disabled()
+build_uuidd = get_option('build-uuidd').allowed()
 conf.set('HAVE_UUIDD', build_uuidd ? 1 : false)
 summary('uuidd', build_uuidd ? 'enabled' : 'disabled', section : 'components')
 
@@ -405,7 +405,7 @@ have = cc.has_function(
   'sd_device_new_from_devname',
   dependencies : lib_systemd)
 conf.set('USE_LIBMOUNT_UDEV_SUPPORT',
-  not get_option('build-libmount-udev-support').disabled() and have ? 1 : false)
+  get_option('build-libmount-udev-support').allowed() and have ? 1 : false)
 
 lib_udev = dependency(
   'libudev',
@@ -440,7 +440,7 @@ lib_cryptsetup = dependency(
   required : get_option('cryptsetup'))
 conf.set('HAVE_CRYPTSETUP', lib_cryptsetup.found() ? 1 : false)
 
-cryptsetup_dlopen = not get_option('cryptsetup').disabled() and get_option('cryptsetup-dlopen').enabled()
+cryptsetup_dlopen = get_option('cryptsetup').allowed() and get_option('cryptsetup-dlopen').enabled()
 if cryptsetup_dlopen
   if meson.version().version_compare('>= 0.62.0')
     lib_dl = dependency('dl')
@@ -500,7 +500,7 @@ lib_audit = dependency(
   required : get_option('audit'))
 conf.set('HAVE_LIBAUDIT', lib_audit.found() ? 1 : false)
 
-conf.set('HAVE_SMACK', not get_option('smack').disabled())
+conf.set('HAVE_SMACK', get_option('smack').allowed())
 
 
 foreach header : headers
@@ -899,7 +899,7 @@ have = cc.has_header_symbol('linux/vm_sockets.h', 'VMADDR_CID_LOCAL',
                             prefix : '#include <sys/socket.h>')
 conf.set('HAVE_DECL_VMADDR_CID_LOCAL', have ? 1 : false)
 
-build_plymouth_support = (not build_plymouth_support.disabled() and
+build_plymouth_support = (build_plymouth_support.allowed() and
                           have_tiocglcktrmios and
                           have_sock_cloexec and
                           have_sock_nonblock and
@@ -973,7 +973,7 @@ bison = find_program('bison')
 flex = find_program('flex')
 sed = find_program('sed')
 
-build_hwclock = not get_option('build-hwclock').disabled()
+build_hwclock = get_option('build-hwclock').allowed()
 bison_gen = generator(
   bison,
   output : ['@BASENAME@.tab.c', '@BASENAME@.tab.h'],
@@ -1060,7 +1060,7 @@ includes = [dir_include,
 
 exes = []
 
-opt = not get_option('build-chfn-chsh').disabled()
+opt = get_option('build-chfn-chsh').allowed()
 exe = executable(
   'chfn',
   chfn_sources,
@@ -1108,7 +1108,7 @@ exe = executable(
   build_by_default : program_tests)
 exes += exe
 
-opt = not get_option('build-last').disabled()
+opt = get_option('build-last').allowed()
 exe = executable(
   'last',
   last_sources,
@@ -1128,7 +1128,7 @@ if opt and not is_disabler(exe)
   bashcompletionslinks += {'lastb': 'last'}
 endif
 
-opt = not get_option('build-nologin').disabled()
+opt = get_option('build-nologin').allowed()
 exe = executable(
   'nologin',
   'login-utils/nologin.c',
@@ -1142,7 +1142,7 @@ if opt and not is_disabler(exe)
   manadocs += nologin_manadocs
 endif
 
-opt = not get_option('build-utmpdump').disabled()
+opt = get_option('build-utmpdump').allowed()
 exe = executable(
   'utmpdump',
   'login-utils/utmpdump.c',
@@ -1181,7 +1181,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['su']
 endif
 
-opt = not get_option('build-newgrp').disabled()
+opt = get_option('build-newgrp').allowed()
 exe = executable(
   'newgrp',
   'login-utils/newgrp.c',
@@ -1198,7 +1198,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['newgrp']
 endif
 
-opt = not get_option('build-lslogins').disabled()
+opt = get_option('build-lslogins').allowed()
 exe = executable(
   'lslogins',
   'login-utils/lslogins.c',
@@ -1218,7 +1218,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['lslogins']
 endif
 
-opt = not get_option('build-vipw').disabled()
+opt = get_option('build-vipw').allowed()
 exe = executable(
   'vipw',
   'login-utils/vipw.c',
@@ -1266,7 +1266,7 @@ endif
 
 ############################################################
 
-opt = not get_option('build-bits').require(have_cpu_set_t).disabled()
+opt = get_option('build-bits').require(have_cpu_set_t).allowed()
 exe = executable(
   'bits',
   bits_sources,
@@ -1281,7 +1281,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['bits']
 endif
 
-opt = not get_option('build-col').require(is_glibc).disabled()
+opt = get_option('build-col').require(is_glibc).allowed()
 exe = executable(
   'col',
   col_sources,
@@ -1296,7 +1296,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['col']
 endif
 
-opt = not get_option('build-colcrt').disabled()
+opt = get_option('build-colcrt').allowed()
 exe = executable(
   'colcrt',
   colcrt_sources,
@@ -1310,7 +1310,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['colcrt']
 endif
 
-opt = not get_option('build-colrm').disabled()
+opt = get_option('build-colrm').allowed()
 exe = executable(
   'colrm',
   colrm_sources,
@@ -1325,7 +1325,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['colrm']
 endif
 
-opt = not get_option('build-rev').disabled()
+opt = get_option('build-rev').allowed()
 exe = executable(
   'rev',
   rev_sources,
@@ -1354,7 +1354,7 @@ if not is_disabler(exe)
   bashcompletions += ['column']
 endif
 
-opt = not get_option('build-line').disabled()
+opt = get_option('build-line').allowed()
 exe = executable(
   'line',
   line_sources,
@@ -1367,7 +1367,7 @@ if opt and not is_disabler(exe)
   manadocs += line_manadocs
 endif
 
-opt = not get_option('build-pg').disabled()
+opt = get_option('build-pg').allowed()
 exe = executable(
   'pg',
   pg_sources,
@@ -1384,7 +1384,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['pg']
 endif
 
-opt = not get_option('build-ul').disabled()
+opt = get_option('build-ul').allowed()
 exe = executable(
   'ul',
   ul_sources,
@@ -1400,7 +1400,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['ul']
 endif
 
-opt = not get_option('build-more').disabled()
+opt = get_option('build-more').allowed()
 exe = executable(
   'more',
   more_sources,
@@ -1426,7 +1426,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['more']
 endif
 
-opt = not get_option('build-hexdump').disabled()
+opt = get_option('build-hexdump').allowed()
 exe = executable(
   'hexdump',
   hexdump_sources,
@@ -1442,7 +1442,7 @@ if opt and not is_disabler(exe)
     bashcompletions += ['hexdump']
 endif
 
-opt = not get_option('build-lsmem').disabled()
+opt = get_option('build-lsmem').allowed()
 exe = executable(
   'lsmem',
   lsmem_sources,
@@ -1458,7 +1458,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['lsmem']
 endif
 
-opt = not get_option('build-chmem').disabled()
+opt = get_option('build-chmem').allowed()
 exe = executable(
   'chmem',
   chmem_sources,
@@ -1473,7 +1473,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['chmem']
 endif
 
-opt = not get_option('build-choom').disabled()
+opt = get_option('build-choom').allowed()
 exe = executable(
   'choom',
   choom_sources,
@@ -1531,7 +1531,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['ipcrm']
 endif
 
-opt = not get_option('build-ipcs').require(has_seminfo_type).disabled()
+opt = get_option('build-ipcs').require(has_seminfo_type).allowed()
 exe = executable(
   'ipcs',
   ipcs_sources,
@@ -1547,7 +1547,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['ipcs']
 endif
 
-opt = not get_option('build-rfkill').disabled()
+opt = get_option('build-rfkill').allowed()
 exe = executable(
   'rfkill',
   rfkill_sources,
@@ -1619,7 +1619,7 @@ if not is_disabler(exe)
   bashcompletions += ['readprofile']
 endif
 
-opt = not get_option('build-tunelp').disabled()
+opt = get_option('build-tunelp').allowed()
 exe = executable(
   'tunelp',
   tunelp_sources,
@@ -1825,7 +1825,7 @@ if opt
   endforeach
 endif
 
-opt = not get_option('build-eject').disabled()
+opt = get_option('build-eject').allowed()
 exe = executable(
   'eject',
   eject_sources,
@@ -1841,7 +1841,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['eject']
 endif
 
-opt = not get_option('build-losetup').disabled()
+opt = get_option('build-losetup').allowed()
 exe = executable(
   'losetup',
   losetup_sources,
@@ -1872,7 +1872,7 @@ if opt and not is_disabler(exe)
   exes += exe
 endif
 
-opt = not get_option('build-zramctl').disabled()
+opt = get_option('build-zramctl').allowed()
 exe = executable(
   'zramctl',
   zramctl_sources,
@@ -1904,7 +1904,7 @@ if not is_disabler(exe)
   bashcompletions += ['prlimit']
 endif
 
-opt = not get_option('build-lsns').disabled()
+opt = get_option('build-lsns').allowed()
 exe = executable(
   'lsns',
   lsns_sources,
@@ -1921,7 +1921,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['lsns']
 endif
 
-opt = not get_option('build-mount').disabled()
+opt = get_option('build-mount').allowed()
 exe = executable(
   'mount',
   mount_sources,
@@ -1980,7 +1980,7 @@ endif
 
 # setuid?
 
-opt = not get_option('build-swapon').disabled()
+opt = get_option('build-swapon').allowed()
 exe = executable(
   'swapon',
   swapon_sources,
@@ -1997,7 +1997,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['swapon']
 endif
 
-opt = not get_option('build-swapoff').disabled()
+opt = get_option('build-swapoff').allowed()
 exe = executable(
   'swapoff',
   swapoff_sources,
@@ -2056,7 +2056,7 @@ if not is_disabler(exe)
   bashcompletions += ['wdctl']
 endif
 
-opt = not get_option('build-mountpoint').disabled()
+opt = get_option('build-mountpoint').allowed()
 exe = executable(
   'mountpoint',
   mountpoint_sources,
@@ -2089,7 +2089,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['fallocate']
 endif
 
-opt = not get_option('build-pivot_root').disabled()
+opt = get_option('build-pivot_root').allowed()
 exe = executable(
   'pivot_root',
   pivot_root_sources,
@@ -2103,7 +2103,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['pivot_root']
 endif
 
-opt = not get_option('build-switch_root').disabled()
+opt = get_option('build-switch_root').allowed()
 if opt and not have_dirfd and not have_ddfd
   error('neither dirfd nor ddfd are available')
 endif
@@ -2119,7 +2119,7 @@ if opt and not is_disabler(exe)
   manadocs += switch_root_manadocs
 endif
 
-opt = not get_option('build-unshare').disabled()
+opt = get_option('build-unshare').allowed()
 exe = executable(
   'unshare',
   unshare_sources,
@@ -2149,7 +2149,7 @@ if opt and not is_disabler(exe)
   exes += exe
 endif
 
-opt = not get_option('build-nsenter').disabled()
+opt = get_option('build-nsenter').allowed()
 exe = executable(
   'nsenter',
   nsenter_sources,
@@ -2179,7 +2179,7 @@ if opt and not is_disabler(exe)
   exes += exe
 endif
 
-opt = not get_option('build-setpriv').disabled() \
+opt = get_option('build-setpriv').allowed() \
       and lib_cap_ng.found() \
       and cc.has_header('linux/seccomp.h')
 exe = executable(
@@ -2197,7 +2197,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['setpriv']
 endif
 
-opt = not get_option('build-flock').disabled()
+opt = get_option('build-flock').allowed()
 exe = executable(
   'flock',
   flock_sources,
@@ -2213,7 +2213,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['flock']
 endif
 
-opt = not get_option('build-lsirq').disabled()
+opt = get_option('build-lsirq').allowed()
 exe = executable(
   'lsirq',
   lsirq_sources,
@@ -2229,7 +2229,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['lsirq']
 endif
 
-opt = not get_option('build-irqtop').disabled()
+opt = get_option('build-irqtop').allowed()
 exe = executable(
   'irqtop',
   irqtop_sources,
@@ -2247,7 +2247,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['irqtop']
 endif
 
-opt = not get_option('build-ipcs').disabled()
+opt = get_option('build-ipcs').allowed()
 exe = executable(
   'lsipc',
   lsipc_sources,
@@ -2281,7 +2281,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['hwclock']
 endif
 
-opt = not get_option('build-mkfs').disabled()
+opt = get_option('build-mkfs').allowed()
 exe = executable(
   'mkfs',
   mkfs_sources,
@@ -2295,7 +2295,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['mkfs']
 endif
 
-opt = not get_option('build-bfs').disabled()
+opt = get_option('build-bfs').allowed()
 exe = executable(
   'mkfs.bfs',
   mkfs_bfs_sources,
@@ -2310,7 +2310,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['mkfs.bfs']
 endif
 
-opt = not get_option('build-isosize').disabled()
+opt = get_option('build-isosize').allowed()
 exe = executable(
   'isosize',
   isosize_sources,
@@ -2355,7 +2355,7 @@ if not is_disabler(exe)
   bashcompletions += ['swaplabel']
 endif
 
-opt = not get_option('build-fsck').disabled()
+opt = get_option('build-fsck').allowed()
 exe = executable(
   'fsck',
   fsck_sources,
@@ -2371,7 +2371,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['fsck']
 endif
 
-opt = not get_option('build-minix').disabled()
+opt = get_option('build-minix').allowed()
 exe = executable(
   'mkfs.minix',
   mkfs_minix_sources,
@@ -2401,7 +2401,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['mkfs.minix', 'fsck.minix']
 endif
 
-opt = not get_option('build-cramfs').disabled()
+opt = get_option('build-cramfs').allowed()
 exe = executable(
   'mkfs.cramfs',
   mkfs_cramfs_sources,
@@ -2426,7 +2426,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['mkfs.cramfs', 'fsck.cramfs']
 endif
 
-opt = not get_option('build-raw').disabled()
+opt = get_option('build-raw').allowed()
 if opt
   cc.has_header('linux/raw.h', required: opt)
 endif
@@ -2443,7 +2443,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['raw']
 endif
 
-opt = not get_option('build-fdformat').disabled()
+opt = get_option('build-fdformat').allowed()
 exe = executable(
   'fdformat',
   fdformat_sources,
@@ -2473,7 +2473,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['blockdev']
 endif
 
-opt = not get_option('build-fdisks').disabled()
+opt = get_option('build-fdisks').allowed()
 if opt and not have_dirfd and not have_ddfd
   error('neither dirfd nor ddfd are available')
 endif
@@ -2564,7 +2564,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['cfdisk']
 endif
 
-opt = not get_option('build-partx').disabled()
+opt = get_option('build-partx').allowed()
 exe = executable(
   'addpart',
   addpart_sources,
@@ -2717,7 +2717,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['scriptreplay']
 endif
 
-opt = not get_option('build-agetty').disabled()
+opt = get_option('build-agetty').allowed()
 exe = executable(
   'agetty',
   agetty_sources,
@@ -2732,7 +2732,7 @@ if opt and not is_disabler(exe)
   manadocs += agetty_manadocs
 endif
 
-opt = not get_option('build-setterm').disabled()
+opt = get_option('build-setterm').allowed()
 exe = executable(
   'setterm',
   setterm_sources,
@@ -2748,7 +2748,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['setterm']
 endif
 
-opt = not get_option('build-mesg').disabled()
+opt = get_option('build-mesg').allowed()
 exe = executable(
   'mesg',
   mesg_sources,
@@ -2770,7 +2770,7 @@ else
   tty_install_mode = [ false, false, false ]
 endif
 
-opt = not get_option('build-wall').disabled()
+opt = get_option('build-wall').allowed()
 exe = executable(
   'wall',
   wall_sources,
@@ -2790,7 +2790,7 @@ endif
 # chgrp tty $(DESTDIR)$(usrbin_execdir)/wall
 # chmod g+s $(DESTDIR)$(usrbin_execdir)/wall
 
-opt = not get_option('build-write').disabled()
+opt = get_option('build-write').allowed()
 exe = executable(
   'write',
   write_sources,
@@ -2810,7 +2810,7 @@ endif
 # chgrp tty $(DESTDIR)$(usrbin_execdir)/write
 # chmod g+s $(DESTDIR)$(usrbin_execdir)/write
 
-opt = not get_option('build-login').disabled()
+opt = get_option('build-login').allowed()
 exe = executable(
   'login',
   login_sources,
@@ -2826,7 +2826,7 @@ if opt and not is_disabler(exe)
   manadocs += login_manadocs
 endif
 
-opt = not get_option('build-sulogin').disabled()
+opt = get_option('build-sulogin').allowed()
 exe = executable(
   'sulogin',
   sulogin_sources,
@@ -2842,7 +2842,7 @@ if opt and not is_disabler(exe)
   manadocs += sulogin_manadocs
 endif
 
-opt = not get_option('build-cal').disabled()
+opt = get_option('build-cal').allowed()
 exe = executable(
   'cal',
   cal_sources,
@@ -2859,7 +2859,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['cal']
 endif
 
-opt = not get_option('build-logger').disabled()
+opt = get_option('build-logger').allowed()
 exe = executable(
   'logger',
   logger_sources,
@@ -2887,7 +2887,7 @@ if not is_disabler(exe)
   exes += exe
 endif
 
-opt = not get_option('build-look').disabled()
+opt = get_option('build-look').allowed()
 exe = executable(
   'look',
   look_sources,
@@ -2901,7 +2901,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['look']
 endif
 
-opt = not get_option('build-mcookie').disabled()
+opt = get_option('build-mcookie').allowed()
 exe = executable(
   'mcookie',
   mcookie_sources,
@@ -2930,7 +2930,7 @@ if build_liblastlog2
   manadocs += lib_lastlog2_manadocs
 endif
 
-opt = not get_option('build-namei').disabled()
+opt = get_option('build-namei').allowed()
 exe = executable(
   'namei',
   namei_sources,
@@ -2945,7 +2945,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['namei']
 endif
 
-opt = not get_option('build-whereis').disabled()
+opt = get_option('build-whereis').allowed()
 exe = executable(
   'whereis',
   whereis_sources,
@@ -2960,7 +2960,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['whereis']
 endif
 
-opt = not get_option('build-lslocks').disabled()
+opt = get_option('build-lslocks').allowed()
 exe = executable(
   'lslocks',
   lslocks_sources,
@@ -2977,7 +2977,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['lslocks']
 endif
 
-opt = not get_option('build-lsblk').disabled()
+opt = get_option('build-lsblk').allowed()
 exe = executable(
   'lsblk',
   lsblk_sources,
@@ -3001,7 +3001,7 @@ errnos_h = custom_target('errnos.h',
              cc.cmd_array(), get_option('c_args')],
 )
 
-opt = not get_option('build-lsfd').require(lib_rt.found()).disabled() \
+opt = get_option('build-lsfd').require(lib_rt.found()).allowed() \
       and cc.has_header_symbol('linux/bpf.h', 'BPF_OBJ_NAME_LEN') \
       and cc.has_header_symbol('linux/bpf.h', 'BPF_TAG_SIZE')
 exe = executable(
@@ -3170,7 +3170,7 @@ endif
 
 ############################################################
 
-opt = not get_option('build-findfs').disabled()
+opt = get_option('build-findfs').allowed()
 exe = executable(
   'findfs',
   findfs_sources,
@@ -3200,7 +3200,7 @@ if not is_disabler(exe)
   bashcompletions += ['wipefs']
 endif
 
-opt = not get_option('build-findmnt').disabled()
+opt = get_option('build-findmnt').allowed()
 exe = executable(
   'findmnt',
   findmnt_sources,
@@ -3216,7 +3216,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['findmnt']
 endif
 
-opt = not get_option('build-kill').disabled()
+opt = get_option('build-kill').allowed()
 exe = executable(
   'kill',
   kill_sources,
@@ -3229,7 +3229,7 @@ if opt and not is_disabler(exe)
   manadocs += kill_manadocs
 endif
 
-opt = not get_option('build-rename').disabled()
+opt = get_option('build-rename').allowed()
 exe = executable(
   'rename',
   rename_sources,
@@ -3244,7 +3244,7 @@ if opt and not is_disabler(exe)
   bashcompletions += ['rename']
 endif
 
-opt = not get_option('build-getopt').disabled()
+opt = get_option('build-getopt').allowed()
 exe = executable(
   'getopt',
   getopt_sources,
@@ -3423,7 +3423,7 @@ endif
 
 ############################################################
 
-opt = not get_option('build-schedutils').disabled()
+opt = get_option('build-schedutils').allowed()
 exe = executable(
   'chrt',
   'schedutils/chrt.c',
