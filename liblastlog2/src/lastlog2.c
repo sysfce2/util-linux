@@ -155,6 +155,7 @@ read_entry(sqlite3 *db, const char *user,
 	   char **pam_service, char **error)
 {
 	int retval = 0;
+	int step;
 	sqlite3_stmt *res = NULL;
 	static const char *sql = "SELECT Name,Time,TTY,RemoteHost,Service FROM Lastlog2 WHERE Name = ?";
 
@@ -176,7 +177,7 @@ read_entry(sqlite3 *db, const char *user,
 		goto out_read_entry;
 	}
 
-	int step = sqlite3_step(res);
+	step = sqlite3_step(res);
 
 	if (step == SQLITE_ROW) {
 		const unsigned char *luser = sqlite3_column_text(res, 0);
@@ -267,6 +268,7 @@ write_entry(sqlite3 *db, const char *user,
 	    const char *pam_service, char **error)
 {
 	int retval = 0;
+	int step;
 	char *err_msg = NULL;
 	sqlite3_stmt *res = NULL;
 	static const char *sql_table = "CREATE TABLE IF NOT EXISTS Lastlog2(Name TEXT PRIMARY KEY, Time INTEGER, TTY TEXT, RemoteHost TEXT, Service TEXT);";
@@ -336,7 +338,7 @@ write_entry(sqlite3 *db, const char *user,
 		goto out_ll2_read_entry;
 	}
 
-	int step = sqlite3_step(res);
+	step = sqlite3_step(res);
 
 	if (step != SQLITE_DONE) {
 		retval = -1;
@@ -477,6 +479,7 @@ static int
 remove_entry(sqlite3 *db, const char *user, char **error)
 {
 	int retval = 0;
+	int step;
 	sqlite3_stmt *res = NULL;
 	static const char *sql = "DELETE FROM Lastlog2 WHERE Name = ?";
 
@@ -498,7 +501,7 @@ remove_entry(sqlite3 *db, const char *user, char **error)
 		goto out_remove_entry;
 	}
 
-	int step = sqlite3_step(res);
+	step = sqlite3_step(res);
 
 	if (step != SQLITE_DONE) {
 		retval = -1;
@@ -745,6 +748,7 @@ ll2_get_journal_mode(struct ll2_context *context, char **mode, char **error)
 	sqlite3 *db;
 	sqlite3_stmt *res = NULL;
 	int retval = 0;
+	int step;
 	static const char *sql = "PRAGMA journal_mode;";
 
 	retval = open_database_ro(context, &db, error);
@@ -759,7 +763,7 @@ ll2_get_journal_mode(struct ll2_context *context, char **mode, char **error)
 		goto out;
 	}
 
-	int step = sqlite3_step(res);
+	step = sqlite3_step(res);
 	if (step == SQLITE_ROW) {
 		const unsigned char *mode_str = sqlite3_column_text(res, 0);
 		if (mode_str && mode) {
