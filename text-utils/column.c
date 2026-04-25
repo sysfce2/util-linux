@@ -172,7 +172,7 @@ static inline size_t ansi_esc_width(ansi_esc_states *state, size_t *found, const
 	case ANSI_OSC:
 		*found += chw;
 		if (*str == ANSI_LNK) // OSC8-Link
-			*state = ANSI_LNK; 
+			*state = ANSI_LNK;
 		else
 			*state = ANSI_END; // other command sequences are ignored
 		return 0;
@@ -585,12 +585,17 @@ static void reorder_table(struct column_control *ctl)
 	char **order = split_or_error(ctl->tab_order, N_("failed to parse --table-order list"));
 	char **one;
 
+	if (!ncols) {
+		ul_strv_free(order);
+		return;
+	}
+
 	wanted = xcalloc(ncols, sizeof(struct libscols_column *));
 
 	UL_STRV_FOREACH(one, order) {
-		struct libscols_column *cl = string_to_column(ctl, *one);
-		if (cl)
-			wanted[count++] = cl;
+		wanted[count++] = string_to_column(ctl, *one);
+		if (count >= ncols)
+			break;
 	}
 
 	for (i = 0; i < count; i++) {
