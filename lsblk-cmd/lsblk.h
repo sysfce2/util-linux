@@ -232,7 +232,7 @@ struct lsblk_iter {
 	} while(0)
 
 
-/* lsblk-mnt.c */
+/* mnt.c */
 extern void lsblk_mnt_init(void);
 extern void lsblk_mnt_deinit(void);
 
@@ -240,7 +240,7 @@ extern void lsblk_device_free_filesystems(struct lsblk_device *dev);
 extern const char *lsblk_device_get_mountpoint(struct lsblk_device *dev);
 extern struct libmnt_fs **lsblk_device_get_filesystems(struct lsblk_device *dev, size_t *n);
 
-/* lsblk-properties.c */
+/* properties.c */
 extern void lsblk_device_free_properties(struct lsblk_devprop *p);
 extern struct lsblk_devprop *lsblk_device_get_properties(struct lsblk_device *dev);
 extern void lsblk_properties_deinit(void);
@@ -249,7 +249,7 @@ extern const char *lsblk_parttype_code_to_string(const char *code, const char *p
 
 extern int lsblk_set_properties_method(const char *opts);
 
-/* lsblk-devtree.c */
+/* devtree.c */
 void lsblk_reset_iter(struct lsblk_iter *itr, int direction);
 struct lsblk_device *lsblk_new_device(void);
 void lsblk_ref_device(struct lsblk_device *dev);
