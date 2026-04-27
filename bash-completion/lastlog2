@@ -18,7 +18,7 @@ _lastlog2_module()
 			return 0
 			;;
 		'-j'|'--journal')
-			COMPREPLY=( $(compgen -W "WAL DELETE TRUNCATE PERSIST MEMORY OFF" -- $cur) )
+			COMPREPLY=( $(compgen -W "WAL DELETE TRUNCATE PERSIST MEMORY OFF" -- "$cur") )
 			return 0
 			;;
 		'-r'|'--rename')
