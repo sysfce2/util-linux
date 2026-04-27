@@ -300,14 +300,16 @@ int main(int argc, char **argv)
 	argv += optind;
 	if (argc == 0) {
 		/* no arguments provided, read lines from stdin */
-		char buf[LINE_MAX];
+		char *buf = NULL;
+		size_t bufsz = 0;
 
-		while (fgets(buf, sizeof(buf), stdin)) {
+		while (getline(&buf, &bufsz, stdin) != -1) {
 			/* strip LF, CR, CRLF, LFCR */
 			rtrim_whitespace((unsigned char *)buf);
 			if (ul_strv_push(&stdin_lines, xstrdup(buf)) < 0)
 				errx(EXIT_FAILURE, _("cannot allocate memory"));
 		}
+		free(buf);
 
 		argc = ul_strv_length(stdin_lines);
 		argv = stdin_lines;
