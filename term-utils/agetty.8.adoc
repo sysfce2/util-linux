@@ -35,7 +35,7 @@ This program does not use the _/etc/gettydefs_ (System V) or _/etc/gettytab_ (Su
 == ARGUMENTS
 
 _port_::
-A path name relative to the _/dev_ directory. If a "-" is specified, *agetty* assumes that its standard input is already connected to a tty port and that a connection to a remote user has already been established.
+A pathname relative to the _/dev_ directory. If a "-" is specified, *agetty* assumes that its standard input is already connected to a tty port and that a connection to a remote user has already been established.
 +
 Under System V, a "-" _port_ argument should be preceded by a "--".
 
@@ -359,7 +359,7 @@ The baud-rate detection feature (the *--extract-baud* option) requires that the 
 
 == DIAGNOSTICS
 
-Depending on how the program was configured, all diagnostics are written to the console device or reported via the *syslog*(3) facility. Error messages are produced if the _port_ argument does not specify a terminal device; if there is no utmp entry for the current process (System V only); and so on.
+Depending on how the program was configured, all diagnostics are written to the console device or reported via the *syslog*(3) facility. Error messages are produced if the _port_ argument does not specify a terminal device; if there is no utmp entry for the calling process (System V only); and so on.
 
 == AUTHORS
 
