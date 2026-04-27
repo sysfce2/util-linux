@@ -761,10 +761,6 @@ int main(int argc, char **argv)
 			break;
 		case 'i':
 			opt_image = optarg;
-			if (lstat(opt_image, &st) < 0)
-				err(MKFS_EX_USAGE, _("stat of %s failed"), opt_image);
-			image_length = st.st_size; /* may be padded later */
-			fslen_ub += (image_length + 3); /* 3 is for padding */
 			break;
 		case 'l':
 			lockmode = "1";
@@ -779,7 +775,6 @@ int main(int argc, char **argv)
 			break;
 		case 'p':
 			opt_pad = PAD_SIZE;
-			fslen_ub += PAD_SIZE;
 			break;
 		case 's':
 			/* old option, ignored */
@@ -803,6 +798,14 @@ int main(int argc, char **argv)
 	}
 	dirname = argv[optind];
 	outfile = argv[optind + 1];
+
+	if (opt_image != NULL) {
+		if (lstat(opt_image, &st) < 0)
+			err(MKFS_EX_USAGE, _("stat of %s failed"), opt_image);
+		image_length = st.st_size; /* may be padded later */
+		fslen_ub += (image_length + 3); /* 3 is for padding */
+	}
+	fslen_ub += opt_pad;
 
 	if (blksize == 0)
 		blksize = getpagesize();
