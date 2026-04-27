@@ -1103,8 +1103,8 @@ AS_IF([test "x$with_audit" = xno], [
   )
   AS_IF([test "x$have_audit" = xyes], [
     AC_DEFINE([HAVE_LIBAUDIT], [1], [Define if audit is available])
-    AM_CONDITIONAL([HAVE_AUDIT], [true])
   ])
+  AM_CONDITIONAL([HAVE_AUDIT], [test "x$have_audit" = xyes])
 ])
 AC_SUBST([AUDIT_LIBS])
 
@@ -1123,8 +1123,8 @@ AS_IF([test "x$with_udev" = xno], [
   )
   AS_IF([test "x$have_udev" = xyes], [
     AC_DEFINE([HAVE_LIBUDEV], [1], [Define if udev is available])
-    AM_CONDITIONAL([HAVE_UDEV], [true])
   ])
+  AM_CONDITIONAL([HAVE_UDEV], [test "x$have_udev" = xyes])
 ])
 AC_SUBST([UDEV_LIBS])
 
