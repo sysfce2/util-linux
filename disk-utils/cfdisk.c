@@ -2854,6 +2854,7 @@ int main(int argc, char *argv[])
 	free(cf->fields);
 
 	fdisk_unref_table(cf->table);
+	fdisk_unref_table(cf->original_layout);
 #ifdef HAVE_LIBMOUNT
 	mnt_unref_table(cf->fstab);
 	mnt_unref_table(cf->mtab);
