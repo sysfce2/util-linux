@@ -13,6 +13,7 @@ for i in $@; do N=`echo "$i" | sed "s/$FROM/$TO/g"`; mv "$i" "$N"; done
  * This shell script will do renames of files, but may fail
  * in cases involving special characters. Here a C version.
  */
+#include <limits.h>
 #include <stdio.h>
 #ifdef HAVE_STDIO_EXT_H
 #	include <stdio_ext.h>
@@ -142,7 +143,8 @@ static int ask(char *name)
 static int do_symlink(char *from, char *to, char *s, int verbose, int noact,
                       int nooverwrite, int interactive)
 {
-	char *newname = NULL, *target = NULL;
+	char *newname = NULL;
+	char target[PATH_MAX];
 	int ret = 1;
 	ssize_t ssz;
 	struct stat sb;
@@ -164,12 +166,10 @@ static int do_symlink(char *from, char *to, char *s, int verbose, int noact,
 		warnx(_("%s: not a symbolic link"), s);
 		return 2;
 	}
-	target = xmalloc(sb.st_size + 1);
 
-	ssz = readlink(s, target, sb.st_size + 1);
+	ssz = readlink(s, target, PATH_MAX - 1);
 	if (ssz < 0) {
 		warn(_("%s: readlink failed"), s);
-		free(target);
 		return 2;
 	}
 	target[ssz] = '\0';
@@ -201,7 +201,6 @@ static int do_symlink(char *from, char *to, char *s, int verbose, int noact,
 	if (verbose && (noact || ret == 1))
 		printf("%s: `%s' -> `%s'\n", s, target, newname);
 	free(newname);
-	free(target);
 	return ret;
 }
 
@@ -250,7 +249,8 @@ static int do_file(char *from, char *to, char *s, int verbose, int noact,
 static int do_copy(char *from, char *to, char *s, int verbose, int noact,
                    int nooverwrite, int interactive)
 {
-	char *newname = NULL, *target = NULL;
+	char *newname = NULL;
+	char target[PATH_MAX];
 	int ret = 1, res;
 	int src_fd = -1, dst_fd = -1;
 	ssize_t ssz;
@@ -297,8 +297,8 @@ static int do_copy(char *from, char *to, char *s, int verbose, int noact,
 			ret = 2;
 			goto done;
 		}
-		target = xmalloc(sb.st_size + 1);
-		ssz = readlink(s, target, sb.st_size + 1);
+
+		ssz = readlink(s, target, PATH_MAX - 1);
 		if (ssz < 0) {
 			warn(_("%s: readlink failed"), s);
 			ret = 2;
@@ -347,7 +347,6 @@ static int do_copy(char *from, char *to, char *s, int verbose, int noact,
 done:
 	if (verbose && (noact || ret == 1))
 		printf("`%s' -> `%s'\n", s, newname);
-	free(target);
 	free(newname);
 	if (src_fd >= 0)
 		close(src_fd);
