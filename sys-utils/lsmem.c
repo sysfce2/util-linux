@@ -667,18 +667,18 @@ static void __attribute__((__noreturn__)) usage(void)
 	fputs(_("List the ranges of available memory with their online status.\n"), out);
 
 	fputs(USAGE_OPTIONS, out);
-	fputs(_(" -J, --json                use JSON output format\n"), out);
-	fputs(_(" -P, --pairs               use key=\"value\" output format\n"), out);
 	fputs(_(" -a, --all                 list each individual memory block\n"), out);
+	fputs(_("     --annotate[=<when>]   annotate columns with a tooltip (always|never|auto)\n"), out);
 	fputs(_(" -b, --bytes               print SIZE in bytes rather than in human readable format\n"), out);
+	fputs(_(" -J, --json                use JSON output format\n"), out);
 	fputs(_(" -n, --noheadings          don't print headings\n"), out);
 	fputs(_(" -o, --output <list>       output columns\n"), out);
 	fputs(_("     --output-all          output all columns\n"), out);
+	fputs(_(" -P, --pairs               use key=\"value\" output format\n"), out);
 	fputs(_(" -r, --raw                 use raw output format\n"), out);
-	fputs(_("     --annotate[=<when>]   annotate columns with a tooltip (always|never|auto)\n"), out);
 	fputs(_(" -S, --split <list>        split ranges by specified columns\n"), out);
 	fputs(_(" -s, --sysroot <dir>       use the specified directory as system root\n"), out);
-	fputs(_("     --summary[=when]      print summary information (never,always or only)\n"), out);
+	fputs(_("     --summary[=<when>]    print summary information (never,always or only)\n"), out);
 
 	fputs(USAGE_SEPARATOR, out);
 	fprintf(out, USAGE_HELP_OPTIONS(27));
