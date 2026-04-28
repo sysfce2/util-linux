@@ -91,19 +91,19 @@ include::man-common/help-version.adoc[]
 == EXAMPLES
 
 Display the current journal mode:
-----
+....
 lastlog2 -j
-----
+....
 
 Enable WAL mode for better concurrency (recommended for high-traffic servers):
-----
+....
 lastlog2 -j WAL
-----
+....
 
 Switch back to the default DELETE mode:
-----
+....
 lastlog2 -j DELETE
-----
+....
 
 == FILES
 
