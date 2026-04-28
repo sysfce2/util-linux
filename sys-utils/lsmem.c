@@ -711,6 +711,7 @@ int main(int argc, char **argv)
 
 	static const struct option longopts[] = {
 		{"all",		no_argument,		NULL, 'a'},
+		{"annotate",	optional_argument,	NULL, OPT_ANNOTATE},
 		{"bytes",	no_argument,		NULL, 'b'},
 		{"help",	no_argument,		NULL, 'h'},
 		{"json",	no_argument,		NULL, 'J'},
@@ -719,11 +720,10 @@ int main(int argc, char **argv)
 		{"output-all",	no_argument,		NULL, OPT_OUTPUT_ALL},
 		{"pairs",	no_argument,		NULL, 'P'},
 		{"raw",		no_argument,		NULL, 'r'},
-		{"sysroot",	required_argument,	NULL, 's'},
 		{"split",       required_argument,      NULL, 'S'},
+		{"summary",     optional_argument,	NULL, LSMEM_OPT_SUMARRY},
+		{"sysroot",	required_argument,	NULL, 's'},
 		{"version",	no_argument,		NULL, 'V'},
-		{"summary",     optional_argument,	NULL, LSMEM_OPT_SUMARRY },
-		{ "annotate",	optional_argument, NULL, OPT_ANNOTATE },
 		{NULL,		0,			NULL, 0}
 	};
 	static const ul_excl_t excl[] = {	/* rows and cols in ASCII order */
