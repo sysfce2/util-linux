@@ -78,25 +78,24 @@ struct lsmem {
 	uint64_t		mem_offline;
 
 	struct libscols_table	*table;
-	unsigned int		have_nodes : 1,
-				raw : 1,
-				export : 1,
-				json : 1,
-				noheadings : 1,
-				summary : 1,
-				list_all : 1,
-				bytes : 1,
-				want_summary : 1,
-				want_table : 1,
-				split_by_node : 1,
-				split_by_state : 1,
-				split_by_removable : 1,
-				split_by_zones : 1,
-				split_by_memmap_on_memory : 1,
-				split_by_config : 1,
-				have_zones : 1,
-				have_memconfig : 1,
-				annotate_headers : 1;
+	bool			have_nodes,
+				raw,
+				export,
+				json,
+				noheadings,
+				list_all,
+				bytes,
+				want_summary,
+				want_table,
+				split_by_node,
+				split_by_state,
+				split_by_removable,
+				split_by_zones,
+				split_by_memmap_on_memory,
+				split_by_config,
+				have_zones,
+				have_memconfig,
+				annotate_headers;
 };
 
 
@@ -207,7 +206,7 @@ static inline struct coldesc *get_column_desc(int num)
 	return &coldescs[ get_column_id(num) ];
 }
 
-static inline void reset_split_policy(struct lsmem *l, int enable)
+static inline void reset_split_policy(struct lsmem *l, bool enable)
 {
 	l->split_by_state = enable;
 	l->split_by_node = enable;
@@ -221,7 +220,7 @@ static void set_split_policy(struct lsmem *l, int cols[], size_t ncols)
 {
 	size_t i;
 
-	reset_split_policy(l, 0);
+	reset_split_policy(l, false);
 
 	for (i = 0; i < ncols; i++) {
 		switch (cols[i]) {
