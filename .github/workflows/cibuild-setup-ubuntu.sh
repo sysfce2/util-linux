@@ -34,6 +34,7 @@ PACKAGES=(
 	flex
 	sqlite3
 	libsqlite3-dev
+	libunicode-linebreak-perl
 )
 
 PACKAGES_OPTIONAL=(
