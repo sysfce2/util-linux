@@ -94,7 +94,7 @@ usrbin_exec_PROGRAMS += lastlog2
 MANPAGES += misc-utils/lastlog2.8
 dist_noinst_DATA += misc-utils/lastlog2.8.adoc
 lastlog2_SOURCES = misc-utils/lastlog2.c lib/strutils.c
-lastlog2_LDADD = $(LDADD) liblastlog2.la -lsqlite3
+lastlog2_LDADD = $(LDADD) liblastlog2.la $(SQLITE3_LIBS)
 lastlog2_CFLAGS = $(AM_CFLAGS) -I$(ul_liblastlog2_incdir)
 systemdsystemunit_DATA += \
 	misc-utils/lastlog2-import.service
@@ -205,7 +205,7 @@ findmnt_SOURCES = misc-utils/findmnt.c \
 		  misc-utils/findmnt-verify.c \
 		  misc-utils/findmnt.h
 if HAVE_UDEV
-findmnt_LDADD += -ludev
+findmnt_LDADD += $(UDEV_LIBS)
 endif
 endif # BUILD_FINDMNT
 
