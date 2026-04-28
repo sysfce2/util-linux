@@ -958,6 +958,25 @@ static int inserter(const char *fpath, const struct stat *sb,
 	return 0;
 }
 
+static int insert_file(const char *fpath)
+{
+	struct FTW ftw = {};
+	const char *base;
+	struct stat sb;
+	int rc;
+
+	rc = stat(fpath, &sb);
+	if (rc == -1) {
+		warn(_("cannot stat %s"), fpath);
+		return 0;
+	}
+
+	base = strrchr(fpath, '/');
+	ftw.base = base ? base - fpath + 1: 0;
+
+	return inserter(fpath, &sb, FTW_F, &ftw);
+}
+
 #ifdef USE_REFLINK
 static int is_reflink_compatible(dev_t devno, const char *filename)
 {
@@ -1522,8 +1541,10 @@ int main(int argc, char *argv[])
 		if (opts.prio_trees)
 			++curr_tree;
 
-		if (nftw(path, inserter, 20, ftw_flags) == -1)
-			warn(_("cannot process %s"), path);
+		if (nftw(path, inserter, 20, ftw_flags) == -1) {
+			if (errno != ENOTDIR || insert_file(path) != 0)
+				warn(_("cannot process %s"), path);
+		}
 
 		free(path);
 		rootbasesz = 0;
