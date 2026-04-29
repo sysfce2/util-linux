@@ -78,25 +78,24 @@ struct lsmem {
 	uint64_t		mem_offline;
 
 	struct libscols_table	*table;
-	unsigned int		have_nodes : 1,
-				raw : 1,
-				export : 1,
-				json : 1,
-				noheadings : 1,
-				summary : 1,
-				list_all : 1,
-				bytes : 1,
-				want_summary : 1,
-				want_table : 1,
-				split_by_node : 1,
-				split_by_state : 1,
-				split_by_removable : 1,
-				split_by_zones : 1,
-				split_by_memmap_on_memory : 1,
-				split_by_config : 1,
-				have_zones : 1,
-				have_memconfig : 1,
-				annotate_headers : 1;
+	bool			have_nodes,
+				raw,
+				export,
+				json,
+				noheadings,
+				list_all,
+				bytes,
+				want_summary,
+				want_table,
+				split_by_node,
+				split_by_state,
+				split_by_removable,
+				split_by_zones,
+				split_by_memmap_on_memory,
+				split_by_config,
+				have_zones,
+				have_memconfig,
+				annotate_headers;
 };
 
 
@@ -207,7 +206,7 @@ static inline struct coldesc *get_column_desc(int num)
 	return &coldescs[ get_column_id(num) ];
 }
 
-static inline void reset_split_policy(struct lsmem *l, int enable)
+static inline void reset_split_policy(struct lsmem *l, bool enable)
 {
 	l->split_by_state = enable;
 	l->split_by_node = enable;
@@ -221,7 +220,7 @@ static void set_split_policy(struct lsmem *l, int cols[], size_t ncols)
 {
 	size_t i;
 
-	reset_split_policy(l, 0);
+	reset_split_policy(l, false);
 
 	for (i = 0; i < ncols; i++) {
 		switch (cols[i]) {
@@ -668,18 +667,18 @@ static void __attribute__((__noreturn__)) usage(void)
 	fputs(_("List the ranges of available memory with their online status.\n"), out);
 
 	fputs(USAGE_OPTIONS, out);
-	fputs(_(" -J, --json                use JSON output format\n"), out);
-	fputs(_(" -P, --pairs               use key=\"value\" output format\n"), out);
 	fputs(_(" -a, --all                 list each individual memory block\n"), out);
+	fputs(_("     --annotate[=<when>]   annotate columns with a tooltip (always|never|auto)\n"), out);
 	fputs(_(" -b, --bytes               print SIZE in bytes rather than in human readable format\n"), out);
+	fputs(_(" -J, --json                use JSON output format\n"), out);
 	fputs(_(" -n, --noheadings          don't print headings\n"), out);
 	fputs(_(" -o, --output <list>       output columns\n"), out);
 	fputs(_("     --output-all          output all columns\n"), out);
+	fputs(_(" -P, --pairs               use key=\"value\" output format\n"), out);
 	fputs(_(" -r, --raw                 use raw output format\n"), out);
-	fputs(_("     --annotate[=<when>]   annotate columns with a tooltip (always|never|auto)\n"), out);
 	fputs(_(" -S, --split <list>        split ranges by specified columns\n"), out);
 	fputs(_(" -s, --sysroot <dir>       use the specified directory as system root\n"), out);
-	fputs(_("     --summary[=when]      print summary information (never,always or only)\n"), out);
+	fputs(_("     --summary[=<when>]    print summary information (never,always or only)\n"), out);
 
 	fputs(USAGE_SEPARATOR, out);
 	fprintf(out, USAGE_HELP_OPTIONS(27));
@@ -712,6 +711,7 @@ int main(int argc, char **argv)
 
 	static const struct option longopts[] = {
 		{"all",		no_argument,		NULL, 'a'},
+		{"annotate",	optional_argument,	NULL, OPT_ANNOTATE},
 		{"bytes",	no_argument,		NULL, 'b'},
 		{"help",	no_argument,		NULL, 'h'},
 		{"json",	no_argument,		NULL, 'J'},
@@ -720,11 +720,10 @@ int main(int argc, char **argv)
 		{"output-all",	no_argument,		NULL, OPT_OUTPUT_ALL},
 		{"pairs",	no_argument,		NULL, 'P'},
 		{"raw",		no_argument,		NULL, 'r'},
-		{"sysroot",	required_argument,	NULL, 's'},
 		{"split",       required_argument,      NULL, 'S'},
+		{"summary",     optional_argument,	NULL, LSMEM_OPT_SUMARRY},
+		{"sysroot",	required_argument,	NULL, 's'},
 		{"version",	no_argument,		NULL, 'V'},
-		{"summary",     optional_argument,	NULL, LSMEM_OPT_SUMARRY },
-		{ "annotate",	optional_argument, NULL, OPT_ANNOTATE },
 		{NULL,		0,			NULL, 0}
 	};
 	static const ul_excl_t excl[] = {	/* rows and cols in ASCII order */
